@@ -1,0 +1,53 @@
+
+services:
+  mongodb-monopatines:
+    image: 'mongo:latest'
+    environment:
+      - 'MONGO_INITDB=monopatines'
+      - 'MONGO_INITDB_ROOT_USERNAME=root'
+      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+
+  mongodb-viajes:
+    image: 'mongo:latest'
+    environment:
+      - 'MONGO_INITDB=viajes'
+      - 'MONGO_INITDB_ROOT_USERNAME=admin'
+      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
+    ports:
+      - '27018:27017'
+    volumes:
+      - mongo_data2:/data/db
+
+  postgresdb-reportes:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_USER=admin'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_DB=reportes'  # Nombre de la base de datos a crear
+
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_data1:/var/lib/postgresql/data
+  postgresdb-cuentas:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_USER=pepe'
+      - 'POSTGRES_PASSWORD=lau'
+      - 'POSTGRES_DB=cuentas'  # Nombre de la base de datos a crear
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres_data2:/var/lib/postgresql/data
+
+volumes:
+  mongo_data:
+  mongo_data2:
+  postgres_data1:
+  postgres_data2:
+

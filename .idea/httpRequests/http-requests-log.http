@@ -1,0 +1,338 @@
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 157
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "22",
+  "nombreUsuario": "Tobias",
+  "apellidoUsuario": "Lettos",
+  "celularUsuario": "228122",
+  "email": "tobias@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T182749.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 161
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "22",
+  "nombreUsuario": "Tobias",
+  "apellidoUsuario": "Lettos",
+  "celularUsuario": "2494497728",
+  "email": "tobias@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T182725.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T182608.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 180
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000.0
+}
+
+<> 2024-11-06T182603.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T182530.406.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T182446.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T182251.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 118
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "",
+  "nombreUsuario": "",
+  "apellidoUsuario": "",
+  "celularUsuario": "",
+  "email": "",
+  "saldo": 0
+}
+
+<> 2024-11-06T182137.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T182132.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T181712.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T181413.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T180933.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T180814.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T180609.500.json
+
+###
+
+POST http://localhost:8080/api/payments/createAndRedirect
+Content-Type: application/json
+Content-Length: 78
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "paymentAmount": 2000,
+  "userId": 1,
+  "tripId": 1,
+  "currency": "ARS"
+}
+
+<> 2024-11-06T180601.404.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T180419.500.json
+
+###
+
+POST http://localhost:8081/api/accounts
+Content-Type: application/json
+Content-Length: 178
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "ctaMP": "00000222222",
+  "nombreUsuario": "Lautaro",
+  "apellidoUsuario": "Scuffi",
+  "celularUsuario": "2494497728",
+  "email": "scuffilautaro@gmail.com",
+  "saldo": 2000
+}
+
+<> 2024-11-06T180255.500.json
+
+###
+
