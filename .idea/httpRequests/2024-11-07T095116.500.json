@@ -1,0 +1,6 @@
+{
+  "timestamp": "2024-11-07T12:51:16.033+00:00",
+  "status": 500,
+  "error": "Internal Server Error",
+  "path": "/api/scooters"
+}

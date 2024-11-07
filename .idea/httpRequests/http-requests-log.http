@@ -1,3 +1,67 @@
+POST http://localhost:8082/api/scooters
+Content-Type: application/json
+Content-Length: 50
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "location": "120.120.100",
+  "model": "2022"
+}
+
+<> 2024-11-07T104727.201.json
+
+###
+
+POST http://localhost:8082/api/scooters
+Content-Type: application/json
+Content-Length: 50
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "location": "100.120.100",
+  "model": "2023"
+}
+
+<> 2024-11-07T102352.201.json
+
+###
+
+POST http://localhost:8082/api/scooters
+Content-Type: application/json
+Content-Length: 50
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "location": "100.120.100",
+  "model": "2023"
+}
+
+<> 2024-11-07T095320.500.json
+
+###
+
+POST http://localhost:8082/api/scooters
+Content-Type: application/json
+Content-Length: 50
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "location": "100.120.100",
+  "model": "2023"
+}
+
+<> 2024-11-07T095116.500.json
+
+###
+
 POST http://localhost:8081/api/accounts
 Content-Type: application/json
 Content-Length: 157

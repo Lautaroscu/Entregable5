@@ -24,7 +24,7 @@ public class Cuenta {
     @Column(nullable = false)
     private Double saldo;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String cuentaMercadoPago;  // ID de la cuenta de Mercado Pago asociada
 
     // Relación muchos a muchos con Usuario
