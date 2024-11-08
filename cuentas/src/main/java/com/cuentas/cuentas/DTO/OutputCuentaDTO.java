@@ -2,22 +2,33 @@ package com.cuentas.cuentas.DTO;
 
 import com.cuentas.cuentas.entidades.Cuenta;
 import com.cuentas.cuentas.entidades.Usuario;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.stream.Collectors;
+@NoArgsConstructor
+@Getter
+@Setter
 public class OutputCuentaDTO implements Serializable {
     private Long id;
     private LocalDate fechaAlta;
-    private Set<Usuario> usuarios;
+    private double saldo;
+    private String cuentaMP;
+    private Set<OutputUserDTO> usuarios ;
 
     public OutputCuentaDTO(Cuenta cuenta) {
         this.id = cuenta.getIdCuenta();
         this.fechaAlta = cuenta.getFechaAlta();
-        this.usuarios = new HashSet<>();
-        usuarios.addAll(cuenta.getUsuarios());
+        this.saldo = cuenta.getSaldo();
+        this.cuentaMP = cuenta.getCuentaMercadoPago();
+        this.usuarios = cuenta.getUsuarios().stream().map(OutputUserDTO::new).collect(Collectors.toSet());
+
+
 
     }
 

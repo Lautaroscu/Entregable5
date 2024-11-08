@@ -1,0 +1,6 @@
+{
+  "timestamp": "2024-11-08T14:30:35.845+00:00",
+  "status": 406,
+  "error": "Not Acceptable",
+  "path": "/api/accounts/1"
+}

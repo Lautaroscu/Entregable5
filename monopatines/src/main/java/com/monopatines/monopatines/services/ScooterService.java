@@ -3,6 +3,7 @@ package com.monopatines.monopatines.services;
 import com.monopatines.monopatines.DTO.ScooterInputDTO;
 import com.monopatines.monopatines.DTO.ScooterOutputDTO;
 import com.monopatines.monopatines.DTO.ScooterStatusDTO;
+import com.monopatines.monopatines.Enumns.ScooterStatus;
 import com.monopatines.monopatines.entities.Scooter;
 import com.monopatines.monopatines.exceptions.BadRequestException;
 import com.monopatines.monopatines.exceptions.ScooterNotFound;
@@ -17,7 +18,7 @@ public class ScooterService {
 private final ScooterRepository scooterRepository;
 
     @Autowired
-    public ScooterService(ScooterRepository scooterRepository) {
+    public ScooterService(ScooterRepository scooterRepository ) {
             this.scooterRepository = scooterRepository;
     }
 

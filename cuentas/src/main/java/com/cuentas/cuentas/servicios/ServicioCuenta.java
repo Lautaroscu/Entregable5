@@ -46,4 +46,10 @@ public class ServicioCuenta {
         return new OutputCuentaDTO(cuenta);
 
     }
+    public OutputCuentaDTO getAccountById(Long id) {
+        Cuenta cuenta = cuentaRepositorio.findById(id).orElse(null);
+        System.out.println(cuenta);
+        assert cuenta != null;
+        return new OutputCuentaDTO(cuenta);
+    }
 }

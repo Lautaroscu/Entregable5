@@ -1,3 +1,33 @@
+GET http://localhost:8081/api/accounts/1
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-11-08T113035.406.json
+
+###
+
+GET http://localhost:8081/api/accounts/1
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-11-08T110435.406.json
+
+###
+
+GET http://localhost:8081/api/accounts/1
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-11-08T110245.406.json
+
+###
+
 POST http://localhost:8082/api/scooters
 Content-Type: application/json
 Content-Length: 50
