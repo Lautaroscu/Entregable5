@@ -22,6 +22,7 @@ public class TripOutputDTO implements Serializable {
     private LocalDateTime endTime;
     private double finalPrice;
     private TripStatus tripStatus;
+    private double kilometersTraveled;
     public TripOutputDTO(Trip trip) {
         this.scooterDTO = trip.getScooterDTO();
         this.account = trip.getAccount();

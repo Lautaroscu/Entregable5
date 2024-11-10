@@ -25,7 +25,7 @@ public class TripService {
         this.scooterClient = scooterClient;
     }
     public void createTrip(TripInputDTO tripInputDTO) {
-            Account account = accountClient.getAccountById(tripInputDTO.getAccountId());
+        Account account = accountClient.getAccountById(tripInputDTO.getAccountId());
         ScooterDTO scooter = scooterClient.getScooterById(tripInputDTO.getScooterId());
         Trip trip = new Trip(scooter , account);
         tripRepository.save(trip);

@@ -12,5 +12,6 @@ import java.util.Set;
 public class Account {
    private Long id;
    private LocalDate fechaAlta;
+
    public Account() {}
 }
