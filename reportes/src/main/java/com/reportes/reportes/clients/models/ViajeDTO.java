@@ -12,12 +12,14 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class ViajeDTO implements Serializable {
+    private String tripID;
     private ScooterDTO scooterDTO;
     private Account account;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Duration pausedTime;
     private double finalPrice;
-    private double totalKilometers;
     private TripStatus tripStatus;
+    private double kilometersTraveled;
+    private LocalDateTime startPauseTime;
+    private LocalDateTime endPauseTime;
 }
