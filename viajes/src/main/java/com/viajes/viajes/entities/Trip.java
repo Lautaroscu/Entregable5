@@ -5,6 +5,7 @@ import com.viajes.viajes.clients.models.ScooterDTO;
 import com.viajes.viajes.enumns.TripStatus;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Duration;
@@ -13,12 +14,16 @@ import java.time.LocalDateTime;
 @Setter
 @Document(collection = "trips")
 public class Trip {
+    @Id
+    private String tripID;
     private ScooterDTO scooterDTO;
     private Account account;
     private TripStatus tripStatus;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private double kilometersTraveled;
+    private LocalDateTime startPauseTime;
+    private LocalDateTime endPauseTime;
     private Duration pausedTime;
     private double finalPrice;
 
@@ -35,7 +40,6 @@ public class Trip {
         this.finalPrice = 0.0;
 
     }
-    public void setPausedTime(int minutes) {
-        this.pausedTime = this.pausedTime.plusMinutes(minutes);
-    }
+
+
 }

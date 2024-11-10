@@ -7,10 +7,13 @@ import com.viajes.viajes.clients.ScooterClient;
 import com.viajes.viajes.clients.models.Account;
 import com.viajes.viajes.clients.models.ScooterDTO;
 import com.viajes.viajes.entities.Trip;
+import com.viajes.viajes.enumns.TripStatus;
+import com.viajes.viajes.exceptions.TripNotFoundException;
 import com.viajes.viajes.repositories.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -37,5 +40,23 @@ public class TripService {
                 .stream()
                 .map(TripOutputDTO::new)
                 .toList();
+    }
+
+   public void setPauseTrip(String tripID){
+      Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
+      trip.setTripStatus(TripStatus.PAUSED);
+      trip.setStartPauseTime(LocalDateTime.now());
+      tripRepository.save(trip);
+   }
+    public void setUnPauseTrip(String tripID){
+        Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
+        trip.setTripStatus(TripStatus.STARTED);
+        trip.setEndPauseTime(LocalDateTime.now());
+        tripRepository.save(trip);
+    }
+
+    public List<TripOutputDTO> getAllByScooterID(String scooterID) {
+
+        return tripRepository.findByScooterID(scooterID).stream().map(TripOutputDTO::new).toList();
     }
 }

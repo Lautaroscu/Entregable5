@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class TripOutputDTO implements Serializable {
+    private String tripID;
     private ScooterDTO scooterDTO;
     private Account account;
     private LocalDateTime startTime;
@@ -23,12 +24,17 @@ public class TripOutputDTO implements Serializable {
     private double finalPrice;
     private TripStatus tripStatus;
     private double kilometersTraveled;
+    private LocalDateTime startPauseTime;
+    private LocalDateTime endPauseTime;
     public TripOutputDTO(Trip trip) {
+        this.tripID = trip.getTripID();
         this.scooterDTO = trip.getScooterDTO();
         this.account = trip.getAccount();
         this.startTime = trip.getStartTime();
         this.endTime = trip.getEndTime();
         this.tripStatus = trip.getTripStatus();
+        this.startPauseTime = trip.getStartPauseTime();
+        this.endPauseTime = trip.getEndPauseTime();
 
     }
 
