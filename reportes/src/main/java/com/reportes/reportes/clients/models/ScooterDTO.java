@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScooterDTO {
-   private long id;
+    private String id;
+    private ScooterStatus status;
     private String location;
-    private String model;
-   private String status;
+    private double kilometersTraveled;
+    private double totalTimeUsed;
 }

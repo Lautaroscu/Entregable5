@@ -1,16 +1,19 @@
 package com.reportes.reportes.clients;
 
-import com.reportes.reportes.clients.models.TripDTO;
+import com.reportes.reportes.clients.models.ViajeDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "viajes", url = "http://localhost:8081")
+@FeignClient(name = "viajes", url = "http://localhost:8081/api/trips")
 public interface ViajesClient {
 
-    @GetMapping("/api/viajes/scooter/{id}")
-    List<TripDTO> getViajesByScooterId(@PathVariable("id") Long id);
+    @GetMapping
+    List<ViajeDTO> getViajes();
+
+    @GetMapping("/scooter/{id}")
+    List<ViajeDTO> getViajesByScooterId(@PathVariable("id") String id);
 }
 

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TripDTO implements Serializable {
+public class ViajeDTO implements Serializable {
     private ScooterDTO scooterDTO;
     private Account account;
     private LocalDateTime startTime;
