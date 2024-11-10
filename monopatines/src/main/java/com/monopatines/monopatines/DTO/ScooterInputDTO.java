@@ -10,7 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ScooterInputDTO implements Serializable {
 
-private String location;
-private String model;
+    private String location;
+    private String model;
 
 }
