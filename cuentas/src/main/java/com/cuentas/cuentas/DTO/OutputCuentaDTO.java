@@ -19,6 +19,7 @@ public class OutputCuentaDTO implements Serializable {
     private LocalDate fechaAlta;
     private double saldo;
     private String cuentaMP;
+    private Boolean isDisable;
     private Set<OutputUserDTO> usuarios ;
 
     public OutputCuentaDTO(Cuenta cuenta) {
@@ -27,6 +28,7 @@ public class OutputCuentaDTO implements Serializable {
         this.saldo = cuenta.getSaldo();
         this.cuentaMP = cuenta.getCuentaMercadoPago();
         this.usuarios = cuenta.getUsuarios().stream().map(OutputUserDTO::new).collect(Collectors.toSet());
+        this.isDisable = cuenta.getIsDisable();
 
 
 

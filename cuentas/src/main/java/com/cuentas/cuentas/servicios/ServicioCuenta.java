@@ -1,9 +1,11 @@
 package com.cuentas.cuentas.servicios;
 
+import com.cuentas.cuentas.DTO.AccountAvailabilityDTO;
 import com.cuentas.cuentas.DTO.InputCuentaDTO;
 import com.cuentas.cuentas.DTO.OutputCuentaDTO;
 import com.cuentas.cuentas.entidades.Cuenta;
 import com.cuentas.cuentas.entidades.Usuario;
+import com.cuentas.cuentas.excepciones.AccountNotFoundException;
 import com.cuentas.cuentas.repositorios.RepositorioCuenta;
 import com.cuentas.cuentas.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +49,16 @@ public class ServicioCuenta {
 
     }
     public OutputCuentaDTO getAccountById(Long id) {
-        Cuenta cuenta = cuentaRepositorio.findById(id).orElse(null);
-        System.out.println(cuenta);
-        assert cuenta != null;
+        Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account not found"));
+        return new OutputCuentaDTO(cuenta);
+    }
+
+
+    public OutputCuentaDTO manageAvailability(AccountAvailabilityDTO accountAvailabilityDTO) {
+
+        Cuenta cuenta = cuentaRepositorio.findById(accountAvailabilityDTO.getId()).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
+        cuenta.setIsDisable(accountAvailabilityDTO.isAvailable());
+        cuentaRepositorio.save(cuenta);
         return new OutputCuentaDTO(cuenta);
     }
 }

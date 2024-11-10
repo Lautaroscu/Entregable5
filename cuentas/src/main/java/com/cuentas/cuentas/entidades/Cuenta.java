@@ -30,6 +30,8 @@ public class Cuenta {
     @Column(nullable = false)
     private String cuentaMercadoPago;
 
+    private Boolean isDisable;
+
     // Relación muchos a muchos con Usuario
     @ManyToMany
     @JoinTable(
@@ -43,6 +45,9 @@ public class Cuenta {
     public Cuenta() {
         this.usuarios = new HashSet<>();
         this.fechaAlta = LocalDate.now();
+        this.saldo = 0.0;
+        this.cuentaMercadoPago = "";
+        this.isDisable = false;
     }
 
     public Cuenta(Double saldo, String cuentaMercadoPago) {
@@ -50,6 +55,7 @@ public class Cuenta {
         this.saldo = saldo;
         this.cuentaMercadoPago = cuentaMercadoPago;
         this.usuarios = new HashSet<>();
+        this.isDisable = false;
     }
 
     public void addUsuario(Usuario usuario) {
