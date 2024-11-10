@@ -4,6 +4,8 @@ import com.reportes.reportes.DTOs.*;
 import com.reportes.reportes.clients.models.CuentaDTO;
 import com.reportes.reportes.services.ReporteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
@@ -33,13 +35,6 @@ public class ReportesController {
         return reporteService.getReporteKilometrosPorMonopatin();
     }
 
-    @PatchMapping("/anular-cuenta/{id}")
-    public CuentaDTO anularCuenta(
-            @RequestParam(required = true) long idCuenta
-    ) {
-        return reporteService.anularCuenta(idCuenta);
-    }
-
     @GetMapping("/viajes-por-monopatin")
     public List<ReporteScootersCantViajesDTO> getReporteScootersPorCantViajes(
             @RequestParam() int cantViajesMinimos,
@@ -62,10 +57,13 @@ public class ReportesController {
        return reporteService.getReporteCantMonopatinesActivosYEnMantenimiento();
     }
 
+    @GetMapping("/tarifas")
+    public ResponseEntity<?> getTarifas(){
+        return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifas());
+    }
+
     @PostMapping
     public List ajusteDePrecios() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-
 }

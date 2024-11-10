@@ -23,18 +23,15 @@ public class ReporteService {
     private final ReporteRepository reporteRepository;
     private final ViajesClient viajesClient;
     private final ScooterClient scooterClient;
-    private final CuentaClient cuentaClient;
 
     @Autowired
     public ReporteService(
             ReporteService reporteService,
             ViajesClient viajesClient,
-            ScooterClient scooterClient,
-            CuentaClient cuentaClient) {
+            ScooterClient scooterClient) {
         this.reporteRepository = reporteService.reporteRepository;
         this.viajesClient = viajesClient;
         this.scooterClient = scooterClient;
-        this.cuentaClient = cuentaClient;
     }
 
     public List<ReporteTiempoUsoMonopatinDTO> getReporteUsoMonopatinesPorTiempo(boolean conPausas) {
@@ -78,10 +75,6 @@ public class ReporteService {
         return resultadoReporte;
     }
 
-    public CuentaDTO anularCuenta(long idCuenta) {
-        return cuentaClient.disableAccount(idCuenta);
-    }
-
     public List<ReporteScootersCantViajesDTO> getReporteScootersPorCantViajes(
             int cantViajesMinimos,
             LocalDateTime startDate,
@@ -114,7 +107,7 @@ public class ReporteService {
                         (viajeDTO.getStartTime().isEqual(startDate) || viajeDTO.getStartTime().isAfter(startDate)) &&
                                 (viajeDTO.getEndTime().isEqual(endDate) || viajeDTO.getEndTime().isBefore(endDate))
                 )
-                .collect(Collectors.toList());
+                .toList();
 
         for(ViajeDTO viaje : viajes) {
             totalFacturado += viaje.getFinalPrice();
@@ -130,6 +123,10 @@ public class ReporteService {
         long cantScootersMantenimiento = scootersMantenimiento.size();
 
         return new ReporteCantidadMonopatines(cantScootersDisponibles, cantScootersMantenimiento);
+    }
+
+    public List<TarifaDTO> getTarifas() {
+        return reporteRepository.findAll().stream().map(TarifaDTO::new).toList();
     }
 
     private TiempoUsoMonopatinDTO getCantTiempoUsoScooter(List<ViajeDTO> viajesScooter) {
@@ -148,7 +145,4 @@ public class ReporteService {
 
         return tiemposMonopatin;
     }
-
-
-
 }
