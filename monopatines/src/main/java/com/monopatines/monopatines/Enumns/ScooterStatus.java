@@ -5,5 +5,4 @@ public enum ScooterStatus {
     IN_USE ,
     UNDER_MAINTENANCE ,
     AVAILABLE ,
-
 }
