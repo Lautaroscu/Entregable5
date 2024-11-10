@@ -1,6 +1,8 @@
 package com.viajes.viajes.controllers;
 
 import com.viajes.viajes.DTO.TripInputDTO;
+import com.viajes.viajes.exceptions.ScooterNotFoundException;
+import com.viajes.viajes.exceptions.TripNotFoundException;
 import com.viajes.viajes.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,5 +26,38 @@ public class TripController {
     @GetMapping
     public ResponseEntity<?> getAllTrips() {
         return ResponseEntity.status(HttpStatus.OK).body(tripService.getAllTrips());
+    }
+
+    @GetMapping("/scooter/{scooterID}")
+     public ResponseEntity<?>getAllTripsByScooter(@PathVariable String scooterID){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(tripService.getAllByScooterID(scooterID));
+        }
+        catch (ScooterNotFoundException exc){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exc.getMessage());
+        }
+    }
+
+
+
+    @PatchMapping("/pause/{tripID}")
+    public ResponseEntity<?> PauseTrip(@PathVariable String tripID){
+        try{
+            tripService.setPauseTrip(tripID);
+            return ResponseEntity.status(HttpStatus.OK).body("Trip paused succesfully");
+        }
+        catch(TripNotFoundException exc){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exc.getMessage());
+        }
+    }
+    @PatchMapping("/unpause/{tripID}")
+    public ResponseEntity<?> UnPauseTrip(@PathVariable String tripID){
+        try{
+            tripService.setUnPauseTrip(tripID);
+            return ResponseEntity.status(HttpStatus.OK).body("Trip unpaused succesfully");
+        }
+        catch(TripNotFoundException exc){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exc.getMessage());
+        }
     }
 }
