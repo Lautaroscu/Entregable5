@@ -122,8 +122,8 @@
         "tags": [
           "ScooterController"
         ],
-        "summary": "Actualizar un monopatín",
-        "description": "Este endpoint permite actualizar los detalles de un monopatín utilizando su ID.",
+        "summary": "Eliminar un monopatín",
+        "description": "Este endpoint permite eliminar un monopatín utilizando su ID.",
         "operationId": "deleteScooter",
         "parameters": [
           {
@@ -137,7 +137,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Monopatín actualizado exitosamente",
+            "description": "Monopatín eliminado exitosamente",
             "content": {
               "application/hal+json": {
                 "schema": {
