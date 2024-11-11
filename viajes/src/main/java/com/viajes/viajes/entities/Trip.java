@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 @Getter
@@ -25,7 +26,8 @@ public class Trip {
     private LocalDateTime startPauseTime;
     private LocalDateTime endPauseTime;
     private Duration pausedTime;
-    private double finalPrice;
+    private BigDecimal finalPrice;
+    private BigDecimal currentPrice;
 
 
     public Trip() {}
@@ -37,8 +39,14 @@ public class Trip {
         this.endTime = null;
         this.kilometersTraveled = 0.0;
         this.pausedTime = Duration.ZERO;
-        this.finalPrice = 0.0;
+        this.finalPrice = new BigDecimal(0);
+        this.currentPrice = new BigDecimal(0);
 
+    }
+
+    public void setCurrentPrice(BigDecimal monto){
+
+        currentPrice = currentPrice.add(monto);
     }
 
 

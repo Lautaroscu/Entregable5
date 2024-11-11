@@ -39,7 +39,6 @@ public class TripController {
     }
 
 
-
     @PatchMapping("/pause/{tripID}")
     public ResponseEntity<?> PauseTrip(@PathVariable String tripID){
         try{
@@ -60,4 +59,18 @@ public class TripController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exc.getMessage());
         }
     }
+
+    @PatchMapping("/update-price/{tripID}")
+    public ResponseEntity<?> updatePrice(@PathVariable String tripID){
+        try{
+
+            return ResponseEntity.status(HttpStatus.OK).body( tripService.updatePrice(tripID));
+        }
+        catch(TripNotFoundException exc){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exc.getMessage());
+        }
+    }
+
+
+
 }
