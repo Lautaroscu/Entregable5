@@ -9,7 +9,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 
 public class Account {
-   private Long id;
-   private LocalDate fechaAlta;
-   public Account() {}
+    private Long id;
+    private LocalDate fechaAlta;
+
+    public Account() {
+    }
 }

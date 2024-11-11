@@ -1,6 +1,5 @@
 package com.reportes.reportes.entities;
 
-import com.reportes.reportes.enums.TipoTarifa;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,20 +15,19 @@ public class Tarifa {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private TipoTarifa tipoTarifa;
+    private String tipoTarifa;
 
     private BigDecimal monto;
 
     private String descripcion;
 
+    public Tarifa() {
+    }
 
-    public Tarifa() {}
-
-    public Tarifa(Long id, TipoTarifa tipoTarifa, BigDecimal monto, String descripcion) {
+    public Tarifa(Long id, String tipoTarifa, BigDecimal monto, String descripcion) {
         this.id = id;
         this.tipoTarifa = tipoTarifa;
         this.monto = monto;
         this.descripcion = descripcion;
     }
-
 }
