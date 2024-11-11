@@ -65,16 +65,10 @@ public class TripService {
         return tripRepository.findByScooterID(scooterID).stream().map(TripOutputDTO::new).toList();
     }
 
-    public TripOutputDTO updatePrice(String tripID) {
-        List<TarifaDTO> listaTarifas = reportClient.getTarifas();
-        BigDecimal montoTarifa = null;
-        for(TarifaDTO tarifa: listaTarifas){
-           if(tarifa.getTipoTarifa().equals("NORMAL")){
-               montoTarifa = new BigDecimal(tarifa.getMonto().intValue());
-               break;
-           }
-        }
+    public TripOutputDTO updatePrice(String tripID , String tipoTarifa) {
 
+        TarifaDTO tarifa = reportClient.getTarifaByTipo(tipoTarifa);
+        BigDecimal montoTarifa = tarifa.getMonto();
         Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
         trip.setCurrentPrice(montoTarifa);
 

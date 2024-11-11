@@ -60,11 +60,11 @@ public class TripController {
         }
     }
 
-    @PatchMapping("/update-price/{tripID}")
-    public ResponseEntity<?> updatePrice(@PathVariable String tripID){
+    @PatchMapping("/update-price/{tripID}/tipo-tarifa/{tipoTarifa}")
+    public ResponseEntity<?> updatePrice(@PathVariable String tripID , @PathVariable String tipoTarifa){
         try{
 
-            return ResponseEntity.status(HttpStatus.OK).body( tripService.updatePrice(tripID));
+            return ResponseEntity.status(HttpStatus.OK).body( tripService.updatePrice(tripID , tipoTarifa));
         }
         catch(TripNotFoundException exc){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exc.getMessage());

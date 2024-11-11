@@ -13,6 +13,6 @@ public class TarifaDTO {
     private String tipoTarifa;
     private BigDecimal monto;
     private String descripcion;
-
+    
 
 }
