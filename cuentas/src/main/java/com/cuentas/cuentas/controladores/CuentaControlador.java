@@ -45,5 +45,14 @@ public class CuentaControlador {
         }
 
     }
+    @PatchMapping("/updateSaldo/{id}")
+    public ResponseEntity<?> updateSaldo(@PathVariable Long id, @RequestBody Double saldo){
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(servicioCuenta.setSaldo(id,saldo));
+        }catch (AccountNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 
 }
