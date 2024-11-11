@@ -4,10 +4,7 @@ import com.reportes.reportes.DTOs.*;
 import com.reportes.reportes.clients.CuentaClient;
 import com.reportes.reportes.clients.ScooterClient;
 import com.reportes.reportes.clients.ViajesClient;
-import com.reportes.reportes.clients.models.CuentaDTO;
-import com.reportes.reportes.clients.models.ScooterDTO;
-import com.reportes.reportes.clients.models.ScooterStatus;
-import com.reportes.reportes.clients.models.ViajeDTO;
+import com.reportes.reportes.clients.models.*;
 import com.reportes.reportes.repositories.ReporteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +60,7 @@ public class ReporteService {
             List<ViajeDTO> viajesScooter = viajesClient.getViajesByScooterId(scooter.getId());
 
             for (ViajeDTO viaje : viajesScooter) {
-                cantKilometrosMonopatin += viaje.getTotalKilometers();
+                cantKilometrosMonopatin += viaje.getKilometersTraveled();
             }
 
             ReporteKilometrosMonopatinDTO itemReporte =
@@ -135,14 +132,14 @@ public class ReporteService {
         Duration tiempoTotalConPausas;
 
         for (ViajeDTO viaje : viajesScooter) {
-            Duration tiempoTotalViaje = Duration.between(viaje.getEndTime(), viaje.getStartTime());
-            tiempoTotal.plus(tiempoTotalViaje);
-            totalPausas.plus(viaje.getPausedTime());
+            if(viaje.getTripStatus() == TripStatus.COMPLETED){
+                Duration tiempoTotalViaje = Duration.between(viaje.getEndTime(), viaje.getStartTime());
+                tiempoTotal.plus(tiempoTotalViaje);
+                totalPausas.plus(Duration.between(viaje.getEndPauseTime(), viaje.getStartPauseTime()));
+            }
         }
 
         tiempoTotalConPausas = tiempoTotal.plus(totalPausas);
-        TiempoUsoMonopatinDTO tiemposMonopatin = new TiempoUsoMonopatinDTO(tiempoTotal, tiempoTotalConPausas);
-
-        return tiemposMonopatin;
+        return new TiempoUsoMonopatinDTO(tiempoTotal, tiempoTotalConPausas);
     }
 }
