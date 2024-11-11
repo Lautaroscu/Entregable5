@@ -60,8 +60,8 @@ public class ReportesController {
     }
 
     @GetMapping("/tarifas")
-    public ResponseEntity<?> getTarifas(@RequestBody List<TarifaDTO> tarifas) {
-        return ResponseEntity.status(HttpStatus.OK).body(reporteService.upsertTarifa(tarifas));
+    public ResponseEntity<?> getTarifas() {
+        return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifas());
     }
 
     @PostMapping
