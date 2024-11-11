@@ -22,10 +22,10 @@ public class ReporteService {
 
     @Autowired
     public ReporteService(
-            ReporteService reporteService,
+            ReporteRepository reporteRepository ,
             ViajesClient viajesClient,
             ScooterClient scooterClient) {
-        this.reporteRepository = reporteService.reporteRepository;
+        this.reporteRepository = reporteRepository;
         this.viajesClient = viajesClient;
         this.scooterClient = scooterClient;
     }
