@@ -1,4 +1,4 @@
-package com.monopatines.monopatines.DTO;
+package com.monopatines.monopatines.DTO.Scooter;
 
 
 import com.monopatines.monopatines.Enumns.ScooterStatus;
@@ -12,7 +12,6 @@ import java.io.Serializable;
 public class ScooterOutputDTO extends ScooterInputDTO implements Serializable {
     private String id;
     private ScooterStatus status;
-    private String location;
     private double kilometersTraveled;
     private double totalTimeUsed;
 
@@ -20,11 +19,7 @@ public ScooterOutputDTO(Scooter scooter) {
     super(scooter.getLocation() ,scooter.getModel());
     this.id = scooter.getId();
     this.status = scooter.getStatus();
-    this.location = scooter.getLocation();
     this.totalTimeUsed = scooter.getTotalTimeUsed();
     this.kilometersTraveled = scooter.getKilometersTraveled();
 }
-
-
-
 }

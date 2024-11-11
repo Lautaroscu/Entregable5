@@ -1,4 +1,4 @@
-package com.monopatines.monopatines.DTO;
+package com.monopatines.monopatines.DTO.Scooter;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

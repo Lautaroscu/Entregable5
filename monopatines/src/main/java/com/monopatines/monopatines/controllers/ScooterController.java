@@ -1,8 +1,9 @@
 package com.monopatines.monopatines.controllers;
 
-import com.monopatines.monopatines.DTO.ScooterInputDTO;
-import com.monopatines.monopatines.DTO.ScooterOutputDTO;
-import com.monopatines.monopatines.DTO.ScooterStatusDTO;
+import com.monopatines.monopatines.DTO.Scooter.ScooterFiltersDTO;
+import com.monopatines.monopatines.DTO.Scooter.ScooterInputDTO;
+import com.monopatines.monopatines.DTO.Scooter.ScooterOutputDTO;
+import com.monopatines.monopatines.DTO.Scooter.ScooterStatusDTO;
 import com.monopatines.monopatines.exceptions.BadRequestException;
 import com.monopatines.monopatines.exceptions.ScooterNotFound;
 import com.monopatines.monopatines.services.ScooterService;
@@ -47,16 +48,21 @@ public class ScooterController {
     }
 
     @Operation(
-            summary = "Obtener todos los monopatines",
-            description = "Este endpoint devuelve una lista de todos los monopatines registrados.",
+            summary = "Obtener todos los monopatines con filtros opcionales",
+            description = "Este endpoint devuelve una lista de monopatines registrados. Puedes filtrar por ubicación, estado y modelo, y ordenar los resultados.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Lista de monopatines"),
                     @ApiResponse(responseCode = "500", description = "Error interno del servidor")
             }
     )
     @GetMapping
-    public ResponseEntity<List<ScooterOutputDTO>> getAllScooters(){
-        return ResponseEntity.status(HttpStatus.OK).body(scooterService.getAllScooters());
+    public ResponseEntity<List<ScooterOutputDTO>> getAllScooters(
+            @RequestParam(value = "location", required = false) String location,
+            @RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "model", required = false) String model
+    ) {
+        ScooterFiltersDTO filtersDTO = new ScooterFiltersDTO(location, status, model);
+        return ResponseEntity.status(HttpStatus.OK).body(scooterService.getAllScooters(filtersDTO));
     }
 
     @Operation(
@@ -99,9 +105,9 @@ public class ScooterController {
 
     @Operation(
             summary = "Actualizar un monopatín",
-            description = "Este endpoint permite actualizar los detalles de un monopatín utilizando su ID.",
+            description = "Este endpoint permite eliminar un monopatín utilizando su ID.",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Monopatín actualizado exitosamente"),
+                    @ApiResponse(responseCode = "200", description = "Monopatín eliminado exitosamente"),
                     @ApiResponse(responseCode = "404", description = "Monopatín no encontrado"),
                     @ApiResponse(responseCode = "400", description = "Solicitud incorrecta")
             }
@@ -109,6 +115,7 @@ public class ScooterController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteScooter(@PathVariable String id){
         try {
+            scooterService.deleteScooter(id);
             return ResponseEntity.ok().build();
         }catch (ScooterNotFound e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

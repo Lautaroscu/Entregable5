@@ -28,7 +28,5 @@ public class Scooter {
         this.status = ScooterStatus.AVAILABLE;
         this.kilometersTraveled = 0;
         this.totalTimeUsed = 0;
-
     }
-
 }
