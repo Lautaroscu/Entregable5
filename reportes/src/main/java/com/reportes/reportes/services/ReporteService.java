@@ -22,7 +22,7 @@ public class ReporteService {
 
     @Autowired
     public ReporteService(
-            ReporteRepository reporteRepository ,
+            ReporteRepository reporteRepository,
             ViajesClient viajesClient,
             ScooterClient scooterClient
     ) {
@@ -106,7 +106,7 @@ public class ReporteService {
                 )
                 .toList();
 
-        for(ViajeDTO viaje : viajes) {
+        for (ViajeDTO viaje : viajes) {
             totalFacturado += viaje.getFinalPrice();
         }
 
@@ -114,8 +114,8 @@ public class ReporteService {
     }
 
     public ReporteCantidadMonopatines getReporteCantMonopatinesActivosYEnMantenimiento() {
-        List <ScooterDTO> scootersDisponibles = scooterClient.getScooters(ScooterStatus.AVAILABLE);
-        List <ScooterDTO> scootersMantenimiento = scooterClient.getScooters(ScooterStatus.UNDER_MAINTENANCE);
+        List<ScooterDTO> scootersDisponibles = scooterClient.getScooters(ScooterStatus.AVAILABLE);
+        List<ScooterDTO> scootersMantenimiento = scooterClient.getScooters(ScooterStatus.UNDER_MAINTENANCE);
         long cantScootersDisponibles = scootersDisponibles.size();
         long cantScootersMantenimiento = scootersMantenimiento.size();
 
@@ -126,15 +126,10 @@ public class ReporteService {
         return reporteRepository.findAll().stream().map(TarifaDTO::new).toList();
     }
 
-    public List<TarifaDTO> upsertTarifa(List<TarifaDTO> tarifas) {
-        List<TarifaDTO> tarifasModificadas = new ArrayList<>();
-        for(TarifaDTO tarifa : tarifas){
-            Tarifa t = new Tarifa(tarifa.getId(), tarifa.getTipoTarifa(), tarifa.getMonto(),  tarifa.getDescripcion());
-            Tarifa tarifaModificada = reporteRepository.save(t);
-            tarifasModificadas.add(new TarifaDTO(tarifaModificada));
-        }
-
-        return tarifasModificadas;
+    public TarifaDTO upsertTarifa(TarifaDTO tarifa) {
+        Tarifa t = new Tarifa(tarifa.getId(), tarifa.getTipoTarifa(), tarifa.getMonto(), tarifa.getDescripcion());
+        Tarifa tarifaModificada = reporteRepository.save(t);
+        return new TarifaDTO(tarifaModificada);
     }
 
     private TiempoUsoMonopatinDTO getCantTiempoUsoScooter(List<ViajeDTO> viajesScooter) {
@@ -143,7 +138,7 @@ public class ReporteService {
         Duration tiempoTotalConPausas;
 
         for (ViajeDTO viaje : viajesScooter) {
-            if(viaje.getTripStatus() == TripStatus.COMPLETED){
+            if (viaje.getTripStatus() == TripStatus.COMPLETED) {
                 Duration tiempoTotalViaje = Duration.between(viaje.getEndTime(), viaje.getStartTime());
                 tiempoTotal.plus(tiempoTotalViaje);
                 totalPausas.plus(Duration.between(viaje.getEndPauseTime(), viaje.getStartPauseTime()));

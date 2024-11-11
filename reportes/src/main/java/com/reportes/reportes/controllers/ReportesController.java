@@ -1,6 +1,7 @@
 package com.reportes.reportes.controllers;
 
 import com.reportes.reportes.DTOs.TarifaDTO;
+import com.reportes.reportes.entities.Tarifa;
 import com.reportes.reportes.exceptions.TarifasNotFoundException;
 import com.reportes.reportes.services.ReporteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,30 +62,25 @@ public class ReportesController {
     }
 
     @GetMapping("/tarifas")
-    public ResponseEntity<?> getTarifas() {
+    public ResponseEntity<?> getTarifas(@RequestParam(value = "tipo", required = false) String tipo) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifas());
-        } catch (TarifasNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }
-    }
-
-    @GetMapping("/tarifas")
-    public ResponseEntity<?> getTarifasPorTipo(@RequestParam("tipo") String tipo) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifaPorTipo(tipo));
+            if (tipo != null) {
+                return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifaPorTipo(tipo));
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifas());
+            }
         } catch (TarifasNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }
 
     @PostMapping
-    public ResponseEntity<?> createTarifa(@RequestBody List<TarifaDTO> tarifas) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reporteService.upsertTarifa(tarifas));
+    public ResponseEntity<?> createTarifa(@RequestBody TarifaDTO tarifa) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(reporteService.upsertTarifa(tarifa));
     }
 
     @PutMapping
-    public ResponseEntity<?> updateTarifas(@RequestBody List<TarifaDTO> tarifas) {
-        return ResponseEntity.status(HttpStatus.OK).body(reporteService.upsertTarifa(tarifas));
+    public ResponseEntity<?> updateTarifas(@RequestBody TarifaDTO tarifa) {
+        return ResponseEntity.status(HttpStatus.OK).body(reporteService.upsertTarifa(tarifa));
     }
 }
