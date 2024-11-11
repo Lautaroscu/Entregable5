@@ -15,5 +15,5 @@ public class CuentaDTO {
     private LocalDate fechaAlta;
     private double saldo;
     private String cuentaMP;
-    private Set<UserDTO> usuarios ;
+    private Set<UserDTO> usuarios;
 }

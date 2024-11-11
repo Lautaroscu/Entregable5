@@ -1,13 +1,12 @@
 package com.reportes.reportes.controllers;
 
-import com.reportes.reportes.DTOs.*;
-import com.reportes.reportes.clients.models.CuentaDTO;
+import com.reportes.reportes.DTOs.TarifaDTO;
 import com.reportes.reportes.services.ReporteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,49 +22,55 @@ public class ReportesController {
     }
 
     @GetMapping("/tiempo-de-uso-monopatin")
-    public List<ReporteTiempoUsoMonopatinDTO> getReporteUsoMonopatinesPorTiempo(
-            @RequestParam(required = false) boolean conPausas) {
-        return reporteService.getReporteUsoMonopatinesPorTiempo(conPausas);
+    public ResponseEntity<?> getReporteUsoMonopatinesPorTiempo(
+            @RequestParam(required = false) boolean conPausas
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(reporteService.getReporteUsoMonopatinesPorTiempo(conPausas));
     }
 
     @GetMapping("/kilometros-por-monopatin")
-    public List<ReporteKilometrosMonopatinDTO> getReporteKilometrosPorMonopatin() {
-        return reporteService.getReporteKilometrosPorMonopatin();
-    }
-
-    @PatchMapping("/anular-cuenta/{id}")
-    public CuentaDTO anularCuenta(
-            @RequestParam(required = true) long idCuenta
-    ) {
-        return reporteService.anularCuenta(idCuenta);
+    public ResponseEntity<?> getReporteKilometrosPorMonopatin() {
+        return ResponseEntity.status(HttpStatus.OK).body(reporteService.getReporteKilometrosPorMonopatin());
     }
 
     @GetMapping("/viajes-por-monopatin")
-    public List<ReporteScootersCantViajesDTO> getReporteScootersPorCantViajes(
+    public ResponseEntity<?> getReporteScootersPorCantViajes(
             @RequestParam() int cantViajesMinimos,
             @RequestParam() LocalDateTime startDate,
             @RequestParam(required = false) LocalDateTime endDate
     ) {
-        return reporteService.getReporteScootersPorCantViajes(cantViajesMinimos, startDate, endDate);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                reporteService.getReporteScootersPorCantViajes(cantViajesMinimos, startDate, endDate)
+        );
     }
 
     @GetMapping("/total-facturado")
-    public ReporteFacturacion getReporteTotalFacturado(
+    public ResponseEntity<?> getReporteTotalFacturado(
             @RequestParam(required = true) LocalDateTime startDate,
             @RequestParam(required = true) LocalDateTime endDate
     ) {
-        return reporteService.getReporteTotalFacturado(startDate, endDate);
+        return ResponseEntity.status(HttpStatus.OK).body(reporteService.getReporteTotalFacturado(startDate, endDate));
     }
 
     @GetMapping("/cantidad-monopatines")
-    public ReporteCantidadMonopatines getReporteCantidadMonopatinesActivosYEnMantenimiento() {
-       return reporteService.getReporteCantMonopatinesActivosYEnMantenimiento();
+    public ResponseEntity<?> getReporteCantidadMonopatinesActivosYEnMantenimiento() {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                reporteService.getReporteCantMonopatinesActivosYEnMantenimiento()
+        );
+    }
+
+    @GetMapping("/tarifas")
+    public ResponseEntity<?> getTarifas(@RequestBody List<TarifaDTO> tarifas) {
+        return ResponseEntity.status(HttpStatus.OK).body(reporteService.upsertTarifa(tarifas));
     }
 
     @PostMapping
-    public List ajusteDePrecios() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public ResponseEntity<?> createTarifa(@RequestBody List<TarifaDTO> tarifas) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(reporteService.upsertTarifa(tarifas));
     }
 
-
+    @PutMapping
+    public ResponseEntity<?> updateTarifas(@RequestBody List<TarifaDTO> tarifas) {
+        return ResponseEntity.status(HttpStatus.OK).body(reporteService.upsertTarifa(tarifas));
+    }
 }

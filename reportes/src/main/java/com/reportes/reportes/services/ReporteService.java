@@ -1,13 +1,10 @@
 package com.reportes.reportes.services;
 
 import com.reportes.reportes.DTOs.*;
-import com.reportes.reportes.clients.CuentaClient;
 import com.reportes.reportes.clients.ScooterClient;
 import com.reportes.reportes.clients.ViajesClient;
-import com.reportes.reportes.clients.models.CuentaDTO;
-import com.reportes.reportes.clients.models.ScooterDTO;
-import com.reportes.reportes.clients.models.ScooterStatus;
-import com.reportes.reportes.clients.models.ViajeDTO;
+import com.reportes.reportes.clients.models.*;
+import com.reportes.reportes.entities.Tarifa;
 import com.reportes.reportes.repositories.ReporteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,25 +13,21 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ReporteService {
     private final ReporteRepository reporteRepository;
     private final ViajesClient viajesClient;
     private final ScooterClient scooterClient;
-    private final CuentaClient cuentaClient;
 
     @Autowired
     public ReporteService(
             ReporteService reporteService,
             ViajesClient viajesClient,
-            ScooterClient scooterClient,
-            CuentaClient cuentaClient) {
+            ScooterClient scooterClient) {
         this.reporteRepository = reporteService.reporteRepository;
         this.viajesClient = viajesClient;
         this.scooterClient = scooterClient;
-        this.cuentaClient = cuentaClient;
     }
 
     public List<ReporteTiempoUsoMonopatinDTO> getReporteUsoMonopatinesPorTiempo(boolean conPausas) {
@@ -66,7 +59,7 @@ public class ReporteService {
             List<ViajeDTO> viajesScooter = viajesClient.getViajesByScooterId(scooter.getId());
 
             for (ViajeDTO viaje : viajesScooter) {
-                cantKilometrosMonopatin += viaje.getTotalKilometers();
+                cantKilometrosMonopatin += viaje.getKilometersTraveled();
             }
 
             ReporteKilometrosMonopatinDTO itemReporte =
@@ -76,10 +69,6 @@ public class ReporteService {
         }
 
         return resultadoReporte;
-    }
-
-    public CuentaDTO anularCuenta(long idCuenta) {
-        return cuentaClient.disableAccount(idCuenta);
     }
 
     public List<ReporteScootersCantViajesDTO> getReporteScootersPorCantViajes(
@@ -114,7 +103,7 @@ public class ReporteService {
                         (viajeDTO.getStartTime().isEqual(startDate) || viajeDTO.getStartTime().isAfter(startDate)) &&
                                 (viajeDTO.getEndTime().isEqual(endDate) || viajeDTO.getEndTime().isBefore(endDate))
                 )
-                .collect(Collectors.toList());
+                .toList();
 
         for(ViajeDTO viaje : viajes) {
             totalFacturado += viaje.getFinalPrice();
@@ -132,23 +121,35 @@ public class ReporteService {
         return new ReporteCantidadMonopatines(cantScootersDisponibles, cantScootersMantenimiento);
     }
 
+    public List<TarifaDTO> getTarifas() {
+        return reporteRepository.findAll().stream().map(TarifaDTO::new).toList();
+    }
+
+    public List<TarifaDTO> upsertTarifa(List<TarifaDTO> tarifas) {
+        List<TarifaDTO> tarifasModificadas = new ArrayList<>();
+        for(TarifaDTO tarifa : tarifas){
+            Tarifa t = new Tarifa(tarifa.getId(), tarifa.getTipoTarifa(), tarifa.getMonto(),  tarifa.getDescripcion());
+            Tarifa tarifaModificada = reporteRepository.save(t);
+            tarifasModificadas.add(new TarifaDTO(tarifaModificada));
+        }
+
+        return tarifasModificadas;
+    }
+
     private TiempoUsoMonopatinDTO getCantTiempoUsoScooter(List<ViajeDTO> viajesScooter) {
         Duration totalPausas = Duration.ZERO;
         Duration tiempoTotal = Duration.ZERO;
         Duration tiempoTotalConPausas;
 
         for (ViajeDTO viaje : viajesScooter) {
-            Duration tiempoTotalViaje = Duration.between(viaje.getEndTime(), viaje.getStartTime());
-            tiempoTotal.plus(tiempoTotalViaje);
-            totalPausas.plus(viaje.getPausedTime());
+            if(viaje.getTripStatus() == TripStatus.COMPLETED){
+                Duration tiempoTotalViaje = Duration.between(viaje.getEndTime(), viaje.getStartTime());
+                tiempoTotal.plus(tiempoTotalViaje);
+                totalPausas.plus(Duration.between(viaje.getEndPauseTime(), viaje.getStartPauseTime()));
+            }
         }
 
         tiempoTotalConPausas = tiempoTotal.plus(totalPausas);
-        TiempoUsoMonopatinDTO tiemposMonopatin = new TiempoUsoMonopatinDTO(tiempoTotal, tiempoTotalConPausas);
-
-        return tiemposMonopatin;
+        return new TiempoUsoMonopatinDTO(tiempoTotal, tiempoTotalConPausas);
     }
-
-
-
 }
