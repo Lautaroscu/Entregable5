@@ -1,10 +1,10 @@
 package com.reportes.reportes.services;
 
 import com.reportes.reportes.DTOs.*;
-import com.reportes.reportes.clients.CuentaClient;
 import com.reportes.reportes.clients.ScooterClient;
 import com.reportes.reportes.clients.ViajesClient;
 import com.reportes.reportes.clients.models.*;
+import com.reportes.reportes.entities.Tarifa;
 import com.reportes.reportes.repositories.ReporteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ReporteService {
@@ -124,6 +123,17 @@ public class ReporteService {
 
     public List<TarifaDTO> getTarifas() {
         return reporteRepository.findAll().stream().map(TarifaDTO::new).toList();
+    }
+
+    public List<TarifaDTO> upsertTarifa(List<TarifaDTO> tarifas) {
+        List<TarifaDTO> tarifasModificadas = new ArrayList<>();
+        for(TarifaDTO tarifa : tarifas){
+            Tarifa t = new Tarifa(tarifa.getId(), tarifa.getTipoTarifa(), tarifa.getMonto(),  tarifa.getDescripcion());
+            Tarifa tarifaModificada = reporteRepository.save(t);
+            tarifasModificadas.add(new TarifaDTO(tarifaModificada));
+        }
+
+        return tarifasModificadas;
     }
 
     private TiempoUsoMonopatinDTO getCantTiempoUsoScooter(List<ViajeDTO> viajesScooter) {
