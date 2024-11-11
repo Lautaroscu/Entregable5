@@ -1,7 +1,6 @@
 package com.reportes.reportes.DTOs;
 
 import com.reportes.reportes.entities.Tarifa;
-import com.reportes.reportes.enums.TipoTarifa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class TarifaDTO {
     private Long id;
-    private TipoTarifa tipoTarifa;
+    private String tipoTarifa;
     private BigDecimal monto;
     private String descripcion;
 

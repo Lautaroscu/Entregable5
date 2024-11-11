@@ -1,6 +1,7 @@
 package com.reportes.reportes.controllers;
 
 import com.reportes.reportes.DTOs.TarifaDTO;
+import com.reportes.reportes.exceptions.TarifasNotFoundException;
 import com.reportes.reportes.services.ReporteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,8 +47,8 @@ public class ReportesController {
 
     @GetMapping("/total-facturado")
     public ResponseEntity<?> getReporteTotalFacturado(
-            @RequestParam(required = true) LocalDateTime startDate,
-            @RequestParam(required = true) LocalDateTime endDate
+            @RequestParam() LocalDateTime startDate,
+            @RequestParam() LocalDateTime endDate
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(reporteService.getReporteTotalFacturado(startDate, endDate));
     }
@@ -61,7 +62,20 @@ public class ReportesController {
 
     @GetMapping("/tarifas")
     public ResponseEntity<?> getTarifas() {
-        return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifas());
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifas());
+        } catch (TarifasNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+    }
+
+    @GetMapping("/tarifas")
+    public ResponseEntity<?> getTarifasPorTipo(@RequestParam("tipo") String tipo) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifaPorTipo(tipo));
+        } catch (TarifasNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
 
     @PostMapping

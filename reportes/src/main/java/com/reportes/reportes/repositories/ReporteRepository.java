@@ -8,7 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReporteRepository extends JpaRepository<Tarifa, Long> {
-
-//    @Query(value = "SELECT t FROM Tarifa t WHERE t.id = :id;", nativeQuery = false)
-//    public Tarifa findById(@Param("id") Long id);
+    Tarifa findByTipoTarifa(String tipoTarifa);
 }

@@ -24,7 +24,8 @@ public class ReporteService {
     public ReporteService(
             ReporteRepository reporteRepository ,
             ViajesClient viajesClient,
-            ScooterClient scooterClient) {
+            ScooterClient scooterClient
+    ) {
         this.reporteRepository = reporteRepository;
         this.viajesClient = viajesClient;
         this.scooterClient = scooterClient;
@@ -151,5 +152,10 @@ public class ReporteService {
 
         tiempoTotalConPausas = tiempoTotal.plus(totalPausas);
         return new TiempoUsoMonopatinDTO(tiempoTotal, tiempoTotalConPausas);
+    }
+
+    public TarifaDTO getTarifaPorTipo(String tipo) {
+        Tarifa response = reporteRepository.findByTipoTarifa(tipo);
+        return new TarifaDTO(response);
     }
 }
