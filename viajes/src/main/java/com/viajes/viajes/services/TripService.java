@@ -81,6 +81,16 @@ public class TripService {
         return new TripOutputDTO(trip);
     }
 
+    public TripOutputDTO EndTrip(String tripID) {
+        Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
+        trip.setTripStatus(TripStatus.COMPLETED);
+        trip.setFinalPrice(trip.getCurrentPrice());
+        trip.setEndTime(LocalDateTime.now());
+        tripRepository.save(trip);
+
+        return new TripOutputDTO(trip);
+    }
+
 
 
 }

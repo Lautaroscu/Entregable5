@@ -71,6 +71,16 @@ public class TripController {
         }
     }
 
+    @PostMapping("/endTrip/{tripID}")
+    public ResponseEntity<?> EndTrip(@PathVariable String tripID ){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body( tripService.EndTrip(tripID));
+        }
+        catch(TripNotFoundException exc){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exc.getMessage());
+        }
+    }
+
 
 
 }
