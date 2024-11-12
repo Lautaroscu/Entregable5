@@ -73,29 +73,28 @@ public class ParadaService {
         return new ParadaOutputDTO(updatedParada);
     }
 
-    public void addScooterToParada(String idParada, String id) {
+    public void addScooterToParada(String idParada, String idScooter) {
         Parada parada = paradaRepository.findById(idParada)
                 .orElseThrow(() -> new ParadaNotFound("Parada not found"));
-        Scooter scooter = scooterRepository.findById(id).orElseThrow(() -> new ScooterNotFound("Scooter not found"));
+        Scooter scooter = scooterRepository.findById(idScooter).orElseThrow(() -> new ScooterNotFound("Scooter not found"));
 
-        ScooterOutputDTO scooterDTO = new ScooterOutputDTO(scooter);
 
-        if (!parada.getScooters().contains(scooterDTO)) {
-            parada.getScooters().add(scooterDTO);
+
+        if (!parada.getScooters().contains(idScooter) && scooter != null) {
+            parada.getScooters().add(idScooter);
             paradaRepository.save(parada);
         }
     }
 
-    public void removeScooterFromParada(String idParada, String scooterID) {
+    public void removeScooterFromParada(String idParada, String idScooter) {
         Parada parada = paradaRepository.findById(idParada)
                 .orElseThrow(() -> new ParadaNotFound("Parada not found"));
-        Scooter scooter = scooterRepository.findById(scooterID)
+        Scooter scooter = scooterRepository.findById(idScooter)
                 .orElseThrow(() -> new ScooterNotFound("Scooter not found"));
 
-        ScooterOutputDTO scooterDTO = new ScooterOutputDTO(scooter);
 
-        if (parada.getScooters().contains(scooterDTO)) {
-            parada.getScooters().remove(scooterDTO);
+        if (parada.getScooters().contains(idScooter) && scooter != null) {
+            parada.getScooters().remove(idScooter);
             paradaRepository.save(parada);
         }
     }

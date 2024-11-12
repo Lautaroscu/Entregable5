@@ -12,7 +12,7 @@ import java.util.List;
 public class ParadaOutputDTO implements Serializable {
     private String idParada;
     private String nombreParada;
-    private List<ScooterOutputDTO> scooters;
+    private List<String> scooters;
 
     public ParadaOutputDTO(Parada parada) {
         this.idParada = parada.getIdParada();

@@ -18,7 +18,7 @@ public class Parada {
     @Id
     private String idParada;
     private String nombreParada;
-    private List<ScooterOutputDTO> scooters;
+    private List<String> scooters;
 
     public Parada(){}
     public  Parada(String nombreParada){
