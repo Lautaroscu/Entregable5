@@ -84,6 +84,7 @@ public class ReporteService {
             List<ViajeDTO> viajesScooter = viajesClient.getViajesByScooterId(scooter.getId());
             long cantViajes =
                     viajesScooter.stream().filter(viaje ->
+                            viaje.getTripStatus().equals(TripStatus.COMPLETED) &&
                             viaje.getStartTime().isAfter(startDate) &&
                                     viaje.getEndTime().isBefore(endDate == null ? LocalDateTime.now() : endDate)).count();
 
@@ -101,6 +102,7 @@ public class ReporteService {
         double totalFacturado = 0;
         List<ViajeDTO> viajes = viajesClient.getViajes().stream()
                 .filter(viajeDTO ->
+                        viajeDTO.getTripStatus().equals(TripStatus.COMPLETED) &&
                         (viajeDTO.getStartTime().isEqual(startDate) || viajeDTO.getStartTime().isAfter(startDate)) &&
                                 (viajeDTO.getEndTime().isEqual(endDate) || viajeDTO.getEndTime().isBefore(endDate))
                 )
