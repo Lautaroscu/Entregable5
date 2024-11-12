@@ -7,14 +7,12 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "cuentas" , url = "http://localhost:8081")
+@FeignClient(name = "cuentas", url = "http://localhost:8081")
 public interface AccountClient {
-@GetMapping("/api/accounts/{id}")
+    @GetMapping("/api/accounts/{id}")
     Account getAccountById(@PathVariable("id") Long id);
 
 
-@PatchMapping("/updateSaldo/{id}")
-    Account updateSaldo(@PathVariable("id")Long id , @RequestBody double saldo);
+    @PatchMapping("/updateSaldo/{id}")
+    Account updateSaldo(@PathVariable("id") Long id, @RequestBody double saldo);
 }
-
-

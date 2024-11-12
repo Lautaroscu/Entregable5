@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScooterStatusDTO  implements Serializable {
+public class ScooterStatusDTO implements Serializable {
     @JsonProperty("status")
     private ScooterStatus scooterStatus;
-
 }

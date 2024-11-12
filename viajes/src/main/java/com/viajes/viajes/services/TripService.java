@@ -25,20 +25,23 @@ public class TripService {
     private final AccountClient accountClient;
     private final ScooterClient scooterClient;
     private final ReportClient reportClient;
+
     @Autowired
-    public TripService(TripRepository tripRepository, AccountClient accountClient, ScooterClient scooterClient , ReportClient reportClient) {
+    public TripService(TripRepository tripRepository, AccountClient accountClient, ScooterClient scooterClient, ReportClient reportClient) {
         this.tripRepository = tripRepository;
         this.accountClient = accountClient;
         this.scooterClient = scooterClient;
         this.reportClient = reportClient;
     }
+
     public void createTrip(TripInputDTO tripInputDTO) {
         Account account = accountClient.getAccountById(tripInputDTO.getAccountId());
         ScooterDTO scooter = scooterClient.getScooterById(tripInputDTO.getScooterId());
-        Trip trip = new Trip(scooter , account);
+        Trip trip = new Trip(scooter, account);
         tripRepository.save(trip);
 
     }
+
     public List<TripOutputDTO> getAllTrips() {
         return tripRepository
                 .findAll()
@@ -47,13 +50,14 @@ public class TripService {
                 .toList();
     }
 
-   public void setPauseTrip(String tripID){
-      Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
-      trip.setTripStatus(TripStatus.PAUSED);
-      trip.setStartPauseTime(LocalDateTime.now());
-      tripRepository.save(trip);
-   }
-    public void setUnPauseTrip(String tripID){
+    public void setPauseTrip(String tripID) {
+        Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
+        trip.setTripStatus(TripStatus.PAUSED);
+        trip.setStartPauseTime(LocalDateTime.now());
+        tripRepository.save(trip);
+    }
+
+    public void setUnPauseTrip(String tripID) {
         Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
         trip.setTripStatus(TripStatus.STARTED);
         trip.setEndPauseTime(LocalDateTime.now());
@@ -65,7 +69,7 @@ public class TripService {
         return tripRepository.findByScooterID(scooterID).stream().map(TripOutputDTO::new).toList();
     }
 
-    public TripOutputDTO updatePrice(String tripID , String tipoTarifa) {
+    public TripOutputDTO updatePrice(String tripID, String tipoTarifa) {
 
         TarifaDTO tarifa = reportClient.getTarifaByTipo(tipoTarifa);
         BigDecimal montoTarifa = tarifa.getMonto();
@@ -90,7 +94,4 @@ public class TripService {
 
         return new TripOutputDTO(trip);
     }
-
-
-
 }

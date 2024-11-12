@@ -6,14 +6,17 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Set;
+
 @Data
 @AllArgsConstructor
 
 public class Account {
-   private Long id;
-   private LocalDate fechaAlta;
-   private double saldo;
-   private String cuentaMP;
-   private Boolean isDisable;
-   public Account() {}
+    private Long id;
+    private LocalDate fechaAlta;
+    private double saldo;
+    private String cuentaMP;
+    private Boolean isDisable;
+
+    public Account() {
+    }
 }

@@ -31,7 +31,7 @@ public class ParadaService {
             Parada parada = new Parada(paradaInputDTO.getNombreParada());
             parada = paradaRepository.save(parada);
             return new ParadaOutputDTO(parada);
-        }catch (BadRequestException badRequestException){
+        } catch (BadRequestException badRequestException) {
             throw new BadRequestException(badRequestException.getMessage());
         }
     }
@@ -77,7 +77,6 @@ public class ParadaService {
         Parada parada = paradaRepository.findById(idParada)
                 .orElseThrow(() -> new ParadaNotFound("Parada not found"));
         Scooter scooter = scooterRepository.findById(idScooter).orElseThrow(() -> new ScooterNotFound("Scooter not found"));
-
 
 
         if (!parada.getScooters().contains(idScooter) && scooter != null) {

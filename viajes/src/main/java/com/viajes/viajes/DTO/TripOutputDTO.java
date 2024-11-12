@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,6 +27,7 @@ public class TripOutputDTO implements Serializable {
     private double kilometersTraveled;
     private LocalDateTime startPauseTime;
     private LocalDateTime endPauseTime;
+
     public TripOutputDTO(Trip trip) {
         this.tripID = trip.getTripID();
         this.scooterDTO = trip.getScooterDTO();
@@ -35,7 +37,5 @@ public class TripOutputDTO implements Serializable {
         this.tripStatus = trip.getTripStatus();
         this.startPauseTime = trip.getStartPauseTime();
         this.endPauseTime = trip.getEndPauseTime();
-
     }
-
 }
