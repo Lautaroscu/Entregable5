@@ -2,6 +2,7 @@ package com.monopatines.monopatines.controllers;
 
 import com.monopatines.monopatines.DTO.Parada.ParadaInputDTO;
 import com.monopatines.monopatines.DTO.Parada.ParadaOutputDTO;
+import com.monopatines.monopatines.exceptions.ParadaNotFound;
 import com.monopatines.monopatines.services.ParadaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,5 +55,17 @@ public class ParadaController {
     public ResponseEntity<Void> deleteParada(@PathVariable String id) {
         paradaService.deleteParada(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{idParada}/scooters")
+    public ResponseEntity<?> addScooterToParada(@PathVariable String idParada, @RequestBody String scooterID) {
+        paradaService.addScooterToParada(idParada, scooterID);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{idParada}/scooters")
+    public ResponseEntity<?> removeScooterFromParada(@PathVariable String idParada, @RequestBody String scooterID) {
+        paradaService.removeScooterFromParada(idParada, scooterID);
+        return ResponseEntity.ok().build();
     }
 }

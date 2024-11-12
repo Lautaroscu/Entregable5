@@ -2,11 +2,14 @@ package com.monopatines.monopatines.services;
 
 import com.monopatines.monopatines.DTO.Parada.ParadaInputDTO;
 import com.monopatines.monopatines.DTO.Parada.ParadaOutputDTO;
+import com.monopatines.monopatines.DTO.Scooter.ScooterOutputDTO;
 import com.monopatines.monopatines.entities.Parada;
 import com.monopatines.monopatines.entities.Scooter;
 import com.monopatines.monopatines.exceptions.BadRequestException;
 import com.monopatines.monopatines.exceptions.ParadaNotFound;
+import com.monopatines.monopatines.exceptions.ScooterNotFound;
 import com.monopatines.monopatines.repositories.ParadaRepository;
+import com.monopatines.monopatines.repositories.ScooterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,11 @@ import java.util.List;
 @Service
 public class ParadaService {
     private final ParadaRepository paradaRepository;
+    private final ScooterRepository scooterRepository;
 
     @Autowired
-    public ParadaService(ParadaRepository paradaRepository) {
+    public ParadaService(ParadaRepository paradaRepository, ScooterRepository scooterRepository) {
+        this.scooterRepository = scooterRepository;
         this.paradaRepository = paradaRepository;
     }
 
@@ -64,14 +69,35 @@ public class ParadaService {
             paradaToUpdate.setNombreParada(paradaInputDTO.getNombreParada());
         }
 
-        // Si se incluye scooters en la solicitud, actualizamos la lista de scooters
-        if (paradaInputDTO.getScooters() != null) {
-            // Asignación completa de scooters (sobrescribe la lista actual)
-            paradaToUpdate.setScooters(paradaInputDTO.getScooters());
-        }
-
         Parada updatedParada = paradaRepository.save(paradaToUpdate);
         return new ParadaOutputDTO(updatedParada);
+    }
+
+    public void addScooterToParada(String idParada, String id) {
+        Parada parada = paradaRepository.findById(idParada)
+                .orElseThrow(() -> new ParadaNotFound("Parada not found"));
+        Scooter scooter = scooterRepository.findById(id).orElseThrow(() -> new ScooterNotFound("Scooter not found"));
+
+        ScooterOutputDTO scooterDTO = new ScooterOutputDTO(scooter);
+
+        if (!parada.getScooters().contains(scooterDTO)) {
+            parada.getScooters().add(scooterDTO);
+            paradaRepository.save(parada);
+        }
+    }
+
+    public void removeScooterFromParada(String idParada, String scooterID) {
+        Parada parada = paradaRepository.findById(idParada)
+                .orElseThrow(() -> new ParadaNotFound("Parada not found"));
+        Scooter scooter = scooterRepository.findById(scooterID)
+                .orElseThrow(() -> new ScooterNotFound("Scooter not found"));
+
+        ScooterOutputDTO scooterDTO = new ScooterOutputDTO(scooter);
+
+        if (parada.getScooters().contains(scooterDTO)) {
+            parada.getScooters().remove(scooterDTO);
+            paradaRepository.save(parada);
+        }
     }
 
     private boolean isBadRequest(ParadaInputDTO paradaInputDTO) {
