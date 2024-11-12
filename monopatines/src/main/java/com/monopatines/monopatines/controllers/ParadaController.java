@@ -2,6 +2,7 @@ package com.monopatines.monopatines.controllers;
 
 import com.monopatines.monopatines.DTO.Parada.ParadaInputDTO;
 import com.monopatines.monopatines.DTO.Parada.ParadaOutputDTO;
+import com.monopatines.monopatines.DTO.Parada.ScooterIDRequest;
 import com.monopatines.monopatines.exceptions.ParadaNotFound;
 import com.monopatines.monopatines.services.ParadaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,13 +59,17 @@ public class ParadaController {
     }
 
     @PutMapping("/{idParada}/scooters")
-    public ResponseEntity<?> addScooterToParada(@PathVariable String idParada, @RequestBody String scooterID) {
+    public ResponseEntity<?> addScooterToParada(@PathVariable String idParada, @RequestBody ScooterIDRequest request) {
+        String scooterID = request.getScooterID();
         paradaService.addScooterToParada(idParada, scooterID);
+
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{idParada}/scooters")
-    public ResponseEntity<?> removeScooterFromParada(@PathVariable String idParada, @RequestBody String scooterID) {
+    public ResponseEntity<?> removeScooterFromParada(@PathVariable String idParada, @RequestBody ScooterIDRequest request) {
+        String scooterID = request.getScooterID();
+
         paradaService.removeScooterFromParada(idParada, scooterID);
         return ResponseEntity.ok().build();
     }

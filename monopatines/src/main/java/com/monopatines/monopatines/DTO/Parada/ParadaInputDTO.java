@@ -13,5 +13,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ParadaInputDTO implements Serializable {
     private String nombreParada;
-    private List<ScooterOutputDTO> scooters;  // Opcional para recibir scooters al crear la parada, o podría omitirse.
+    private List<String> scooters;  // Opcional para recibir scooters al crear la parada, o podría omitirse.
 }
