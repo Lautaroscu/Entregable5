@@ -16,30 +16,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/accounts")
 public class CuentaControlador {
     private final ServicioCuenta servicioCuenta;
+
     @Autowired
-    public CuentaControlador(ServicioCuenta servicioCuenta){
+    public CuentaControlador(ServicioCuenta servicioCuenta) {
         this.servicioCuenta = servicioCuenta;
     }
+
     @PostMapping
-    public ResponseEntity<?> createAccount(@RequestBody InputCuentaDTO inputCuentaDTO){
+    public ResponseEntity<?> createAccount(@RequestBody InputCuentaDTO inputCuentaDTO) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(servicioCuenta.crearCuenta(inputCuentaDTO));
-        }catch (BadRequestException e){
+        } catch (BadRequestException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id){
+    public ResponseEntity<?> getById(@PathVariable Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicioCuenta.getAccountById(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
-
-
     }
+
     @PatchMapping("/management")
-    public ResponseEntity<?> manageAccount(@RequestBody AccountAvailabilityDTO accountAvailabilityDTO){
+    public ResponseEntity<?> manageAccount(@RequestBody AccountAvailabilityDTO accountAvailabilityDTO) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(servicioCuenta.manageAvailability(accountAvailabilityDTO));
         } catch (AccountNotFoundException e) {
@@ -47,14 +49,13 @@ public class CuentaControlador {
         }
 
     }
+
     @PatchMapping("/updateSaldo/{id}")
-    public ResponseEntity<?> updateSaldo(@PathVariable Long id, @RequestBody Double saldo){
+    public ResponseEntity<?> updateSaldo(@PathVariable Long id, @RequestBody Double saldo) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(servicioCuenta.setSaldo(id,saldo));
-        }catch (AccountNotFoundException e){
+            return ResponseEntity.status(HttpStatus.CREATED).body(servicioCuenta.setSaldo(id, saldo));
+        } catch (AccountNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
-
 }

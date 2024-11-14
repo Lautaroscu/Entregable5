@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "reportes" , url = "http://localhost:8080")
+@FeignClient(name = "reportes", url = "http://localhost:8080")
 public interface ReportClient {
     @GetMapping("api/reportes/tarifas")
-       TarifaDTO getTarifaByTipo(@RequestParam("tipo") String tipo);
+    TarifaDTO getTarifaByTipo(@RequestParam("tipo") String tipo);
 }

@@ -13,5 +13,4 @@ public interface TripRepository extends MongoRepository<Trip, String> {
     // Consulta para buscar viajes por el nombre del conductor
     @Query("{ 'scooterDTO.id': ?0 }")
     List<Trip> findByScooterID(String id);
-
 }

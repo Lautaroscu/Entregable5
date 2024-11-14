@@ -4,6 +4,7 @@ import com.monopatines.monopatines.DTO.Scooter.ScooterOutputDTO;
 import com.monopatines.monopatines.entities.Parada;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.List;
 

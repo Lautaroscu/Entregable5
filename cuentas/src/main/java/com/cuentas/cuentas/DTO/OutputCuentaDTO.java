@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class OutputCuentaDTO implements Serializable {
     private double saldo;
     private String cuentaMP;
     private Boolean isDisable;
-    private Set<OutputUserDTO> usuarios ;
+    private Set<OutputUserDTO> usuarios;
 
     public OutputCuentaDTO(Cuenta cuenta) {
         this.id = cuenta.getIdCuenta();
@@ -29,9 +30,5 @@ public class OutputCuentaDTO implements Serializable {
         this.cuentaMP = cuenta.getCuentaMercadoPago();
         this.usuarios = cuenta.getUsuarios().stream().map(OutputUserDTO::new).collect(Collectors.toSet());
         this.isDisable = cuenta.getIsDisable();
-
-
-
     }
-
 }

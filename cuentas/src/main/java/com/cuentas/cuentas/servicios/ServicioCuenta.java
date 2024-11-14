@@ -16,7 +16,6 @@ public class ServicioCuenta {
     private final RepositorioCuenta cuentaRepositorio;
     private final RepositorioUsuario repositorioUsuario;
 
-
     @Autowired
     public ServicioCuenta(RepositorioCuenta cuentaRepositorio, RepositorioUsuario repositorioUsuario) {
         this.cuentaRepositorio = cuentaRepositorio;
@@ -37,22 +36,22 @@ public class ServicioCuenta {
         cuenta.setSaldo(inputCuentaDTO.getSaldo());
 
         // Guardar primero la Cuenta
-       cuentaRepositorio.save(cuenta);
+        cuentaRepositorio.save(cuenta);
         usuario.addCuenta(cuenta);  // Y también asociamos el usuario a la cuenta
         // Asociar la Cuenta con el Usuario
         cuenta.addUsuario(usuario);  // Aquí asociamos la cuenta con el usuario
 
         // Guardar luego el Usuario
         repositorioUsuario.save(usuario);
-       cuenta= cuentaRepositorio.save(cuenta);
+        cuenta = cuentaRepositorio.save(cuenta);
         return new OutputCuentaDTO(cuenta);
 
     }
+
     public OutputCuentaDTO getAccountById(Long id) {
         Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account not found"));
         return new OutputCuentaDTO(cuenta);
     }
-
 
     public OutputCuentaDTO manageAvailability(AccountAvailabilityDTO accountAvailabilityDTO) {
 
@@ -61,7 +60,8 @@ public class ServicioCuenta {
         cuentaRepositorio.save(cuenta);
         return new OutputCuentaDTO(cuenta);
     }
-    public OutputCuentaDTO setSaldo(Long id,Double saldo) {
+
+    public OutputCuentaDTO setSaldo(Long id, Double saldo) {
         Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
         cuenta.setSaldo(saldo);
         cuentaRepositorio.save(cuenta);

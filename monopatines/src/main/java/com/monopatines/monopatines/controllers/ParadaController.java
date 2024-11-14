@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/paradas")
 public class ParadaController {
-
     private final ParadaService paradaService;
 
     @Autowired
