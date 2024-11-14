@@ -6,6 +6,7 @@ import com.monopatines.monopatines.DTO.Scooter.ScooterOutputDTO;
 import com.monopatines.monopatines.DTO.Scooter.ScooterStatusDTO;
 import com.monopatines.monopatines.exceptions.BadRequestException;
 import com.monopatines.monopatines.exceptions.ScooterNotFound;
+import com.monopatines.monopatines.services.ParadaService;
 import com.monopatines.monopatines.services.ScooterService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,10 +25,12 @@ import java.util.List;
 @RequestMapping("/api/scooters")
 public class ScooterController {
     private final ScooterService scooterService;
+    private final ParadaService paradaService;
 
     @Autowired
-    public ScooterController(ScooterService scooterService) {
+    public ScooterController(ScooterService scooterService , ParadaService paradaService) {
         this.scooterService = scooterService;
+        this.paradaService = paradaService;
     }
 
     @Operation(
@@ -138,5 +141,13 @@ public class ScooterController {
         } catch (ScooterNotFound e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
+    //obtiene todos los monopatines cercanos a un usuario
+    @GetMapping("/nearby")
+    public ResponseEntity<List<ScooterOutputDTO>> getScootersNearForUser(
+            @RequestParam double lat ,
+            @RequestParam double lng
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(paradaService.getScootersNearUserLocation(lat , lng));
     }
 }

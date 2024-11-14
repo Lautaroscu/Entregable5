@@ -6,6 +6,7 @@ import com.viajes.viajes.clients.AccountClient;
 import com.viajes.viajes.clients.ReportClient;
 import com.viajes.viajes.clients.ScooterClient;
 import com.viajes.viajes.clients.models.Account;
+import com.viajes.viajes.clients.models.SaldoAccountDTO;
 import com.viajes.viajes.clients.models.ScooterDTO;
 import com.viajes.viajes.clients.models.TarifaDTO;
 import com.viajes.viajes.entities.Trip;
@@ -78,7 +79,7 @@ public class TripService {
 
         double saldoActual = (trip.getAccount().getSaldo() - trip.getCurrentPrice().doubleValue());
 
-        Account cuenta = accountClient.updateSaldo(trip.getAccount().getId(), saldoActual);
+        Account cuenta = accountClient.updateSaldo(trip.getAccount().getId(), new SaldoAccountDTO(saldoActual));
         trip.setAccount(cuenta);
         tripRepository.save(trip);
 

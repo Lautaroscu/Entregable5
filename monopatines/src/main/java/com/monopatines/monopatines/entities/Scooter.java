@@ -15,15 +15,17 @@ public class Scooter {
     private String id; // El campo que actuará como el identificador único en MongoDB
     private String model;
     private ScooterStatus status; // Estado del monopatín: "Available", "In Use", "Paused", etc.
-    private String location;
+    private double latitude;
+    private double longitude;
     private double kilometersTraveled;
     private double totalTimeUsed; // Tiempo total de uso en minutos
 
     public Scooter() {
     }
 
-    public Scooter(String location, String model) {
-        this.location = location;
+    public Scooter(double latitude, double longitude,String model) {
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.model = model;
         this.status = ScooterStatus.AVAILABLE;
         this.kilometersTraveled = 0;

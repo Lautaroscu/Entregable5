@@ -35,7 +35,7 @@ public class ScooterService {
 
     public ScooterOutputDTO createScooter(ScooterInputDTO scooterInputDTO) {
         try {
-            Scooter scooter = new Scooter(scooterInputDTO.getLocation(), scooterInputDTO.getModel());
+            Scooter scooter = new Scooter(scooterInputDTO.getLatitude(), scooterInputDTO.getLongitude() ,scooterInputDTO.getModel());
             scooter = scooterRepository.save(scooter);
             return new ScooterOutputDTO(scooter);
         } catch (BadRequestException badRequestException) {
@@ -68,11 +68,10 @@ public class ScooterService {
     }
 
     public ScooterOutputDTO updateScooter(ScooterInputDTO scooterInputDTO, String id) {
-        if (isBadRequest(scooterInputDTO)) {
-            throw new BadRequestException("Scooter invalido");
-        }
+
         Scooter scooterToUpdate = scooterRepository.findById(id).orElseThrow(() -> new ScooterNotFound("id"));
-        scooterToUpdate.setLocation(scooterInputDTO.getLocation());
+        scooterToUpdate.setLatitude(scooterInputDTO.getLatitude());
+        scooterToUpdate.setLongitude(scooterInputDTO.getLongitude());
         scooterToUpdate.setModel(scooterInputDTO.getModel());
         scooterRepository.save(scooterToUpdate);
         return new ScooterOutputDTO(scooterToUpdate);
@@ -92,8 +91,5 @@ public class ScooterService {
         scooterRepository.save(scooter);
     }
 
-    private boolean isBadRequest(ScooterInputDTO scooterInputDTO) {
-        return scooterInputDTO.getLocation() == null || scooterInputDTO.getLocation().isEmpty() || scooterInputDTO.getModel() == null
-                || scooterInputDTO.getModel().isEmpty();
-    }
+
 }

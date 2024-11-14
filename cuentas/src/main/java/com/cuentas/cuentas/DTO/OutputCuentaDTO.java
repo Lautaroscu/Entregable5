@@ -28,6 +28,7 @@ public class OutputCuentaDTO implements Serializable {
         this.fechaAlta = cuenta.getFechaAlta();
         this.saldo = cuenta.getSaldo();
         this.cuentaMP = cuenta.getCuentaMercadoPago();
+        if(!cuenta.getUsuarios().isEmpty())
         this.usuarios = cuenta.getUsuarios().stream().map(OutputUserDTO::new).collect(Collectors.toSet());
         this.isDisable = cuenta.getIsDisable();
     }

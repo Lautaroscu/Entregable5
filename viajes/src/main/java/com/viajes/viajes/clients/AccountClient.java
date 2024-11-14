@@ -1,6 +1,7 @@
 package com.viajes.viajes.clients;
 
 import com.viajes.viajes.clients.models.Account;
+import com.viajes.viajes.clients.models.SaldoAccountDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,5 +15,5 @@ public interface AccountClient {
 
 
     @PatchMapping("/updateSaldo/{id}")
-    Account updateSaldo(@PathVariable("id") Long id, @RequestBody double saldo);
+    Account updateSaldo(@PathVariable("id") Long id, @RequestBody SaldoAccountDTO saldo);
 }

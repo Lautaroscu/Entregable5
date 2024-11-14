@@ -67,9 +67,12 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter</artifactId>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>4.9.1</version> <!-- ensure compatibility with Feign -->
 		</dependency>
+
+
 	</dependencies>
 
 	<build>

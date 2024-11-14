@@ -3,6 +3,7 @@ package com.monopatines.monopatines.services;
 import com.monopatines.monopatines.DTO.Parada.ParadaInputDTO;
 import com.monopatines.monopatines.DTO.Parada.ParadaOutputDTO;
 import com.monopatines.monopatines.DTO.Scooter.ScooterOutputDTO;
+import com.monopatines.monopatines.Enumns.ScooterStatus;
 import com.monopatines.monopatines.entities.Parada;
 import com.monopatines.monopatines.entities.Scooter;
 import com.monopatines.monopatines.exceptions.BadRequestException;
@@ -13,6 +14,7 @@ import com.monopatines.monopatines.repositories.ScooterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,7 +30,7 @@ public class ParadaService {
 
     public ParadaOutputDTO createParada(ParadaInputDTO paradaInputDTO) {
         try {
-            Parada parada = new Parada(paradaInputDTO.getNombreParada());
+            Parada parada = new Parada(paradaInputDTO.getNombreParada() , paradaInputDTO.getLatitudParada() , paradaInputDTO.getLongitudParada());
             parada = paradaRepository.save(parada);
             return new ParadaOutputDTO(parada);
         } catch (BadRequestException badRequestException) {
@@ -77,12 +79,9 @@ public class ParadaService {
         Parada parada = paradaRepository.findById(idParada)
                 .orElseThrow(() -> new ParadaNotFound("Parada not found"));
         Scooter scooter = scooterRepository.findById(idScooter).orElseThrow(() -> new ScooterNotFound("Scooter not found"));
+        parada.addScooter(scooter);
+        paradaRepository.save(parada);
 
-
-        if (!parada.getScooters().contains(idScooter) && scooter != null) {
-            parada.getScooters().add(idScooter);
-            paradaRepository.save(parada);
-        }
     }
 
     public void removeScooterFromParada(String idParada, String idScooter) {
@@ -91,14 +90,28 @@ public class ParadaService {
         Scooter scooter = scooterRepository.findById(idScooter)
                 .orElseThrow(() -> new ScooterNotFound("Scooter not found"));
 
+        parada.removeScooter(scooter);
+        paradaRepository.save(parada);
 
-        if (parada.getScooters().contains(idScooter) && scooter != null) {
-            parada.getScooters().remove(idScooter);
-            paradaRepository.save(parada);
-        }
     }
 
     private boolean isBadRequest(ParadaInputDTO paradaInputDTO) {
         return paradaInputDTO.getNombreParada() == null || paradaInputDTO.getNombreParada().isEmpty();
+    }
+    public List<ScooterOutputDTO> getScootersNearUserLocation(double userLatitude, double userLongitude) {
+            List<Scooter> scooters = new ArrayList<>();
+            List<Parada> findScootersStopNearUser = paradaRepository.findByLocation(userLatitude , userLongitude);
+            for(Parada parada : findScootersStopNearUser) {
+                for(Scooter scooter : parada.getScooters()) {
+                    if(scooter.getStatus().equals(ScooterStatus.AVAILABLE)) {
+                        scooters.add(scooter);
+                    }
+                }
+            }
+            return scooters
+                    .stream()
+                    .map(ScooterOutputDTO::new)
+                    .toList();
+
     }
 }

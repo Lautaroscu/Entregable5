@@ -14,6 +14,7 @@ public class InputCuentaDTO implements Serializable {
     private String celularUsuario;
     private String email;
     private Double saldo;
+    private Boolean isDisable;
 
     public InputCuentaDTO(
             String ctaMP,
@@ -21,7 +22,8 @@ public class InputCuentaDTO implements Serializable {
             String apellidoUsuario,
             String celularUsuario,
             String email,
-            Double saldo
+            Double saldo ,
+            Boolean isDisable
     ) {
         this.ctaMP = ctaMP;
         this.nombreUsuario = nombreUsuario;
@@ -29,5 +31,6 @@ public class InputCuentaDTO implements Serializable {
         this.celularUsuario = celularUsuario;
         this.email = email;
         this.saldo = saldo;
+        this.isDisable = isDisable;
     }
 }
