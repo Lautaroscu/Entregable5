@@ -1,11 +1,8 @@
 package com.cuentas.cuentas.controladores;
 
 
-import com.cuentas.cuentas.DTO.AccountAvailabilityDTO;
-import com.cuentas.cuentas.DTO.InputCuentaDTO;
+import com.cuentas.cuentas.DTO.*;
 
-import com.cuentas.cuentas.DTO.OutputCuentaDTO;
-import com.cuentas.cuentas.DTO.SaldoAccountDTO;
 import com.cuentas.cuentas.excepciones.AccountNotFoundException;
 import com.cuentas.cuentas.excepciones.BadRequestException;
 import com.cuentas.cuentas.servicios.ServicioCuenta;
@@ -48,7 +45,7 @@ public class CuentaControlador {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateAccount(@PathVariable Long id, @RequestBody InputCuentaDTO inputCuentaDTO) {
+    public ResponseEntity<?> updateAccount(@PathVariable Long id, @RequestBody InputCuentaUpdateDTO inputCuentaDTO) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(servicioCuenta.updateAccount(id , inputCuentaDTO));
         }catch (AccountNotFoundException e) {

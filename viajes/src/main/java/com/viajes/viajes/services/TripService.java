@@ -5,10 +5,7 @@ import com.viajes.viajes.DTO.TripOutputDTO;
 import com.viajes.viajes.clients.AccountClient;
 import com.viajes.viajes.clients.ReportClient;
 import com.viajes.viajes.clients.ScooterClient;
-import com.viajes.viajes.clients.models.Account;
-import com.viajes.viajes.clients.models.SaldoAccountDTO;
-import com.viajes.viajes.clients.models.ScooterDTO;
-import com.viajes.viajes.clients.models.TarifaDTO;
+import com.viajes.viajes.clients.models.*;
 import com.viajes.viajes.entities.Trip;
 import com.viajes.viajes.enumns.TripStatus;
 import com.viajes.viajes.exceptions.TripNotFoundException;
@@ -77,12 +74,13 @@ public class TripService {
         Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
         trip.setCurrentPrice(montoTarifa);
 
-        double saldoActual = (trip.getAccount().getSaldo() - trip.getCurrentPrice().doubleValue());
 
-        Account cuenta = accountClient.updateSaldo(trip.getAccount().getId(), new SaldoAccountDTO(saldoActual));
-        trip.setAccount(cuenta);
+        Account tripAccount = trip.getAccount();
+        double nuevoSaldo = tripAccount.getSaldo() - montoTarifa.doubleValue();
+        Account accountModified = accountClient.updateAccount(tripAccount.getId(), new InputCuentaUpdateDTO(nuevoSaldo , tripAccount.getCuentaMP() , tripAccount.getIsDisable()));
+        trip.setAccount(accountModified);
+
         tripRepository.save(trip);
-
         return new TripOutputDTO(trip);
     }
 

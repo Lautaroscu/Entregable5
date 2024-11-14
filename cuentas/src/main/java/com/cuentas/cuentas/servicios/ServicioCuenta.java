@@ -1,9 +1,6 @@
 package com.cuentas.cuentas.servicios;
 
-import com.cuentas.cuentas.DTO.AccountAvailabilityDTO;
-import com.cuentas.cuentas.DTO.InputCuentaDTO;
-import com.cuentas.cuentas.DTO.OutputCuentaDTO;
-import com.cuentas.cuentas.DTO.SaldoAccountDTO;
+import com.cuentas.cuentas.DTO.*;
 import com.cuentas.cuentas.entidades.Cuenta;
 import com.cuentas.cuentas.entidades.Usuario;
 import com.cuentas.cuentas.excepciones.AccountNotFoundException;
@@ -78,11 +75,11 @@ public class ServicioCuenta {
         return new OutputCuentaDTO(cuenta);
     }
 
-    public OutputCuentaDTO updateAccount(Long id, InputCuentaDTO inputCuentaDTO) {
+    public OutputCuentaDTO updateAccount(Long id, InputCuentaUpdateDTO inputCuentaDTO) {
         Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
         cuenta.setIsDisable(inputCuentaDTO.getIsDisable());
         cuenta.setSaldo(inputCuentaDTO.getSaldo());
-        cuenta.setCuentaMercadoPago(inputCuentaDTO.getCtaMP());
+        cuenta.setCuentaMercadoPago(inputCuentaDTO.getCuentaMP());
         cuentaRepositorio.save(cuenta);
         return new OutputCuentaDTO(cuenta);
     }

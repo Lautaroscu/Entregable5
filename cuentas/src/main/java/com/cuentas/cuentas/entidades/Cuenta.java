@@ -2,6 +2,7 @@ package com.cuentas.cuentas.entidades;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,6 +26,7 @@ public class Cuenta {
     private LocalDate fechaAlta;
 
     @Column(nullable = false)
+    @PositiveOrZero
     private Double saldo;
 
     @Column(nullable = false)
