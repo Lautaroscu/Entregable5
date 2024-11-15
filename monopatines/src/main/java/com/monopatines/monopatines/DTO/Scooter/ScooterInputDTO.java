@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 public class ScooterInputDTO implements Serializable {
-    private String location;
+    private double latitude;
+    private double longitude;
     private String model;
 }

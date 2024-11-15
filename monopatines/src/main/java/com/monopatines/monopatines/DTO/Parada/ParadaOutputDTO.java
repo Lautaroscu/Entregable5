@@ -13,11 +13,15 @@ import java.util.List;
 public class ParadaOutputDTO implements Serializable {
     private String idParada;
     private String nombreParada;
-    private List<String> scooters;
+    private double latitudParada;
+    private double longitudParada;
+    private List<ScooterOutputDTO> scooters;
 
     public ParadaOutputDTO(Parada parada) {
         this.idParada = parada.getIdParada();
         this.nombreParada = parada.getNombreParada();
-        this.scooters = parada.getScooters();
+        this.latitudParada = parada.getLatitudParada();
+        this.longitudParada = parada.getLongitudParada();
+        this.scooters = parada.getScooters().stream().map(ScooterOutputDTO::new).toList();
     }
 }

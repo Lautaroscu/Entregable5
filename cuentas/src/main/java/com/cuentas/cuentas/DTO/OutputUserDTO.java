@@ -10,6 +10,8 @@ public class OutputUserDTO implements Serializable {
     private Long idUser;
     private String nombre;
     private String apellido;
+    private double latitud;
+    private double longitud;
 
     public OutputUserDTO() {
     }
@@ -18,5 +20,7 @@ public class OutputUserDTO implements Serializable {
         this.idUser = usuario.getIdUsuario();
         this.nombre = usuario.getNombre();
         this.apellido = usuario.getApellido();
+        this.latitud = usuario.getLatitud();
+        this.longitud = usuario.getLongitud();
     }
 }

@@ -1,8 +1,6 @@
 package com.cuentas.cuentas.servicios;
 
-import com.cuentas.cuentas.DTO.AccountAvailabilityDTO;
-import com.cuentas.cuentas.DTO.InputCuentaDTO;
-import com.cuentas.cuentas.DTO.OutputCuentaDTO;
+import com.cuentas.cuentas.DTO.*;
 import com.cuentas.cuentas.entidades.Cuenta;
 import com.cuentas.cuentas.entidades.Usuario;
 import com.cuentas.cuentas.excepciones.AccountNotFoundException;
@@ -10,6 +8,8 @@ import com.cuentas.cuentas.repositorios.RepositorioCuenta;
 import com.cuentas.cuentas.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ServicioCuenta {
@@ -20,6 +20,13 @@ public class ServicioCuenta {
     public ServicioCuenta(RepositorioCuenta cuentaRepositorio, RepositorioUsuario repositorioUsuario) {
         this.cuentaRepositorio = cuentaRepositorio;
         this.repositorioUsuario = repositorioUsuario;
+    }
+    public List<OutputCuentaDTO> getCuentas() {
+        return cuentaRepositorio
+                .findAll()
+                .stream()
+                .map(OutputCuentaDTO::new)
+                .toList();
     }
 
     public OutputCuentaDTO crearCuenta(InputCuentaDTO inputCuentaDTO) {
@@ -61,10 +68,25 @@ public class ServicioCuenta {
         return new OutputCuentaDTO(cuenta);
     }
 
-    public OutputCuentaDTO setSaldo(Long id, Double saldo) {
+    public OutputCuentaDTO setSaldo(Long id, SaldoAccountDTO saldo) {
         Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
-        cuenta.setSaldo(saldo);
+        cuenta.setSaldo(saldo.getSaldo());
         cuentaRepositorio.save(cuenta);
+        return new OutputCuentaDTO(cuenta);
+    }
+
+    public OutputCuentaDTO updateAccount(Long id, InputCuentaUpdateDTO inputCuentaDTO) {
+        Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
+        cuenta.setIsDisable(inputCuentaDTO.getIsDisable());
+        cuenta.setSaldo(inputCuentaDTO.getSaldo());
+        cuenta.setCuentaMercadoPago(inputCuentaDTO.getCuentaMP());
+        cuentaRepositorio.save(cuenta);
+        return new OutputCuentaDTO(cuenta);
+    }
+
+    public OutputCuentaDTO deleteAccount(Long id) {
+        Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
+        cuentaRepositorio.delete(cuenta);
         return new OutputCuentaDTO(cuenta);
     }
 }

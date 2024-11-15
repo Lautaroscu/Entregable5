@@ -31,6 +31,9 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
+    private double latitud;
+    private double longitud;
+
     // Relación muchos a muchos con Cuenta
     @ManyToMany(mappedBy = "usuarios")
     @JsonBackReference  // Esta anotación previene la recursión en la parte inversa de la relación
@@ -46,6 +49,8 @@ public class Usuario {
         this.celular = celular;
         this.email = email;
         cuentas = new HashSet<>();
+        this.latitud = 0;
+        this.longitud = 0;
     }
 
     public void addCuenta(Cuenta cuenta) {

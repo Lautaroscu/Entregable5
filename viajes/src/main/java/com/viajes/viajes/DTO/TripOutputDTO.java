@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class TripOutputDTO implements Serializable {
     private Account account;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private double finalPrice;
+    private BigDecimal price;
     private TripStatus tripStatus;
     private double kilometersTraveled;
     private LocalDateTime startPauseTime;
@@ -37,5 +38,6 @@ public class TripOutputDTO implements Serializable {
         this.tripStatus = trip.getTripStatus();
         this.startPauseTime = trip.getStartPauseTime();
         this.endPauseTime = trip.getEndPauseTime();
+        this.price = trip.getCurrentPrice();
     }
 }
