@@ -44,6 +44,18 @@ public class CuentaControlador {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/ownerEmail/{ownerEmail}")
+    public ResponseEntity<?> getByOwnerEmail(@PathVariable String ownerEmail) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(servicioCuenta.getByOwnerEmail(ownerEmail));
+        }catch (AccountNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+    @GetMapping("/emailAvailable")
+    public ResponseEntity<?> checkEmail(@RequestParam String email) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicioCuenta.avialableEmail(email));
+    }
     @PutMapping("/{id}")
     public ResponseEntity<?> updateAccount(@PathVariable Long id, @RequestBody InputCuentaUpdateDTO inputCuentaDTO) {
         try {

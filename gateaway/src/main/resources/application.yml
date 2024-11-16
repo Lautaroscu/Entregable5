@@ -3,25 +3,25 @@ spring:
     gateway:
       routes:
         - id: scooter-service
-          uri: http://localhost:8082  # Corregir la URL de scooters
+          uri: http://localhost:8082  # URI del microservicio de monopatines
           predicates:
             - Path=/api/scooters/**
         - id: trip-service
-          uri: http://localhost:8083
+          uri: http://localhost:8083 # URI del microservicio de viajes
           predicates:
             - Path=/api/trips/**
         - id: account-service
-          uri: http://localhost:8081
+          uri: http://localhost:8081 # URI del microservicio de cuentas
           predicates:
             - Path=/api/accounts/**
         - id: report-service
-          uri: http://localhost:8080
+          uri: http://localhost:8080 # URI del microservicio de reportes
           predicates:
             - Path=/api/reportes/**
-  security:
-    user:
-      name: admin
-      password: admin123
+        - id: auth-service
+          uri: http://localhost:8084  # URI del microservicio de autenticación
+          predicates:
+            - Path=/api/auth/**
 
 server:
   port: 4000
