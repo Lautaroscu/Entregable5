@@ -82,6 +82,11 @@
 			<version>5.0.0</version> <!-- Asegúrate de utilizar la versión adecuada -->
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.6.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
