@@ -44,7 +44,7 @@ public class JwtUtil {
             return !isTokenExpired(token); // Verifica si el token está expirado
         } catch (JwtException e) {
             // Token no es válido si la firma no coincide o ha sido manipulado
-            return false;
+            throw new JwtException(e.getMessage());
         }
     }
 
