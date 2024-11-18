@@ -11,6 +11,8 @@
     <module>cuentas</module>
     <module>monopatines</module>
     <module>viajes</module>
+    <module>autenticacion</module>
+    <module>gateaway</module>
 </modules>
 
 

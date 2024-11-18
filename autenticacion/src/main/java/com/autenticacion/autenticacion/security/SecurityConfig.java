@@ -49,10 +49,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // Desactiva CSRF
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/auth/**").permitAll() // Permite acceso libre a /api/auth/**
-                        .anyRequest().authenticated() // Resto de las solicitudes requiere autenticación
-                )
+
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // Agregar el filtro JWT antes del filtro de autenticación
 
         return http.build();

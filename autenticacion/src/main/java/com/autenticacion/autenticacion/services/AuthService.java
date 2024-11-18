@@ -4,7 +4,9 @@ import com.autenticacion.autenticacion.DTO.LoginInputDTO;
 import com.autenticacion.autenticacion.DTO.RegisterInputDTO;
 import com.autenticacion.autenticacion.clients.AccountClient;
 import com.autenticacion.autenticacion.exceptions.InvalidCredentialsException;
+import com.autenticacion.autenticacion.exceptions.TokenInvalidException;
 import com.autenticacion.autenticacion.security.JwtUtil;
+import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -69,7 +71,11 @@ public class AuthService {
 
 
     public boolean tokenValid(String token) {
-        return jwtUtil.validateToken(token);
+       try {
+           return jwtUtil.validateToken(token);
+       }catch (JwtException e) {
+           throw new JwtException("Invalid token");
+       }
     }
 
 }
