@@ -1,0 +1,926 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Controlador de reportes",
+      "description": "Controlador que recibe consultas CRUD para reportes"
+    }
+  ],
+  "paths": {
+    "/profile": {
+      "get": {
+        "tags": [
+          "profile-controller"
+        ],
+        "operationId": "listAllFormsOfMetadata_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepresentationModelObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/tarifas": {
+      "get": {
+        "tags": [
+          "profile-controller"
+        ],
+        "operationId": "descriptor_1_1_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/alps+json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/schema+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tarifas": {
+      "get": {
+        "tags": [
+          "tarifa-entity-controller"
+        ],
+        "description": "get-tarifa",
+        "operationId": "getCollectionResource-tarifa-get_1",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedModelEntityModelTarifa"
+                }
+              },
+              "text/uri-list": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/x-spring-data-compact+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedModelEntityModelTarifa"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "tarifa-entity-controller"
+        ],
+        "description": "create-tarifa",
+        "operationId": "postCollectionResource-tarifa-post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TarifaRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTarifa"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tarifas/search/findByTipoTarifa": {
+      "get": {
+        "tags": [
+          "tarifa-search-controller"
+        ],
+        "operationId": "executeSearch-tarifa-get",
+        "parameters": [
+          {
+            "name": "tipoTarifa",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTarifa"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/tarifas/{id}": {
+      "get": {
+        "tags": [
+          "tarifa-entity-controller"
+        ],
+        "description": "get-tarifa",
+        "operationId": "getItemResource-tarifa-get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTarifa"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "tarifa-entity-controller"
+        ],
+        "description": "update-tarifa",
+        "operationId": "putItemResource-tarifa-put",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TarifaRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTarifa"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTarifa"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "tarifa-entity-controller"
+        ],
+        "description": "delete-tarifa",
+        "operationId": "deleteItemResource-tarifa-delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "tarifa-entity-controller"
+        ],
+        "description": "patch-tarifa",
+        "operationId": "patchItemResource-tarifa-patch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TarifaRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTarifa"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/api/reportes": {
+      "put": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Modificar tarifa",
+        "description": "Este endpoint se utiliza para modificar una tarifa",
+        "operationId": "updateTarifas",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TarifaDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Respuesta modificada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Insertar tarifa",
+        "description": "Este endpoint se utiliza para insertar una tarifa en la base de datos",
+        "operationId": "createTarifa",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TarifaDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Tarifa creada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/viajes-por-monopatin": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte cantidad viajes por monopatin",
+        "description": "Este endpoint devuelve un reporte con la cantidad de viajes completados realizados por cada monopatin",
+        "operationId": "getReporteScootersPorCantViajes",
+        "parameters": [
+          {
+            "name": "cantViajesMinimos",
+            "in": "query",
+            "description": "Cantidad mínima de viajes realizados por el monopatín.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 5
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Fecha y hora de inicio del reporte.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2023-01-01T00:00:00"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Fecha y hora de fin del reporte. Si no se proporciona, se utiliza la fecha y hora actual.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2023-12-31T23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/total-facturado": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte total facturado",
+        "description": "Este endpoint devuelve un reporte con el monto total facturado entre dos fechas dadas",
+        "operationId": "getReporteTotalFacturado",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Fecha y hora de inicio del reporte.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2023-01-01T00:00:00"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Fecha y hora de fin del reporte.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2023-03-01T00:00:00"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/tiempo-de-uso-monopatin": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte tiempo de uso monopatines",
+        "description": "Este endpoint devuelve un reporte con el tiempo de uso de todos los monopatines, con pausa o sin pausas.",
+        "operationId": "getReporteUsoMonopatinesPorTiempo",
+        "parameters": [
+          {
+            "name": "conPausas",
+            "in": "query",
+            "description": "Indica si el reporte debe incluir tiempos de uso con pausas (true) o sin pausas (false). Valor por defecto: false.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/tarifas": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Obtener tarifas",
+        "description": "Este endpoint devuelve los datos de todas las tarifas. En caso que se requiera puede buscarse una tarifa por tipo",
+        "operationId": "getTarifas",
+        "parameters": [
+          {
+            "name": "tipo",
+            "in": "query",
+            "description": "Tipo de tarifa",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Normal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No encontrada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/kilometros-por-monopatin": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte kilometros por monopatin",
+        "description": "Este endpoint devuelve un reporte con la cantidad de kilometros recorridos por cada monopatin",
+        "operationId": "getReporteKilometrosPorMonopatin",
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/cantidad-monopatines": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte cantidad de monopatines",
+        "description": "Este endpoint devuelve un reporte con la cantidad de monopatines activos y en mantenimiento",
+        "operationId": "getReporteCantidadMonopatinesActivosYEnMantenimiento",
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbstractJsonSchemaPropertyObject": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "readOnly": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Item": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
+            }
+          },
+          "requiredProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "JsonSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
+            }
+          },
+          "requiredProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "definitions": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Item"
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "$schema": {
+            "type": "string"
+          }
+        }
+      },
+      "Links": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/Link"
+        }
+      },
+      "RepresentationModelObject": {
+        "type": "object",
+        "properties": {
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "EntityModelTarifa": {
+        "type": "object",
+        "properties": {
+          "tipoTarifa": {
+            "type": "string"
+          },
+          "monto": {
+            "type": "number"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "PageMetadata": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PagedModelEntityModelTarifa": {
+        "type": "object",
+        "properties": {
+          "_embedded": {
+            "type": "object",
+            "properties": {
+              "tarifas": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EntityModelTarifa"
+                }
+              }
+            }
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageMetadata"
+          }
+        }
+      },
+      "TarifaRequestBody": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tipoTarifa": {
+            "type": "string"
+          },
+          "monto": {
+            "type": "number"
+          },
+          "descripcion": {
+            "type": "string"
+          }
+        }
+      },
+      "TarifaDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Identificador único de la tarifa",
+            "format": "int64",
+            "example": 1
+          },
+          "tipoTarifa": {
+            "type": "string",
+            "description": "Tipo de tarifa",
+            "example": "Premium"
+          },
+          "monto": {
+            "type": "number",
+            "description": "Monto de la tarifa",
+            "example": 19.99
+          },
+          "descripcion": {
+            "type": "string",
+            "description": "Descripción de la tarifa",
+            "example": "Tarifa mensual premium"
+          }
+        },
+        "description": "Detalles de la tarifa a crear"
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "hreflang": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "deprecation": {
+            "type": "string"
+          },
+          "profile": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "templated": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
