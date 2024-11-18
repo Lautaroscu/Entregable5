@@ -1,5 +1,6 @@
 package com.reportes.reportes.clients.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ViajeDTO implements Serializable {
     private String tripID;
     private ScooterDTO scooterDTO;
