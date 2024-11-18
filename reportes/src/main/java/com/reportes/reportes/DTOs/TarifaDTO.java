@@ -1,6 +1,7 @@
 package com.reportes.reportes.DTOs;
 
 import com.reportes.reportes.entities.Tarifa;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +13,22 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "DTO que representa la información de una tarifa")
 public class TarifaDTO {
+
+    @Schema(description = "Identificador único de la tarifa", example = "1")
     private Long id;
+
+    @Schema(description = "Tipo de tarifa", example = "Premium")
     private String tipoTarifa;
+
+    @Schema(description = "Monto de la tarifa", example = "19.99")
     private BigDecimal monto;
+
+    @Schema(description = "Descripción de la tarifa", example = "Tarifa mensual premium")
     private String descripcion;
 
+    // Constructor, getters and setters
     public TarifaDTO(Tarifa tarifa) {
         this.id = tarifa.getId();
         this.tipoTarifa = tarifa.getTipoTarifa();
