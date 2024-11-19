@@ -1,4 +1,4 @@
-package com.reportes.reportes.entities;
+package com.tarifas.tarifas.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,11 +13,8 @@ public class Tarifa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String tipoTarifa;
-
     private BigDecimal monto;
-
     private String descripcion;
 
     public Tarifa() {
@@ -30,3 +27,4 @@ public class Tarifa {
         this.descripcion = descripcion;
     }
 }
+
