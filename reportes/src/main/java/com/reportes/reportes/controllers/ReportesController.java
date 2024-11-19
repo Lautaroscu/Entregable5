@@ -1,12 +1,8 @@
 package com.reportes.reportes.controllers;
 
-import com.reportes.reportes.DTOs.TarifaDTO;
-import com.reportes.reportes.exceptions.TarifasNotFoundException;
 import com.reportes.reportes.services.ReporteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
-@Tag(name = "Controlador de reportes", description = "Controlador que recibe consultas CRUD para reportes")
+@Tag(name = "Controlador de reportes", description = "Controlador que recibe consultas para reportes")
 @RestController
 @RequestMapping("/api/reportes")
 public class ReportesController {
@@ -132,76 +128,6 @@ public class ReportesController {
             return ResponseEntity.status(HttpStatus.OK).body(
                     reporteService.getReporteCantMonopatinesActivosYEnMantenimiento()
             );
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-    }
-
-    @Operation(
-            summary = "Obtener tarifas",
-            description = "Este endpoint devuelve los datos de todas las tarifas. En caso que se requiera puede buscarse una tarifa por tipo",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Respuesta OK"),
-                    @ApiResponse(responseCode = "404", description = "No encontrada")
-            }
-    )
-    @GetMapping("/tarifas")
-    public ResponseEntity<?> getTarifas(
-            @Parameter(description = "Tipo de tarifa", example = "Normal")
-            @RequestParam(value = "tipo", required = false) String tipo
-    ) {
-        try {
-            if (tipo != null) {
-                return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifaPorTipo(tipo));
-            } else {
-                return ResponseEntity.status(HttpStatus.OK).body(reporteService.getTarifas());
-            }
-        } catch (TarifasNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }
-    }
-
-    @Operation(
-            summary = "Insertar tarifa",
-            description = "Este endpoint se utiliza para insertar una tarifa en la base de datos",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Tarifa creada"),
-                    @ApiResponse(responseCode = "500", description = "Error")
-            }
-    )
-    @PostMapping
-    public ResponseEntity<?> createTarifa(
-            @Parameter(
-                    description = "Detalles de la tarifa a crear", required = true,
-                    content = @Content(schema = @Schema(implementation = TarifaDTO.class))
-            )
-            @RequestBody TarifaDTO tarifa
-    ) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(reporteService.upsertTarifa(tarifa));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-    }
-
-    @Operation(
-            summary = "Modificar tarifa",
-            description = "Este endpoint se utiliza para modificar una tarifa",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Respuesta modificada"),
-                    @ApiResponse(responseCode = "500", description = "Error")
-            }
-    )
-    @PutMapping
-    public ResponseEntity<?> updateTarifas(
-            @Parameter(
-                    description = "Detalles de la tarifa a actualizar o crear", required = true,
-                    content = @Content(schema = @Schema(implementation = TarifaDTO.class))
-            )
-            @RequestBody TarifaDTO tarifa
-    ) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(reporteService.upsertTarifa(tarifa));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }

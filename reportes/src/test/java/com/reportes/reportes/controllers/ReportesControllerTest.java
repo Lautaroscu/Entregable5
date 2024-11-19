@@ -3,10 +3,8 @@ package com.reportes.reportes.controllers;
 import com.reportes.reportes.DTOs.ReporteCantidadMonopatines;
 import com.reportes.reportes.DTOs.ReporteFacturacion;
 import com.reportes.reportes.DTOs.ReporteTiempoUsoMonopatinDTO;
-import com.reportes.reportes.DTOs.TarifaDTO;
 import com.reportes.reportes.clients.models.ScooterDTO;
 import com.reportes.reportes.clients.models.ScooterStatus;
-import com.reportes.reportes.exceptions.TarifasNotFoundException;
 import com.reportes.reportes.services.ReporteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -110,54 +108,5 @@ class ReportesControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(reporteService, times(1)).getReporteCantMonopatinesActivosYEnMantenimiento();
-    }
-
-    @Test
-    void getTarifas_withType_returnsOk() {
-        TarifaDTO mockedTarifa = new TarifaDTO(
-                22L,
-                "Mocked tarifa",
-                new BigDecimal("2232.2"),
-                "Tarifa mock"
-        );
-
-        when(reporteService.getTarifaPorTipo("Mocked tarifa")).thenReturn(mockedTarifa);
-
-        ResponseEntity<?> response = reportesController.getTarifas("Mocked tarifa");
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        verify(reporteService, times(1)).getTarifaPorTipo("Mocked tarifa");
-    }
-
-    @Test
-    void getTarifas_throwsTarifasNotFoundException_returnsNotFound() {
-        when(reporteService.getTarifaPorTipo(anyString())).thenThrow(new TarifasNotFoundException("Not found"));
-
-        ResponseEntity<?> response = reportesController.getTarifas("Invalid");
-
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        verify(reporteService, times(1)).getTarifaPorTipo("Invalid");
-    }
-
-    @Test
-    void createTarifa_returnsCreated() {
-        TarifaDTO tarifaDTO = new TarifaDTO();
-        when(reporteService.upsertTarifa(tarifaDTO)).thenReturn(new TarifaDTO());
-
-        ResponseEntity<?> response = reportesController.createTarifa(tarifaDTO);
-
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        verify(reporteService, times(1)).upsertTarifa(tarifaDTO);
-    }
-
-    @Test
-    void updateTarifas_returnsOk() {
-        TarifaDTO tarifaDTO = new TarifaDTO();
-        when(reporteService.upsertTarifa(tarifaDTO)).thenReturn(new TarifaDTO());
-
-        ResponseEntity<?> response = reportesController.updateTarifas(tarifaDTO);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        verify(reporteService, times(1)).upsertTarifa(tarifaDTO);
     }
 }
