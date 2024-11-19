@@ -3,7 +3,7 @@ package com.viajes.viajes.services;
 import com.viajes.viajes.DTO.TripInputDTO;
 import com.viajes.viajes.DTO.TripOutputDTO;
 import com.viajes.viajes.clients.AccountClient;
-import com.viajes.viajes.clients.ReportClient;
+import com.viajes.viajes.clients.TarifasClient;
 import com.viajes.viajes.clients.ScooterClient;
 import com.viajes.viajes.clients.models.*;
 import com.viajes.viajes.entities.Trip;
@@ -22,14 +22,14 @@ public class TripService {
     private final TripRepository tripRepository;
     private final AccountClient accountClient;
     private final ScooterClient scooterClient;
-    private final ReportClient reportClient;
+    private final TarifasClient tarifasClient;
 
     @Autowired
-    public TripService(TripRepository tripRepository, AccountClient accountClient, ScooterClient scooterClient, ReportClient reportClient) {
+    public TripService(TripRepository tripRepository, AccountClient accountClient, ScooterClient scooterClient, TarifasClient tarifasClient) {
         this.tripRepository = tripRepository;
         this.accountClient = accountClient;
         this.scooterClient = scooterClient;
-        this.reportClient = reportClient;
+        this.tarifasClient = tarifasClient;
     }
 
     public void createTrip(TripInputDTO tripInputDTO) {
@@ -69,7 +69,7 @@ public class TripService {
 
     public TripOutputDTO updatePrice(String tripID, String tipoTarifa) {
 
-        TarifaDTO tarifa = reportClient.getTarifaByTipo(tipoTarifa);
+        TarifaDTO tarifa = tarifasClient.getTarifaByTipo(tipoTarifa);
         BigDecimal montoTarifa = tarifa.getMonto();
         Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
         trip.setCurrentPrice(montoTarifa);
