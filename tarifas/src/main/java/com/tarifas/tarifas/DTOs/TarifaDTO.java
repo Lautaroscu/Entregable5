@@ -1,6 +1,6 @@
-package com.reportes.reportes.DTOs;
+package com.tarifas.tarifas.DTOs;
 
-import com.reportes.reportes.entities.Tarifa;
+import com.tarifas.tarifas.entities.Tarifa;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,3 +36,4 @@ public class TarifaDTO {
         this.descripcion = tarifa.getDescripcion();
     }
 }
+

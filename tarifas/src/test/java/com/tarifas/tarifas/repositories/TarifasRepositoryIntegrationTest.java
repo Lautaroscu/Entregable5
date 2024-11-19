@@ -1,20 +1,20 @@
-package com.reportes.reportes.repositories;
+package com.tarifas.tarifas.repositories;
 
-import com.reportes.reportes.entities.Tarifa;
+import com.tarifas.tarifas.entities.Tarifa;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-public class ReporteRepositoryIntegrationTest {
+public class TarifasRepositoryIntegrationTest {
 
     @Autowired
-    ReporteRepository repository;
+    TarifasRepository repository;
 
     @Test
     public void findTarifaByTipo_AlEncontrarResultado_DevuelveRespuestaSatisfactoria() {
@@ -35,5 +35,3 @@ public class ReporteRepositoryIntegrationTest {
         repository.deleteById(tarifaEncontrada.getId());
     }
 }
-
-

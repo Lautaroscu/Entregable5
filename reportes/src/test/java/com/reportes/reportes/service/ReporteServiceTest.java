@@ -4,7 +4,6 @@ import com.reportes.reportes.DTOs.*;
 import com.reportes.reportes.clients.ScooterClient;
 import com.reportes.reportes.clients.ViajesClient;
 import com.reportes.reportes.clients.models.*;
-import com.reportes.reportes.entities.Tarifa;
 import com.reportes.reportes.repositories.ReporteRepository;
 import com.reportes.reportes.services.ReporteService;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,9 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class ReporteServiceTest {
-
-    @Mock
-    private ReporteRepository reporteRepository;
 
     @Mock
     private ViajesClient viajesClient;
@@ -128,43 +124,6 @@ class ReporteServiceTest {
 
         assertEquals(1, result.getCantidadMonopatinesActivos());
         assertEquals(1, result.getCantidadMonopatinesEnMantenimiento());
-    }
-
-    @Test
-    void testGetTarifas() {
-        Tarifa tarifa1 = new Tarifa(1L, "Tipo1", new BigDecimal("100.0"), "Descripcion1");
-        Tarifa tarifa2 = new Tarifa(2L, "Tipo2", new BigDecimal("110.0"), "Descripcion2");
-        when(reporteRepository.findAll()).thenReturn(List.of(tarifa1, tarifa2));
-
-        List<TarifaDTO> result = reporteService.getTarifas();
-
-        assertEquals(2, result.size());
-        assertEquals("Tipo1", result.get(0).getTipoTarifa());
-        assertEquals("Tipo2", result.get(1).getTipoTarifa());
-    }
-
-    @Test
-    void testUpsertTarifa() {
-        Tarifa tarifa = new Tarifa(1L, "Tipo1", new BigDecimal("100.0"), "Descripcion1");
-        TarifaDTO tarifaDTO = new TarifaDTO(tarifa);
-        when(reporteRepository.save(any(Tarifa.class))).thenReturn(tarifa);
-
-        TarifaDTO result = reporteService.upsertTarifa(tarifaDTO);
-
-        assertEquals(tarifaDTO.getTipoTarifa(), result.getTipoTarifa());
-        assertEquals(tarifaDTO.getMonto(), result.getMonto());
-    }
-
-    @Test
-    void testGetTarifaPorTipo() {
-        BigDecimal valorTarifa = new BigDecimal("100.0");
-        Tarifa tarifa = new Tarifa(1L, "Tipo1", valorTarifa, "Descripcion1");
-        when(reporteRepository.findByTipoTarifa("Tipo1")).thenReturn(tarifa);
-
-        TarifaDTO result = reporteService.getTarifaPorTipo("Tipo1");
-
-        assertEquals("Tipo1", result.getTipoTarifa());
-        assertEquals(valorTarifa, result.getMonto());
     }
 
     private ScooterDTO getMockedScooterDTO() {

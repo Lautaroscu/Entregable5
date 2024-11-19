@@ -13,6 +13,7 @@
     <module>viajes</module>
     <module>autenticacion</module>
     <module>gateaway</module>
+    <module>tarifas</module>
 </modules>
 
 

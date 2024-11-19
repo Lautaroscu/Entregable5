@@ -4,7 +4,6 @@ import com.reportes.reportes.DTOs.*;
 import com.reportes.reportes.clients.ScooterClient;
 import com.reportes.reportes.clients.ViajesClient;
 import com.reportes.reportes.clients.models.*;
-import com.reportes.reportes.entities.Tarifa;
 import com.reportes.reportes.repositories.ReporteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +15,14 @@ import java.util.List;
 
 @Service
 public class ReporteService {
-    private final ReporteRepository reporteRepository;
     private final ViajesClient viajesClient;
     private final ScooterClient scooterClient;
 
     @Autowired
     public ReporteService(
-            ReporteRepository reporteRepository,
             ViajesClient viajesClient,
             ScooterClient scooterClient
     ) {
-        this.reporteRepository = reporteRepository;
         this.viajesClient = viajesClient;
         this.scooterClient = scooterClient;
     }
@@ -122,21 +118,6 @@ public class ReporteService {
         long cantScootersMantenimiento = scootersMantenimiento.size();
 
         return new ReporteCantidadMonopatines(cantScootersDisponibles, cantScootersMantenimiento);
-    }
-
-    public List<TarifaDTO> getTarifas() {
-        return reporteRepository.findAll().stream().map(TarifaDTO::new).toList();
-    }
-
-    public TarifaDTO upsertTarifa(TarifaDTO tarifa) {
-        Tarifa t = new Tarifa(tarifa.getId(), tarifa.getTipoTarifa(), tarifa.getMonto(), tarifa.getDescripcion());
-        Tarifa tarifaModificada = reporteRepository.save(t);
-        return new TarifaDTO(tarifaModificada);
-    }
-
-    public TarifaDTO getTarifaPorTipo(String tipo) {
-        Tarifa response = reporteRepository.findByTipoTarifa(tipo);
-        return new TarifaDTO(response);
     }
 
     private TiempoUsoMonopatinDTO getCantTiempoUsoScooter(List<ViajeDTO> viajesScooter) {

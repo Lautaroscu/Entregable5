@@ -1,4 +1,4 @@
-package com.reportes.reportes.exceptions;
+package com.tarifas.tarifas.exceptions;
 
 public class TarifasNotFoundException extends RuntimeException {
     public TarifasNotFoundException(String message) {
