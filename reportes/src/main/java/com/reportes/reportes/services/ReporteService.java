@@ -4,7 +4,6 @@ import com.reportes.reportes.DTOs.*;
 import com.reportes.reportes.clients.ScooterClient;
 import com.reportes.reportes.clients.ViajesClient;
 import com.reportes.reportes.clients.models.*;
-import com.reportes.reportes.repositories.ReporteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
