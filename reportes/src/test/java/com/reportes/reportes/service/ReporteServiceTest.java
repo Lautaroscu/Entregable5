@@ -4,7 +4,6 @@ import com.reportes.reportes.DTOs.*;
 import com.reportes.reportes.clients.ScooterClient;
 import com.reportes.reportes.clients.ViajesClient;
 import com.reportes.reportes.clients.models.*;
-import com.reportes.reportes.repositories.ReporteRepository;
 import com.reportes.reportes.services.ReporteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
