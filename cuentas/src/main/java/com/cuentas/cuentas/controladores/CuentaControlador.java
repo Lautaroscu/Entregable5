@@ -145,7 +145,7 @@ public class CuentaControlador {
                     @ApiResponse(responseCode = "404", description = "Cuenta no encontrada")
             }
     )
-    public ResponseEntity<OutputCuentaDTO> updateSaldo(@PathVariable Long id, @RequestBody SaldoAccountDTO saldo) {
+    public ResponseEntity<OutputCuentaDTO> updateSaldo(@PathVariable Long id, @RequestBody AccountBalanceDTO saldo) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(servicioCuenta.setSaldo(id, saldo));
         } catch (AccountNotFoundException e) {

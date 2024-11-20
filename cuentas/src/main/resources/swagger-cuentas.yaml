@@ -11,1159 +11,13 @@
     }
   ],
   "paths": {
-    "/cuentas": {
-      "get": {
-        "tags": [
-          "cuenta-entity-controller"
-        ],
-        "description": "get-cuenta",
-        "operationId": "getCollectionResource-cuenta-get_1",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Zero-based page index (0..N)",
-            "required": false,
-            "schema": {
-              "minimum": 0,
-              "type": "integer",
-              "default": 0
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "The size of the page to be returned",
-            "required": false,
-            "schema": {
-              "minimum": 1,
-              "type": "integer",
-              "default": 20
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PagedModelEntityModelCuenta"
-                }
-              },
-              "text/uri-list": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/x-spring-data-compact+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PagedModelEntityModelCuenta"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "cuenta-entity-controller"
-        ],
-        "description": "create-cuenta",
-        "operationId": "postCollectionResource-cuenta-post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CuentaRequestBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelCuenta"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cuentas/search/existsByEmailOwnerAccount": {
-      "get": {
-        "tags": [
-          "cuenta-search-controller"
-        ],
-        "operationId": "executeSearch-cuenta-get",
-        "parameters": [
-          {
-            "name": "emailOwnerAccount",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/cuentas/search/findByEmailOwnerAccount": {
-      "get": {
-        "tags": [
-          "cuenta-search-controller"
-        ],
-        "operationId": "executeSearch-cuenta-get_1",
-        "parameters": [
-          {
-            "name": "emailOwnerAccount",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelCuenta"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/cuentas/{id}": {
-      "get": {
-        "tags": [
-          "cuenta-entity-controller"
-        ],
-        "description": "get-cuenta",
-        "operationId": "getItemResource-cuenta-get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelCuenta"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "cuenta-entity-controller"
-        ],
-        "description": "update-cuenta",
-        "operationId": "putItemResource-cuenta-put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CuentaRequestBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelCuenta"
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelCuenta"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "cuenta-entity-controller"
-        ],
-        "description": "delete-cuenta",
-        "operationId": "deleteItemResource-cuenta-delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "cuenta-entity-controller"
-        ],
-        "description": "patch-cuenta",
-        "operationId": "patchItemResource-cuenta-patch",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CuentaRequestBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelCuenta"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        }
-      }
-    },
-    "/cuentas/{id}/usuarios": {
-      "get": {
-        "tags": [
-          "cuenta-property-reference-controller"
-        ],
-        "description": "get-usuario-by-cuenta-Id",
-        "operationId": "followPropertyReference-cuenta-get_1",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelUsuario"
-                }
-              },
-              "text/uri-list": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "cuenta-property-reference-controller"
-        ],
-        "description": "update-usuario-by-cuenta-Id",
-        "operationId": "createPropertyReference-cuenta-put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionModelObject"
-              }
-            },
-            "text/uri-list": {
-              "schema": {
-                "type": "string"
-              }
-            },
-            "application/x-spring-data-compact+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionModelObject"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelUsuario"
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelUsuario"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "cuenta-property-reference-controller"
-        ],
-        "description": "delete-usuario-by-cuenta-Id",
-        "operationId": "deletePropertyReference-cuenta-delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "cuenta-property-reference-controller"
-        ],
-        "description": "patch-usuario-by-cuenta-Id",
-        "operationId": "createPropertyReference-cuenta-patch",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionModelObject"
-              }
-            },
-            "text/uri-list": {
-              "schema": {
-                "type": "string"
-              }
-            },
-            "application/x-spring-data-compact+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionModelObject"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelUsuario"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        }
-      }
-    },
-    "/cuentas/{id}/usuarios/{propertyId}": {
-      "get": {
-        "tags": [
-          "cuenta-property-reference-controller"
-        ],
-        "description": "get-usuario-by-cuenta-Id",
-        "operationId": "followPropertyReference-cuenta-get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "propertyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelUsuario"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "cuenta-property-reference-controller"
-        ],
-        "description": "delete-usuario-by-cuenta-Id",
-        "operationId": "deletePropertyReferenceId-cuenta-delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "propertyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/profile": {
-      "get": {
-        "tags": [
-          "profile-controller"
-        ],
-        "operationId": "listAllFormsOfMetadata_1",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RepresentationModelObject"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/profile/cuentas": {
-      "get": {
-        "tags": [
-          "profile-controller"
-        ],
-        "operationId": "descriptor_1_1_1",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/alps+json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/schema+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/profile/usuarios": {
-      "get": {
-        "tags": [
-          "profile-controller"
-        ],
-        "operationId": "descriptor_1_1_2",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/alps+json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/schema+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/usuarios": {
-      "get": {
-        "tags": [
-          "usuario-entity-controller"
-        ],
-        "description": "get-usuario",
-        "operationId": "getCollectionResource-usuario-get_1",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Zero-based page index (0..N)",
-            "required": false,
-            "schema": {
-              "minimum": 0,
-              "type": "integer",
-              "default": 0
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "The size of the page to be returned",
-            "required": false,
-            "schema": {
-              "minimum": 1,
-              "type": "integer",
-              "default": 20
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PagedModelEntityModelUsuario"
-                }
-              },
-              "text/uri-list": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/x-spring-data-compact+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PagedModelEntityModelUsuario"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "usuario-entity-controller"
-        ],
-        "description": "create-usuario",
-        "operationId": "postCollectionResource-usuario-post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UsuarioRequestBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelUsuario"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/usuarios/{id}": {
-      "get": {
-        "tags": [
-          "usuario-entity-controller"
-        ],
-        "description": "get-usuario",
-        "operationId": "getItemResource-usuario-get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelUsuario"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "usuario-entity-controller"
-        ],
-        "description": "update-usuario",
-        "operationId": "putItemResource-usuario-put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UsuarioRequestBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelUsuario"
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelUsuario"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "usuario-entity-controller"
-        ],
-        "description": "delete-usuario",
-        "operationId": "deleteItemResource-usuario-delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "usuario-entity-controller"
-        ],
-        "description": "patch-usuario",
-        "operationId": "patchItemResource-usuario-patch",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UsuarioRequestBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EntityModelUsuario"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        }
-      }
-    },
-    "/usuarios/{id}/cuentas": {
-      "get": {
-        "tags": [
-          "usuario-property-reference-controller"
-        ],
-        "description": "get-cuenta-by-usuario-Id",
-        "operationId": "followPropertyReference-usuario-get_1",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCuenta"
-                }
-              },
-              "text/uri-list": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "usuario-property-reference-controller"
-        ],
-        "description": "update-cuenta-by-usuario-Id",
-        "operationId": "createPropertyReference-usuario-put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionModelObject"
-              }
-            },
-            "text/uri-list": {
-              "schema": {
-                "type": "string"
-              }
-            },
-            "application/x-spring-data-compact+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionModelObject"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCuenta"
-                }
-              }
-            }
-          },
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCuenta"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "usuario-property-reference-controller"
-        ],
-        "description": "delete-cuenta-by-usuario-Id",
-        "operationId": "deletePropertyReference-usuario-delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "usuario-property-reference-controller"
-        ],
-        "description": "patch-cuenta-by-usuario-Id",
-        "operationId": "createPropertyReference-usuario-patch",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionModelObject"
-              }
-            },
-            "text/uri-list": {
-              "schema": {
-                "type": "string"
-              }
-            },
-            "application/x-spring-data-compact+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionModelObject"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCuenta"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No Content"
-          }
-        }
-      }
-    },
-    "/usuarios/{id}/cuentas/{propertyId}": {
-      "get": {
-        "tags": [
-          "usuario-property-reference-controller"
-        ],
-        "description": "get-cuenta-by-usuario-Id",
-        "operationId": "followPropertyReference-usuario-get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "propertyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/hal+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CollectionModelCuenta"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "usuario-property-reference-controller"
-        ],
-        "description": "delete-cuenta-by-usuario-Id",
-        "operationId": "deletePropertyReferenceId-usuario-delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "propertyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
     "/api/accounts/{id}": {
       "get": {
         "tags": [
           "cuenta-controlador"
         ],
+        "summary": "Obtener una cuenta por ID",
+        "description": "Este endpoint devuelve los detalles de una cuenta específica mediante su ID.",
         "operationId": "getById",
         "parameters": [
           {
@@ -1178,11 +32,21 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Cuenta encontrada exitosamente",
             "content": {
               "application/hal+json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cuenta no encontrada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
                 }
               }
             }
@@ -1193,6 +57,8 @@
         "tags": [
           "cuenta-controlador"
         ],
+        "summary": "Actualizar una cuenta",
+        "description": "Este endpoint permite actualizar los detalles de una cuenta existente mediante su ID.",
         "operationId": "updateAccount",
         "parameters": [
           {
@@ -1217,11 +83,31 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Cuenta actualizada exitosamente",
             "content": {
               "application/hal+json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos de entrada inválidos",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cuenta no encontrada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
                 }
               }
             }
@@ -1232,6 +118,8 @@
         "tags": [
           "cuenta-controlador"
         ],
+        "summary": "Eliminar una cuenta",
+        "description": "Este endpoint elimina una cuenta específica mediante su ID.",
         "operationId": "deleteAccount",
         "parameters": [
           {
@@ -1246,11 +134,21 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Cuenta eliminada exitosamente",
             "content": {
               "application/hal+json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cuenta no encontrada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
                 }
               }
             }
@@ -1263,10 +161,25 @@
         "tags": [
           "cuenta-controlador"
         ],
+        "summary": "Obtener todas las cuentas",
+        "description": "Este endpoint devuelve una lista de todas las cuentas registradas.",
         "operationId": "getCuentas",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Lista de cuentas obtenida con éxito",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OutputCuentaDTO"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
             "content": {
               "application/hal+json": {
                 "schema": {
@@ -1284,6 +197,8 @@
         "tags": [
           "cuenta-controlador"
         ],
+        "summary": "Crea una nueva cuenta",
+        "description": "Este endpoint permite crear una nueva cuenta asociada a un usuario. Se debe proporcionar toda la información requerida.",
         "operationId": "createAccount",
         "requestBody": {
           "content": {
@@ -1296,12 +211,22 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Cuenta creada exitosamente",
             "content": {
               "application/hal+json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
                 }
               }
             }
@@ -1314,6 +239,8 @@
         "tags": [
           "cuenta-controlador"
         ],
+        "summary": "Actualizar saldo de una cuenta",
+        "description": "Este endpoint permite actualizar el saldo de una cuenta específica.",
         "operationId": "updateSaldo",
         "parameters": [
           {
@@ -1330,7 +257,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SaldoAccountDTO"
+                "$ref": "#/components/schemas/AccountBalanceDTO"
               }
             }
           },
@@ -1338,11 +265,21 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Saldo actualizado exitosamente",
             "content": {
               "application/hal+json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cuenta no encontrada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
                 }
               }
             }
@@ -1355,6 +292,8 @@
         "tags": [
           "cuenta-controlador"
         ],
+        "summary": "Gestionar disponibilidad de una cuenta",
+        "description": "Este endpoint permite gestionar la disponibilidad de una cuenta.",
         "operationId": "manageAccount",
         "requestBody": {
           "content": {
@@ -1368,11 +307,21 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Disponibilidad gestionada exitosamente",
             "content": {
               "application/hal+json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cuenta no encontrada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
                 }
               }
             }
@@ -1385,6 +334,8 @@
         "tags": [
           "cuenta-controlador"
         ],
+        "summary": "Obtener cuenta por email del propietario",
+        "description": "Este endpoint devuelve la cuenta asociada al email de un propietario específico.",
         "operationId": "getByOwnerEmail",
         "parameters": [
           {
@@ -1398,11 +349,21 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Cuenta obtenidas con éxito",
             "content": {
               "application/hal+json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontraro cuenta para el email proporcionado",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutputCuentaDTO"
                 }
               }
             }
@@ -1415,6 +376,8 @@
         "tags": [
           "cuenta-controlador"
         ],
+        "summary": "Verificar disponibilidad de email",
+        "description": "Este endpoint verifica si un email está disponible para asociarse a una nueva cuenta.",
         "operationId": "checkEmail",
         "parameters": [
           {
@@ -1428,11 +391,21 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Email verificado con éxito",
             "content": {
               "application/hal+json": {
                 "schema": {
-                  "type": "object"
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
@@ -1443,384 +416,6 @@
   },
   "components": {
     "schemas": {
-      "AbstractJsonSchemaPropertyObject": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "readOnly": {
-            "type": "boolean"
-          }
-        }
-      },
-      "Item": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string"
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
-            }
-          },
-          "requiredProperties": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "JsonSchema": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "properties": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
-            }
-          },
-          "requiredProperties": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "definitions": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Item"
-            }
-          },
-          "type": {
-            "type": "string"
-          },
-          "$schema": {
-            "type": "string"
-          }
-        }
-      },
-      "Links": {
-        "type": "object",
-        "additionalProperties": {
-          "$ref": "#/components/schemas/Link"
-        }
-      },
-      "RepresentationModelObject": {
-        "type": "object",
-        "properties": {
-          "_links": {
-            "$ref": "#/components/schemas/Links"
-          }
-        }
-      },
-      "EntityModelCuenta": {
-        "type": "object",
-        "properties": {
-          "fechaAlta": {
-            "type": "string",
-            "format": "date"
-          },
-          "saldo": {
-            "type": "number",
-            "format": "double"
-          },
-          "cuentaMercadoPago": {
-            "type": "string"
-          },
-          "isDisable": {
-            "type": "boolean"
-          },
-          "emailOwnerAccount": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "_links": {
-            "$ref": "#/components/schemas/Links"
-          }
-        }
-      },
-      "PageMetadata": {
-        "type": "object",
-        "properties": {
-          "size": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "totalElements": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "totalPages": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "number": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "PagedModelEntityModelCuenta": {
-        "type": "object",
-        "properties": {
-          "_embedded": {
-            "type": "object",
-            "properties": {
-              "cuentas": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/EntityModelCuenta"
-                }
-              }
-            }
-          },
-          "_links": {
-            "$ref": "#/components/schemas/Links"
-          },
-          "page": {
-            "$ref": "#/components/schemas/PageMetadata"
-          }
-        }
-      },
-      "CollectionModelUsuario": {
-        "type": "object",
-        "properties": {
-          "_embedded": {
-            "type": "object",
-            "properties": {
-              "usuarios": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/UsuarioResponse"
-                }
-              }
-            }
-          },
-          "_links": {
-            "$ref": "#/components/schemas/Links"
-          }
-        }
-      },
-      "CollectionModelObject": {
-        "type": "object",
-        "properties": {
-          "_embedded": {
-            "type": "object",
-            "properties": {
-              "objects": {
-                "type": "array",
-                "items": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "_links": {
-            "$ref": "#/components/schemas/Links"
-          }
-        }
-      },
-      "EntityModelUsuario": {
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "type": "string"
-          },
-          "apellido": {
-            "type": "string"
-          },
-          "celular": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "latitud": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitud": {
-            "type": "number",
-            "format": "double"
-          },
-          "_links": {
-            "$ref": "#/components/schemas/Links"
-          }
-        }
-      },
-      "PagedModelEntityModelUsuario": {
-        "type": "object",
-        "properties": {
-          "_embedded": {
-            "type": "object",
-            "properties": {
-              "usuarios": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/EntityModelUsuario"
-                }
-              }
-            }
-          },
-          "_links": {
-            "$ref": "#/components/schemas/Links"
-          },
-          "page": {
-            "$ref": "#/components/schemas/PageMetadata"
-          }
-        }
-      },
-      "CollectionModelCuenta": {
-        "type": "object",
-        "properties": {
-          "_embedded": {
-            "type": "object",
-            "properties": {
-              "cuentas": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CuentaResponse"
-                }
-              }
-            }
-          },
-          "_links": {
-            "$ref": "#/components/schemas/Links"
-          }
-        }
-      },
-      "CuentaRequestBody": {
-        "type": "object",
-        "properties": {
-          "idCuenta": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "fechaAlta": {
-            "type": "string",
-            "format": "date"
-          },
-          "saldo": {
-            "type": "number",
-            "format": "double"
-          },
-          "cuentaMercadoPago": {
-            "type": "string"
-          },
-          "isDisable": {
-            "type": "boolean"
-          },
-          "emailOwnerAccount": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "usuarios": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "UsuarioRequestBody": {
-        "type": "object",
-        "properties": {
-          "idUsuario": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "nombre": {
-            "type": "string"
-          },
-          "apellido": {
-            "type": "string"
-          },
-          "celular": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "latitud": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitud": {
-            "type": "number",
-            "format": "double"
-          },
-          "cuentas": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "CuentaResponse": {
-        "type": "object",
-        "properties": {
-          "fechaAlta": {
-            "type": "string",
-            "format": "date"
-          },
-          "saldo": {
-            "type": "number",
-            "format": "double"
-          },
-          "cuentaMercadoPago": {
-            "type": "string"
-          },
-          "isDisable": {
-            "type": "boolean"
-          },
-          "emailOwnerAccount": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        }
-      },
-      "UsuarioResponse": {
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "type": "string"
-          },
-          "apellido": {
-            "type": "string"
-          },
-          "celular": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "latitud": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitud": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      },
       "InputCuentaUpdateDTO": {
         "type": "object",
         "properties": {
@@ -1832,57 +427,6 @@
             "type": "string"
           },
           "isDisable": {
-            "type": "boolean"
-          }
-        }
-      },
-      "InputCuentaDTO": {
-        "type": "object",
-        "properties": {
-          "ctaMP": {
-            "type": "string"
-          },
-          "nombreUsuario": {
-            "type": "string"
-          },
-          "apellidoUsuario": {
-            "type": "string"
-          },
-          "celularUsuario": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "saldo": {
-            "type": "number",
-            "format": "double"
-          },
-          "isDisable": {
-            "type": "boolean"
-          }
-        }
-      },
-      "SaldoAccountDTO": {
-        "type": "object",
-        "properties": {
-          "saldo": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      },
-      "AccountAvailabilityDTO": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "available": {
             "type": "boolean"
           }
         }
@@ -1946,31 +490,53 @@
           }
         }
       },
-      "Link": {
+      "InputCuentaDTO": {
         "type": "object",
         "properties": {
-          "href": {
+          "ctaMP": {
             "type": "string"
           },
-          "hreflang": {
+          "nombreUsuario": {
             "type": "string"
           },
-          "title": {
+          "apellidoUsuario": {
             "type": "string"
           },
-          "type": {
+          "celularUsuario": {
             "type": "string"
           },
-          "deprecation": {
+          "email": {
             "type": "string"
           },
-          "profile": {
+          "password": {
             "type": "string"
           },
-          "name": {
-            "type": "string"
+          "saldo": {
+            "type": "number",
+            "format": "double"
           },
-          "templated": {
+          "isDisable": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AccountBalanceDTO": {
+        "type": "object",
+        "properties": {
+          "saldo": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "AccountAvailabilityDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "available": {
             "type": "boolean"
           }
         }

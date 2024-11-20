@@ -8,6 +8,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class SaldoAccountDTO implements Serializable {
+public class AccountBalanceDTO implements Serializable {
     private double saldo;
 }

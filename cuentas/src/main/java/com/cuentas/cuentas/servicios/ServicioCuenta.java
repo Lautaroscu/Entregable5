@@ -69,7 +69,7 @@ public class ServicioCuenta {
         return new OutputCuentaDTO(cuenta);
     }
 
-    public OutputCuentaDTO setSaldo(Long id, SaldoAccountDTO saldo) {
+    public OutputCuentaDTO setSaldo(Long id, AccountBalanceDTO saldo) {
         Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
         cuenta.setSaldo(saldo.getSaldo());
         cuentaRepositorio.save(cuenta);
