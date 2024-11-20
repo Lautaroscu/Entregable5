@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package controllers;
+package com.cuentas.cuentas.controllers;
 
 import com.cuentas.cuentas.DTO.AccountAvailabilityDTO;
 import com.cuentas.cuentas.DTO.AccountBalanceDTO;
