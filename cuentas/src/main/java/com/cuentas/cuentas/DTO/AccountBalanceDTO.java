@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

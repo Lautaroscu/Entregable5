@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface RepositorioCuenta extends JpaRepository<Cuenta, Long> {
     Optional<Cuenta> findByEmailOwnerAccount(String emailOwnerAccount);
+
     Boolean existsByEmailOwnerAccount(String emailOwnerAccount);
 }

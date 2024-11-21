@@ -35,7 +35,7 @@ class ParadaControllerTest {
 
     @Test
     void createParada_returnsCreated() {
-        ParadaInputDTO inputDTO = new ParadaInputDTO("Parada A",0.0,0.0);
+        ParadaInputDTO inputDTO = new ParadaInputDTO("Parada A", 0.0, 0.0);
 
         // Mock de Parada
         Parada parada = new Parada();

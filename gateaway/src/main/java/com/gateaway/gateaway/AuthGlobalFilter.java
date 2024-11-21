@@ -14,14 +14,16 @@ import reactor.core.publisher.Mono;
 @Order(1) // Define la prioridad del filtro
 public class AuthGlobalFilter implements GlobalFilter {
     private WebClient.Builder webClientBuilder;
+
     @Autowired
     public AuthGlobalFilter(WebClient.Builder webClientBuilder) {
         this.webClientBuilder = webClientBuilder;
     }
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
-        if(path.startsWith("/api/auth")) {
+        if (path.startsWith("/api/auth")) {
             return chain.filter(exchange);
         }
         // Extraer el header "Authorization"

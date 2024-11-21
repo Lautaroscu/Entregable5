@@ -1,0 +1,1097 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8083",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Controlador de viajes",
+      "description": "Controlador que recibe consultas para viajes"
+    }
+  ],
+  "paths": {
+    "/profile": {
+      "get": {
+        "tags": [
+          "profile-controller"
+        ],
+        "operationId": "listAllFormsOfMetadata_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepresentationModelObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/trips": {
+      "get": {
+        "tags": [
+          "profile-controller"
+        ],
+        "operationId": "descriptor_1_1_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/alps+json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/schema+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trips": {
+      "get": {
+        "tags": [
+          "trip-entity-controller"
+        ],
+        "description": "get-trip",
+        "operationId": "getCollectionResource-trip-get_1",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedModelEntityModelTrip"
+                }
+              },
+              "text/uri-list": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/x-spring-data-compact+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedModelEntityModelTrip"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "trip-entity-controller"
+        ],
+        "description": "create-trip",
+        "operationId": "postCollectionResource-trip-post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TripRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTrip"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trips/search/findByScooterID": {
+      "get": {
+        "tags": [
+          "trip-search-controller"
+        ],
+        "operationId": "executeSearch-trip-get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionModelEntityModelTrip"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/trips/{id}": {
+      "get": {
+        "tags": [
+          "trip-entity-controller"
+        ],
+        "description": "get-trip",
+        "operationId": "getItemResource-trip-get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTrip"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "trip-entity-controller"
+        ],
+        "description": "update-trip",
+        "operationId": "putItemResource-trip-put",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TripRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTrip"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTrip"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "trip-entity-controller"
+        ],
+        "description": "delete-trip",
+        "operationId": "deleteItemResource-trip-delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "trip-entity-controller"
+        ],
+        "description": "patch-trip",
+        "operationId": "patchItemResource-trip-patch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TripRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelTrip"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/api/trips": {
+      "get": {
+        "tags": [
+          "Controlador de viajes"
+        ],
+        "summary": "Obtener todos los viajes",
+        "description": "Devuelve una lista de todos los viajes registrados.",
+        "operationId": "getAllTrips",
+        "responses": {
+          "200": {
+            "description": "Lista obtenida exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TripOutputDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Controlador de viajes"
+        ],
+        "summary": "Crear un nuevo viaje",
+        "description": "Este endpoint permite crear un nuevo viaje. Se debe proporcionar toda la información requerida.",
+        "operationId": "createTrip",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TripInputDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Viaje creado exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripOutputDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripOutputDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trips/endTrip/{tripID}": {
+      "post": {
+        "tags": [
+          "Controlador de viajes"
+        ],
+        "summary": "Finalizar un viaje",
+        "description": "Permite finalizar un viaje en curso.",
+        "operationId": "EndTrip",
+        "parameters": [
+          {
+            "name": "tripID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Viaje finalizado exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripOutputDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Viaje no encontrado",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripOutputDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trips/update-price/{tripID}/tipo-tarifa/{tipoTarifa}": {
+      "patch": {
+        "tags": [
+          "Controlador de viajes"
+        ],
+        "summary": "Actualizar precio de un viaje",
+        "description": "Permite actualizar el precio de un viaje según el tipo de tarifa especificado.",
+        "operationId": "updatePrice",
+        "parameters": [
+          {
+            "name": "tripID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tipoTarifa",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Precio actualizado exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripOutputDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Viaje no encontrado",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripOutputDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trips/unpause/{tripID}": {
+      "patch": {
+        "tags": [
+          "Controlador de viajes"
+        ],
+        "summary": "Reanudar un viaje",
+        "description": "Permite reanudar un viaje que estaba pausado.",
+        "operationId": "UnPauseTrip",
+        "parameters": [
+          {
+            "name": "tripID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Viaje reanudado exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Viaje no encontrado",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trips/pause/{tripID}": {
+      "patch": {
+        "tags": [
+          "Controlador de viajes"
+        ],
+        "summary": "Pausar un viaje",
+        "description": "Permite pausar un viaje en curso.",
+        "operationId": "PauseTrip",
+        "parameters": [
+          {
+            "name": "tripID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Viaje pausado exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Viaje no encontrado",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/trips/scooter/{scooterID}": {
+      "get": {
+        "tags": [
+          "Controlador de viajes"
+        ],
+        "summary": "Obtener viajes por ID del scooter",
+        "description": "Devuelve una lista de viajes realizados por un scooter específico.",
+        "operationId": "getAllTripsByScooter",
+        "parameters": [
+          {
+            "name": "scooterID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista obtenida exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TripOutputDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Scooter no encontrado",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TripOutputDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbstractJsonSchemaPropertyObject": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "readOnly": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Item": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
+            }
+          },
+          "requiredProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "JsonSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
+            }
+          },
+          "requiredProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "definitions": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Item"
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "$schema": {
+            "type": "string"
+          }
+        }
+      },
+      "Links": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/Link"
+        }
+      },
+      "RepresentationModelObject": {
+        "type": "object",
+        "properties": {
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fechaAlta": {
+            "type": "string",
+            "format": "date"
+          },
+          "saldo": {
+            "type": "number",
+            "format": "double"
+          },
+          "cuentaMP": {
+            "type": "string"
+          },
+          "isDisable": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EntityModelTrip": {
+        "type": "object",
+        "properties": {
+          "scooterDTO": {
+            "$ref": "#/components/schemas/ScooterDTO"
+          },
+          "account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "tripStatus": {
+            "type": "string",
+            "enum": [
+              "STARTED",
+              "PAUSED",
+              "COMPLETED"
+            ]
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "kilometersTraveled": {
+            "type": "number",
+            "format": "double"
+          },
+          "startPauseTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endPauseTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pausedTime": {
+            "type": "object",
+            "properties": {
+              "seconds": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "zero": {
+                "type": "boolean"
+              },
+              "nano": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "negative": {
+                "type": "boolean"
+              },
+              "positive": {
+                "type": "boolean"
+              },
+              "units": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "durationEstimated": {
+                      "type": "boolean"
+                    },
+                    "timeBased": {
+                      "type": "boolean"
+                    },
+                    "dateBased": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "finalPrice": {
+            "type": "number"
+          },
+          "currentPrice": {
+            "type": "number"
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "ScooterDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "kilometersTraveled": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalTimeUsed": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "PageMetadata": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PagedModelEntityModelTrip": {
+        "type": "object",
+        "properties": {
+          "_embedded": {
+            "type": "object",
+            "properties": {
+              "trips": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EntityModelTrip"
+                }
+              }
+            }
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageMetadata"
+          }
+        }
+      },
+      "CollectionModelEntityModelTrip": {
+        "type": "object",
+        "properties": {
+          "_embedded": {
+            "type": "object",
+            "properties": {
+              "trips": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EntityModelTrip"
+                }
+              }
+            }
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "TripRequestBody": {
+        "type": "object",
+        "properties": {
+          "tripID": {
+            "type": "string"
+          },
+          "scooterDTO": {
+            "$ref": "#/components/schemas/ScooterDTO"
+          },
+          "account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "tripStatus": {
+            "type": "string",
+            "enum": [
+              "STARTED",
+              "PAUSED",
+              "COMPLETED"
+            ]
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "kilometersTraveled": {
+            "type": "number",
+            "format": "double"
+          },
+          "startPauseTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endPauseTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pausedTime": {
+            "type": "object",
+            "properties": {
+              "seconds": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "zero": {
+                "type": "boolean"
+              },
+              "nano": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "negative": {
+                "type": "boolean"
+              },
+              "positive": {
+                "type": "boolean"
+              },
+              "units": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "durationEstimated": {
+                      "type": "boolean"
+                    },
+                    "timeBased": {
+                      "type": "boolean"
+                    },
+                    "dateBased": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "finalPrice": {
+            "type": "number"
+          },
+          "currentPrice": {
+            "type": "number"
+          }
+        }
+      },
+      "TripInputDTO": {
+        "type": "object",
+        "properties": {
+          "scooterId": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "TripOutputDTO": {
+        "type": "object",
+        "properties": {
+          "tripID": {
+            "type": "string"
+          },
+          "scooterDTO": {
+            "$ref": "#/components/schemas/ScooterDTO"
+          },
+          "account": {
+            "$ref": "#/components/schemas/Account"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "price": {
+            "type": "number"
+          },
+          "tripStatus": {
+            "type": "string",
+            "enum": [
+              "STARTED",
+              "PAUSED",
+              "COMPLETED"
+            ]
+          },
+          "kilometersTraveled": {
+            "type": "number",
+            "format": "double"
+          },
+          "startPauseTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endPauseTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "hreflang": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "deprecation": {
+            "type": "string"
+          },
+          "profile": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "templated": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

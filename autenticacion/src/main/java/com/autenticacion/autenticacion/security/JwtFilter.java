@@ -19,7 +19,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private final CustomUserDetailsService customUserDetailsService;
 
     @Autowired
-    public JwtFilter(JwtUtil jwtUtil , CustomUserDetailsService customUserDetailsService) {
+    public JwtFilter(JwtUtil jwtUtil, CustomUserDetailsService customUserDetailsService) {
         this.jwtUtil = jwtUtil;
         this.customUserDetailsService = customUserDetailsService;
     }
@@ -52,6 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
         // Continuar con el filtro
         chain.doFilter(request, response);
     }
+
     private String extractJwtFromRequest(HttpServletRequest request) {
         // Obtener el JWT de la cabecera 'Authorization' (Formato: Bearer <token>)
         String bearerToken = request.getHeader("Authorization");

@@ -135,7 +135,7 @@ class ReporteServiceTest {
         Account mockedAccount = new Account(23L, LocalDate.now());
         List<ViajeDTO> mockedListViajes = new ArrayList<>(size);
 
-        for(int i = 1; i <= size; i++) {
+        for (int i = 1; i <= size; i++) {
             mockedListViajes.add(
                     new ViajeDTO(
                             "mockedId",

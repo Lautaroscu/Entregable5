@@ -8,11 +8,9 @@ import com.monopatines.monopatines.exceptions.BadRequestException;
 import com.monopatines.monopatines.exceptions.ScooterNotFound;
 import com.monopatines.monopatines.services.ParadaService;
 import com.monopatines.monopatines.services.ScooterService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +26,7 @@ public class ScooterController {
     private final ParadaService paradaService;
 
     @Autowired
-    public ScooterController(ScooterService scooterService , ParadaService paradaService) {
+    public ScooterController(ScooterService scooterService, ParadaService paradaService) {
         this.scooterService = scooterService;
         this.paradaService = paradaService;
     }
@@ -143,6 +141,7 @@ public class ScooterController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
     @Operation(
             summary = "Obtener monopatines cercanos a un usuario",
             description = "Este endpoint permite obtener una lista de monopatines disponibles cerca de las coordenadas geográficas proporcionadas.",
@@ -151,11 +150,12 @@ public class ScooterController {
                     @ApiResponse(responseCode = "400", description = "Parámetros inválidos en la solicitud"),
                     @ApiResponse(responseCode = "500", description = "Error interno del servidor")
             }
-    )    @GetMapping("/nearby")
+    )
+    @GetMapping("/nearby")
     public ResponseEntity<List<ScooterOutputDTO>> getScootersNearForUser(
-            @RequestParam double lat ,
+            @RequestParam double lat,
             @RequestParam double lng
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(paradaService.getScootersNearUserLocation(lat , lng));
+        return ResponseEntity.status(HttpStatus.OK).body(paradaService.getScootersNearUserLocation(lat, lng));
     }
 }

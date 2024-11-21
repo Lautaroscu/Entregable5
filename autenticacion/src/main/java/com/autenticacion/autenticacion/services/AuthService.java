@@ -4,7 +4,6 @@ import com.autenticacion.autenticacion.DTO.LoginInputDTO;
 import com.autenticacion.autenticacion.DTO.RegisterInputDTO;
 import com.autenticacion.autenticacion.clients.AccountClient;
 import com.autenticacion.autenticacion.exceptions.InvalidCredentialsException;
-import com.autenticacion.autenticacion.exceptions.TokenInvalidException;
 import com.autenticacion.autenticacion.security.JwtUtil;
 import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class AuthService {
     private final AccountClient accountClient;
 
     @Autowired
-    public AuthService(AuthenticationManager authenticationManager, JwtUtil jwtUtil , AccountClient accountClient) {
+    public AuthService(AuthenticationManager authenticationManager, JwtUtil jwtUtil, AccountClient accountClient) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = new BCryptPasswordEncoder();
@@ -42,7 +41,7 @@ public class AuthService {
             throw new RuntimeException("Passwords do not match");
         }
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-         accountClient.createAccount(userDTO);
+        accountClient.createAccount(userDTO);
 
     }
 
@@ -63,19 +62,17 @@ public class AuthService {
     }
 
 
-
-
     private boolean equalsPasswords(String password1, String password2) {
         return password2.equals(password1);
     }
 
 
     public boolean tokenValid(String token) {
-       try {
-           return jwtUtil.validateToken(token);
-       }catch (JwtException e) {
-           throw new JwtException("Invalid token");
-       }
+        try {
+            return jwtUtil.validateToken(token);
+        } catch (JwtException e) {
+            throw new JwtException("Invalid token");
+        }
     }
 
 }

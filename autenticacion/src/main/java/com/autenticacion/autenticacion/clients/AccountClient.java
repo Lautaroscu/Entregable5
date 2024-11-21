@@ -10,7 +10,7 @@ public interface AccountClient {
     AccountModel getByOwnerEmail(@PathVariable("ownerEmail") String ownerEmail);
 
     @GetMapping("/api/accounts/emailAvailable")
-    Boolean emailAvailable(@RequestParam  String email);
+    Boolean emailAvailable(@RequestParam String email);
 
 
     @PostMapping("/api/accounts")

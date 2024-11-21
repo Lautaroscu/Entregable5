@@ -22,7 +22,7 @@ public class Parada {
     public Parada() {
     }
 
-    public Parada(String nombreParada , double latitudParada , double longitudParada) {
+    public Parada(String nombreParada, double latitudParada, double longitudParada) {
         this.nombreParada = nombreParada;
         this.scooters = new ArrayList<>();
         this.latitudParada = latitudParada;
@@ -33,6 +33,7 @@ public class Parada {
     public boolean addScooter(Scooter scooter) {
         return scooters.add(scooter);
     }
+
     public boolean removeScooter(Scooter scooter) {
         return scooters.remove(scooter);
     }

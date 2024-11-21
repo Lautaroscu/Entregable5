@@ -3,9 +3,12 @@ package com.viajes.viajes.services;
 import com.viajes.viajes.DTO.TripInputDTO;
 import com.viajes.viajes.DTO.TripOutputDTO;
 import com.viajes.viajes.clients.AccountClient;
-import com.viajes.viajes.clients.TarifasClient;
 import com.viajes.viajes.clients.ScooterClient;
-import com.viajes.viajes.clients.models.*;
+import com.viajes.viajes.clients.TarifasClient;
+import com.viajes.viajes.clients.models.Account;
+import com.viajes.viajes.clients.models.InputCuentaUpdateDTO;
+import com.viajes.viajes.clients.models.ScooterDTO;
+import com.viajes.viajes.clients.models.TarifaDTO;
 import com.viajes.viajes.entities.Trip;
 import com.viajes.viajes.enumns.TripStatus;
 import com.viajes.viajes.exceptions.TripNotFoundException;
@@ -38,7 +41,6 @@ public class TripService {
         Trip trip = new Trip(scooter, account);
         tripRepository.save(trip);
         return new TripOutputDTO(trip);
-
     }
 
     public List<TripOutputDTO> getAllTrips() {
@@ -80,7 +82,7 @@ public class TripService {
 
         Account tripAccount = trip.getAccount();
         double nuevoSaldo = tripAccount.getSaldo() - montoTarifa.doubleValue();
-        Account accountModified = accountClient.updateAccount(tripAccount.getId(), new InputCuentaUpdateDTO(nuevoSaldo , tripAccount.getCuentaMP() , tripAccount.getIsDisable()));
+        Account accountModified = accountClient.updateAccount(tripAccount.getId(), new InputCuentaUpdateDTO(nuevoSaldo, tripAccount.getCuentaMP(), tripAccount.getIsDisable()));
         trip.setAccount(accountModified);
 
         tripRepository.save(trip);

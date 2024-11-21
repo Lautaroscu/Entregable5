@@ -1,14 +1,12 @@
 package com.cuentas.cuentas.DTO;
 
 import com.cuentas.cuentas.entidades.Cuenta;
-import com.cuentas.cuentas.entidades.Usuario;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
