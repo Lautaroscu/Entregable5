@@ -122,7 +122,7 @@
         "tags": [
           "ScooterController"
         ],
-        "summary": "Eliminar un monopatín",
+        "summary": "Actualizar un monopatín",
         "description": "Este endpoint permite eliminar un monopatín utilizando su ID.",
         "operationId": "deleteScooter",
         "parameters": [
@@ -219,14 +219,260 @@
         }
       }
     },
+    "/api/paradas/{id}": {
+      "get": {
+        "tags": [
+          "parada-controller"
+        ],
+        "summary": "Obtener una parada por ID",
+        "description": "Este endpoint permite obtener los detalles de una parada específica mediante su ID.",
+        "operationId": "getParadaById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Parada encontrada exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParadaOutputDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Parada no encontrada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParadaOutputDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "parada-controller"
+        ],
+        "summary": "Actualizar el nombre de una parada",
+        "description": "Este endpoint permite actualizar el nombre de una parada existente utilizando su ID.",
+        "operationId": "updateParada",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParadaInputDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Parada actualizada exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParadaOutputDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Parada no encontrada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParadaOutputDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "parada-controller"
+        ],
+        "summary": "Eliminar una parada",
+        "description": "Este endpoint permite eliminar una parada específica utilizando su ID.",
+        "operationId": "deleteParada",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Parada eliminada exitosamente"
+          },
+          "404": {
+            "description": "Parada no encontrada"
+          }
+        }
+      }
+    },
+    "/api/paradas/{idParada}/scooters": {
+      "put": {
+        "tags": [
+          "parada-controller"
+        ],
+        "summary": "Agregar un monopatín a una parada",
+        "description": "Este endpoint permite agregar un monopatín existente a una parada específica utilizando el ID de la parada y el ID del monopatín.",
+        "operationId": "addScooterToParada",
+        "parameters": [
+          {
+            "name": "idParada",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScooterIDRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Monopatín agregado exitosamente a la parada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Parada o monopatín no encontrados",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "parada-controller"
+        ],
+        "summary": "Eliminar un monopatín de una parada",
+        "description": "Este endpoint permite eliminar un monopatín de una parada específica utilizando el ID de la parada y el ID del monopatín.",
+        "operationId": "removeScooterFromParada",
+        "parameters": [
+          {
+            "name": "idParada",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScooterIDRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Monopatín eliminado exitosamente de la parada",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Parada o monopatín no encontrados",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/scooters": {
       "get": {
         "tags": [
           "ScooterController"
         ],
-        "summary": "Obtener todos los monopatines",
-        "description": "Este endpoint devuelve una lista de todos los monopatines registrados.",
+        "summary": "Obtener todos los monopatines con filtros opcionales",
+        "description": "Este endpoint devuelve una lista de monopatines registrados. Puedes filtrar por ubicación, estado y modelo, y ordenar los resultados.",
         "operationId": "getAllScooters",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Lista de monopatines",
@@ -296,6 +542,114 @@
           }
         }
       }
+    },
+    "/api/paradas": {
+      "get": {
+        "tags": [
+          "parada-controller"
+        ],
+        "summary": "Obtener todas las paradas",
+        "description": "Este endpoint devuelve una lista de todas las paradas disponibles.",
+        "operationId": "getAllParadas",
+        "responses": {
+          "200": {
+            "description": "Lista de paradas obtenida exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ParadaOutputDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "parada-controller"
+        ],
+        "summary": "Crear una nueva parada",
+        "description": "Este endpoint permite crear una nueva parada. Se debe proporcionar toda la información requerida.",
+        "operationId": "createParada",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParadaInputDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Parada creada exitosamente",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParadaOutputDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParadaOutputDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/scooters/nearby": {
+      "get": {
+        "tags": [
+          "ScooterController"
+        ],
+        "operationId": "getScootersNearForUser",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ScooterOutputDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -303,33 +657,70 @@
       "ScooterInputDTO": {
         "type": "object",
         "properties": {
-          "location": {
-            "type": "string"
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
           },
           "model": {
             "type": "string"
           }
         }
       },
-      "ScooterStatusDTO": {
+      "ParadaInputDTO": {
         "type": "object",
         "properties": {
-          "scooterStatus": {
-            "type": "string",
-            "enum": [
-              "PARKED",
-              "IN_USE",
-              "UNDER_MAINTENANCE",
-              "AVAILABLE"
-            ]
+          "nombreParada": {
+            "type": "string"
+          },
+          "latitudParada": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitudParada": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "ParadaOutputDTO": {
+        "type": "object",
+        "properties": {
+          "idParada": {
+            "type": "string"
+          },
+          "nombreParada": {
+            "type": "string"
+          },
+          "latitudParada": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitudParada": {
+            "type": "number",
+            "format": "double"
+          },
+          "scooters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScooterOutputDTO"
+            }
           }
         }
       },
       "ScooterOutputDTO": {
         "type": "object",
         "properties": {
-          "location": {
-            "type": "string"
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
           },
           "model": {
             "type": "string"
@@ -337,6 +728,36 @@
           "id": {
             "type": "string"
           },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PARKED",
+              "IN_USE",
+              "UNDER_MAINTENANCE",
+              "AVAILABLE"
+            ]
+          },
+          "kilometersTraveled": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalTimeUsed": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "ScooterIDRequest": {
+        "type": "object",
+        "properties": {
+          "scooterID": {
+            "type": "string"
+          }
+        }
+      },
+      "ScooterStatusDTO": {
+        "type": "object",
+        "properties": {
           "status": {
             "type": "string",
             "enum": [

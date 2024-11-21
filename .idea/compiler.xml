@@ -16,7 +16,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="autenticacion" options="-parameters" />
       <module name="cuentas" options="-parameters" />
+      <module name="gateaway" options="-parameters" />
       <module name="monopatines" options="-parameters" />
       <module name="reportes" options="-parameters" />
       <module name="viajes" options="-parameters" />

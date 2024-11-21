@@ -3,9 +3,12 @@ package com.viajes.viajes.services;
 import com.viajes.viajes.DTO.TripInputDTO;
 import com.viajes.viajes.DTO.TripOutputDTO;
 import com.viajes.viajes.clients.AccountClient;
-import com.viajes.viajes.clients.ReportClient;
 import com.viajes.viajes.clients.ScooterClient;
-import com.viajes.viajes.clients.models.*;
+import com.viajes.viajes.clients.TarifasClient;
+import com.viajes.viajes.clients.models.Account;
+import com.viajes.viajes.clients.models.InputCuentaUpdateDTO;
+import com.viajes.viajes.clients.models.ScooterDTO;
+import com.viajes.viajes.clients.models.TarifaDTO;
 import com.viajes.viajes.entities.Trip;
 import com.viajes.viajes.enumns.TripStatus;
 import com.viajes.viajes.exceptions.TripNotFoundException;
@@ -22,22 +25,22 @@ public class TripService {
     private final TripRepository tripRepository;
     private final AccountClient accountClient;
     private final ScooterClient scooterClient;
-    private final ReportClient reportClient;
+    private final TarifasClient tarifasClient;
 
     @Autowired
-    public TripService(TripRepository tripRepository, AccountClient accountClient, ScooterClient scooterClient, ReportClient reportClient) {
+    public TripService(TripRepository tripRepository, AccountClient accountClient, ScooterClient scooterClient, TarifasClient tarifasClient) {
         this.tripRepository = tripRepository;
         this.accountClient = accountClient;
         this.scooterClient = scooterClient;
-        this.reportClient = reportClient;
+        this.tarifasClient = tarifasClient;
     }
 
-    public void createTrip(TripInputDTO tripInputDTO) {
+    public TripOutputDTO createTrip(TripInputDTO tripInputDTO) {
         Account account = accountClient.getAccountById(tripInputDTO.getAccountId());
         ScooterDTO scooter = scooterClient.getScooterById(tripInputDTO.getScooterId());
         Trip trip = new Trip(scooter, account);
         tripRepository.save(trip);
-
+        return new TripOutputDTO(trip);
     }
 
     public List<TripOutputDTO> getAllTrips() {
@@ -48,18 +51,20 @@ public class TripService {
                 .toList();
     }
 
-    public void setPauseTrip(String tripID) {
+    public TripOutputDTO setPauseTrip(String tripID) {
         Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
         trip.setTripStatus(TripStatus.PAUSED);
         trip.setStartPauseTime(LocalDateTime.now());
         tripRepository.save(trip);
+        return new TripOutputDTO(trip);
     }
 
-    public void setUnPauseTrip(String tripID) {
+    public TripOutputDTO setUnPauseTrip(String tripID) {
         Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
         trip.setTripStatus(TripStatus.STARTED);
         trip.setEndPauseTime(LocalDateTime.now());
         tripRepository.save(trip);
+        return new TripOutputDTO(trip);
     }
 
     public List<TripOutputDTO> getAllByScooterID(String scooterID) {
@@ -69,7 +74,7 @@ public class TripService {
 
     public TripOutputDTO updatePrice(String tripID, String tipoTarifa) {
 
-        TarifaDTO tarifa = reportClient.getTarifaByTipo(tipoTarifa);
+        TarifaDTO tarifa = tarifasClient.getTarifaByTipo(tipoTarifa);
         BigDecimal montoTarifa = tarifa.getMonto();
         Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
         trip.setCurrentPrice(montoTarifa);
@@ -77,7 +82,7 @@ public class TripService {
 
         Account tripAccount = trip.getAccount();
         double nuevoSaldo = tripAccount.getSaldo() - montoTarifa.doubleValue();
-        Account accountModified = accountClient.updateAccount(tripAccount.getId(), new InputCuentaUpdateDTO(nuevoSaldo , tripAccount.getCuentaMP() , tripAccount.getIsDisable()));
+        Account accountModified = accountClient.updateAccount(tripAccount.getId(), new InputCuentaUpdateDTO(nuevoSaldo, tripAccount.getCuentaMP(), tripAccount.getIsDisable()));
         trip.setAccount(accountModified);
 
         tripRepository.save(trip);

@@ -6,13 +6,15 @@
     <artifactId>my-microservices-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-<modules>
-    <module>reportes</module>
-    <module>cuentas</module>
-    <module>monopatines</module>
-    <module>viajes</module>
-</modules>
-
+    <modules>
+        <module>reportes</module>
+        <module>cuentas</module>
+        <module>monopatines</module>
+        <module>viajes</module>
+        <module>autenticacion</module>
+        <module>gateaway</module>
+        <module>tarifas</module>
+    </modules>
 
 
 </project>

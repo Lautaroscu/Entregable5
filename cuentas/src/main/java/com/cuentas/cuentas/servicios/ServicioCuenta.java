@@ -21,6 +21,7 @@ public class ServicioCuenta {
         this.cuentaRepositorio = cuentaRepositorio;
         this.repositorioUsuario = repositorioUsuario;
     }
+
     public List<OutputCuentaDTO> getCuentas() {
         return cuentaRepositorio
                 .findAll()
@@ -41,6 +42,8 @@ public class ServicioCuenta {
         Cuenta cuenta = new Cuenta();
         cuenta.setCuentaMercadoPago(inputCuentaDTO.getCtaMP());
         cuenta.setSaldo(inputCuentaDTO.getSaldo());
+        cuenta.setEmailOwnerAccount(inputCuentaDTO.getEmail());
+        cuenta.setPassword(inputCuentaDTO.getPassword());
 
         // Guardar primero la Cuenta
         cuentaRepositorio.save(cuenta);
@@ -52,7 +55,6 @@ public class ServicioCuenta {
         repositorioUsuario.save(usuario);
         cuenta = cuentaRepositorio.save(cuenta);
         return new OutputCuentaDTO(cuenta);
-
     }
 
     public OutputCuentaDTO getAccountById(Long id) {
@@ -68,7 +70,7 @@ public class ServicioCuenta {
         return new OutputCuentaDTO(cuenta);
     }
 
-    public OutputCuentaDTO setSaldo(Long id, SaldoAccountDTO saldo) {
+    public OutputCuentaDTO setSaldo(Long id, AccountBalanceDTO saldo) {
         Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
         cuenta.setSaldo(saldo.getSaldo());
         cuentaRepositorio.save(cuenta);
@@ -88,5 +90,14 @@ public class ServicioCuenta {
         Cuenta cuenta = cuentaRepositorio.findById(id).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
         cuentaRepositorio.delete(cuenta);
         return new OutputCuentaDTO(cuenta);
+    }
+
+    public OutputCuentaDTO getByOwnerEmail(String ownerEmail) {
+        Cuenta cuenta = cuentaRepositorio.findByEmailOwnerAccount(ownerEmail).orElseThrow(() -> new AccountNotFoundException("Account Not Found"));
+        return new OutputCuentaDTO(cuenta);
+    }
+
+    public boolean avialableEmail(String email) {
+        return !cuentaRepositorio.existsByEmailOwnerAccount(email);
     }
 }

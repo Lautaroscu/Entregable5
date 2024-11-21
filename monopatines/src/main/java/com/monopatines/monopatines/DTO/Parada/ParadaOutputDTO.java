@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,6 +23,9 @@ public class ParadaOutputDTO implements Serializable {
         this.nombreParada = parada.getNombreParada();
         this.latitudParada = parada.getLatitudParada();
         this.longitudParada = parada.getLongitudParada();
-        this.scooters = parada.getScooters().stream().map(ScooterOutputDTO::new).toList();
+        // Verificar si la lista de scooters es null y manejarlo
+        this.scooters = parada.getScooters() != null
+                ? parada.getScooters().stream().map(ScooterOutputDTO::new).toList()
+                : new ArrayList<>();  // Inicializar como lista vacía si es null
     }
 }

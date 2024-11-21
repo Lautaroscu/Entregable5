@@ -1,0 +1,254 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Controlador de reportes",
+      "description": "Controlador que recibe consultas para reportes"
+    }
+  ],
+  "paths": {
+    "/api/reportes/viajes-por-monopatin": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte cantidad viajes por monopatin",
+        "description": "Este endpoint devuelve un reporte con la cantidad de viajes completados realizados por cada monopatin",
+        "operationId": "getReporteScootersPorCantViajes",
+        "parameters": [
+          {
+            "name": "cantViajesMinimos",
+            "in": "query",
+            "description": "Cantidad mínima de viajes realizados por el monopatín.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 5
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Fecha y hora de inicio del reporte.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2023-01-01T00:00:00"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Fecha y hora de fin del reporte. Si no se proporciona, se utiliza la fecha y hora actual.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2023-12-31T23:59:59"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/total-facturado": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte total facturado",
+        "description": "Este endpoint devuelve un reporte con el monto total facturado entre dos fechas dadas",
+        "operationId": "getReporteTotalFacturado",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Fecha y hora de inicio del reporte.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2023-01-01T00:00:00"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Fecha y hora de fin del reporte.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2023-03-01T00:00:00"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/tiempo-de-uso-monopatin": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte tiempo de uso monopatines",
+        "description": "Este endpoint devuelve un reporte con el tiempo de uso de todos los monopatines, con pausa o sin pausas.",
+        "operationId": "getReporteUsoMonopatinesPorTiempo",
+        "parameters": [
+          {
+            "name": "conPausas",
+            "in": "query",
+            "description": "Indica si el reporte debe incluir tiempos de uso con pausas (true) o sin pausas (false). Valor por defecto: false.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/kilometros-por-monopatin": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte kilometros por monopatin",
+        "description": "Este endpoint devuelve un reporte con la cantidad de kilometros recorridos por cada monopatin",
+        "operationId": "getReporteKilometrosPorMonopatin",
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reportes/cantidad-monopatines": {
+      "get": {
+        "tags": [
+          "Controlador de reportes"
+        ],
+        "summary": "Reporte cantidad de monopatines",
+        "description": "Este endpoint devuelve un reporte con la cantidad de monopatines activos y en mantenimiento",
+        "operationId": "getReporteCantidadMonopatinesActivosYEnMantenimiento",
+        "responses": {
+          "200": {
+            "description": "Respuesta OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": { }
+  }
+}

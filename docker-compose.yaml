@@ -1,4 +1,3 @@
-
 services:
   mongodb-monopatines:
     image: 'mongo:latest'
@@ -23,12 +22,12 @@ services:
     volumes:
       - mongo_data2:/data/db
 
-  postgresdb-reportes:
+  postgresdb-tarifas:
     image: 'postgres:latest'
     environment:
       - 'POSTGRES_USER=admin'
       - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_DB=reportes'  # Nombre de la base de datos a crear
+      - 'POSTGRES_DB=tarifas'  # Nombre de la base de datos a crear
 
     ports:
       - '5433:5432'
@@ -44,6 +43,7 @@ services:
       - '5434:5432'
     volumes:
       - postgres_data2:/var/lib/postgresql/data
+
 
 volumes:
   mongo_data:

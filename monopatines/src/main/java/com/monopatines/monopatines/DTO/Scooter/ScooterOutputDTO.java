@@ -19,7 +19,7 @@ public class ScooterOutputDTO extends ScooterInputDTO implements Serializable {
     private double longitude;
 
     public ScooterOutputDTO(Scooter scooter) {
-        super(scooter.getLatitude() , scooter.getLongitude(), scooter.getModel());
+        super(scooter.getLatitude(), scooter.getLongitude(), scooter.getModel());
         this.id = scooter.getId();
         this.status = scooter.getStatus();
         this.totalTimeUsed = scooter.getTotalTimeUsed();
