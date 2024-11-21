@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class TripOutputDTO implements Serializable {
     private String tripID;
     private ScooterDTO scooterDTO;

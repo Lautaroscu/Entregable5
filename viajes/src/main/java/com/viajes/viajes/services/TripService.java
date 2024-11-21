@@ -32,11 +32,12 @@ public class TripService {
         this.tarifasClient = tarifasClient;
     }
 
-    public void createTrip(TripInputDTO tripInputDTO) {
+    public TripOutputDTO createTrip(TripInputDTO tripInputDTO) {
         Account account = accountClient.getAccountById(tripInputDTO.getAccountId());
         ScooterDTO scooter = scooterClient.getScooterById(tripInputDTO.getScooterId());
         Trip trip = new Trip(scooter, account);
         tripRepository.save(trip);
+        return new TripOutputDTO(trip);
 
     }
 
@@ -48,18 +49,20 @@ public class TripService {
                 .toList();
     }
 
-    public void setPauseTrip(String tripID) {
+    public TripOutputDTO setPauseTrip(String tripID) {
         Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
         trip.setTripStatus(TripStatus.PAUSED);
         trip.setStartPauseTime(LocalDateTime.now());
         tripRepository.save(trip);
+        return new TripOutputDTO(trip);
     }
 
-    public void setUnPauseTrip(String tripID) {
+    public TripOutputDTO setUnPauseTrip(String tripID) {
         Trip trip = tripRepository.findById(tripID).orElseThrow(() -> new TripNotFoundException("Trip not found"));
         trip.setTripStatus(TripStatus.STARTED);
         trip.setEndPauseTime(LocalDateTime.now());
         tripRepository.save(trip);
+        return new TripOutputDTO(trip);
     }
 
     public List<TripOutputDTO> getAllByScooterID(String scooterID) {
