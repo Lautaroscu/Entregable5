@@ -30,7 +30,7 @@ public class ParadaService {
 
     public ParadaOutputDTO createParada(ParadaInputDTO paradaInputDTO) {
         try {
-            Parada parada = new Parada(paradaInputDTO.getNombreParada() , paradaInputDTO.getLatitudParada() , paradaInputDTO.getLongitudParada());
+            Parada parada = new Parada(paradaInputDTO.getNombreParada(), paradaInputDTO.getLatitudParada(), paradaInputDTO.getLongitudParada());
             parada = paradaRepository.save(parada);
             return new ParadaOutputDTO(parada);
         } catch (BadRequestException badRequestException) {
@@ -98,20 +98,21 @@ public class ParadaService {
     private boolean isBadRequest(ParadaInputDTO paradaInputDTO) {
         return paradaInputDTO.getNombreParada() == null || paradaInputDTO.getNombreParada().isEmpty();
     }
+
     public List<ScooterOutputDTO> getScootersNearUserLocation(double userLatitude, double userLongitude) {
-            List<Scooter> scooters = new ArrayList<>();
-            List<Parada> findScootersStopNearUser = paradaRepository.findByLocation(userLatitude , userLongitude);
-            for(Parada parada : findScootersStopNearUser) {
-                for(Scooter scooter : parada.getScooters()) {
-                    if(scooter.getStatus().equals(ScooterStatus.AVAILABLE)) {
-                        scooters.add(scooter);
-                    }
+        List<Scooter> scooters = new ArrayList<>();
+        List<Parada> findScootersStopNearUser = paradaRepository.findByLocation(userLatitude, userLongitude);
+        for (Parada parada : findScootersStopNearUser) {
+            for (Scooter scooter : parada.getScooters()) {
+                if (scooter.getStatus().equals(ScooterStatus.AVAILABLE)) {
+                    scooters.add(scooter);
                 }
             }
-            return scooters
-                    .stream()
-                    .map(ScooterOutputDTO::new)
-                    .toList();
+        }
+        return scooters
+                .stream()
+                .map(ScooterOutputDTO::new)
+                .toList();
 
     }
 }

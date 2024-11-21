@@ -23,8 +23,8 @@ public class InputCuentaDTO implements Serializable {
             String apellidoUsuario,
             String celularUsuario,
             String email,
-            Double saldo ,
-            Boolean isDisable ,
+            Double saldo,
+            Boolean isDisable,
             String password
     ) {
         this.ctaMP = ctaMP;

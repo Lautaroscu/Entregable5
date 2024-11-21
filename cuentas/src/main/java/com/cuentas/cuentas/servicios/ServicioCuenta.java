@@ -21,6 +21,7 @@ public class ServicioCuenta {
         this.cuentaRepositorio = cuentaRepositorio;
         this.repositorioUsuario = repositorioUsuario;
     }
+
     public List<OutputCuentaDTO> getCuentas() {
         return cuentaRepositorio
                 .findAll()

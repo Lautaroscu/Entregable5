@@ -4,19 +4,14 @@ import com.monopatines.monopatines.DTO.Scooter.ScooterFiltersDTO;
 import com.monopatines.monopatines.DTO.Scooter.ScooterInputDTO;
 import com.monopatines.monopatines.DTO.Scooter.ScooterOutputDTO;
 import com.monopatines.monopatines.DTO.Scooter.ScooterStatusDTO;
-
 import com.monopatines.monopatines.entities.Scooter;
-
 import com.monopatines.monopatines.exceptions.BadRequestException;
 import com.monopatines.monopatines.exceptions.ScooterNotFound;
 import com.monopatines.monopatines.repositories.ScooterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.data.mongodb.core.MongoTemplate;
-
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +30,7 @@ public class ScooterService {
 
     public ScooterOutputDTO createScooter(ScooterInputDTO scooterInputDTO) {
         try {
-            Scooter scooter = new Scooter(scooterInputDTO.getLatitude(), scooterInputDTO.getLongitude() ,scooterInputDTO.getModel());
+            Scooter scooter = new Scooter(scooterInputDTO.getLatitude(), scooterInputDTO.getLongitude(), scooterInputDTO.getModel());
             scooter = scooterRepository.save(scooter);
             return new ScooterOutputDTO(scooter);
         } catch (BadRequestException badRequestException) {

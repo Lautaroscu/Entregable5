@@ -3,7 +3,10 @@ package com.reportes.reportes.services;
 import com.reportes.reportes.DTOs.*;
 import com.reportes.reportes.clients.ScooterClient;
 import com.reportes.reportes.clients.ViajesClient;
-import com.reportes.reportes.clients.models.*;
+import com.reportes.reportes.clients.models.ScooterDTO;
+import com.reportes.reportes.clients.models.ScooterStatus;
+import com.reportes.reportes.clients.models.TripStatus;
+import com.reportes.reportes.clients.models.ViajeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,9 +2,11 @@ package com.viajes.viajes.clients;
 
 import com.viajes.viajes.clients.models.Account;
 import com.viajes.viajes.clients.models.InputCuentaUpdateDTO;
-import com.viajes.viajes.clients.models.SaldoAccountDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "cuentas", url = "http://localhost:8081")
 public interface AccountClient {

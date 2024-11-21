@@ -38,4 +38,5 @@ public class ParadaRepositoryIntegrationTest {
 
         // Limpieza: Elimina la parada creada
         paradaRepository.deleteById(parada.getIdParada());
-    }}
+    }
+}

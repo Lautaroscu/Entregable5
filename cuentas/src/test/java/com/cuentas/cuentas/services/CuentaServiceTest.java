@@ -1,6 +1,9 @@
 package com.cuentas.cuentas.services;
 
-import com.cuentas.cuentas.DTO.*;
+import com.cuentas.cuentas.DTO.AccountAvailabilityDTO;
+import com.cuentas.cuentas.DTO.AccountBalanceDTO;
+import com.cuentas.cuentas.DTO.InputCuentaUpdateDTO;
+import com.cuentas.cuentas.DTO.OutputCuentaDTO;
 import com.cuentas.cuentas.entidades.Cuenta;
 import com.cuentas.cuentas.repositorios.RepositorioCuenta;
 import com.cuentas.cuentas.servicios.ServicioCuenta;
@@ -21,6 +24,7 @@ public class CuentaServiceTest {
     private RepositorioCuenta repositorioCuenta;
     @InjectMocks
     private ServicioCuenta servicioCuenta;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -37,60 +41,67 @@ public class CuentaServiceTest {
 
 
     }
+
     @Test
     void testGetCuentasById() {
         Cuenta expected = this.getMockedCuenta();
         when(repositorioCuenta.findById(expected.getIdCuenta())).thenReturn(Optional.of(expected));
         OutputCuentaDTO result = servicioCuenta.getAccountById(1L);
         assertNotNull(result);
-        assertEquals(expected.getIdCuenta() , result.getId());
+        assertEquals(expected.getIdCuenta(), result.getId());
     }
+
     @Test
     void testManageAvailability() {
-        AccountAvailabilityDTO accountAvailabilityDTO = new AccountAvailabilityDTO(1L , true);
+        AccountAvailabilityDTO accountAvailabilityDTO = new AccountAvailabilityDTO(1L, true);
         OutputCuentaDTO dto = getMockedCuentaDTO();
         when(repositorioCuenta.findById(accountAvailabilityDTO.getId())).thenReturn(Optional.of(getMockedCuenta()));
         OutputCuentaDTO result = servicioCuenta.manageAvailability(accountAvailabilityDTO);
         assertNotNull(result);
-        assertNotEquals(dto.getIsDisable() , result.getIsDisable());
+        assertNotEquals(dto.getIsDisable(), result.getIsDisable());
     }
+
     @Test
     void testSetSaldo() {
         AccountBalanceDTO accountBalanceDTO = new AccountBalanceDTO(9000);
         OutputCuentaDTO dto = getMockedCuentaDTO();
         when(repositorioCuenta.findById(1L)).thenReturn(Optional.of(getMockedCuenta()));
-        OutputCuentaDTO result = servicioCuenta.setSaldo(1L , accountBalanceDTO);
+        OutputCuentaDTO result = servicioCuenta.setSaldo(1L, accountBalanceDTO);
         assertNotNull(result);
-        assertNotEquals(dto.getSaldo() , result.getSaldo());
+        assertNotEquals(dto.getSaldo(), result.getSaldo());
     }
+
     @Test
     void testupdateAccount() {
-        InputCuentaUpdateDTO inputCuentaDTO = new InputCuentaUpdateDTO(330000.0 , "ct5" , true);
+        InputCuentaUpdateDTO inputCuentaDTO = new InputCuentaUpdateDTO(330000.0, "ct5", true);
         when(repositorioCuenta.findById(1L)).thenReturn(Optional.of(getMockedCuenta()));
-       OutputCuentaDTO result = servicioCuenta.updateAccount(1L , inputCuentaDTO);
-       assertNotNull(result);
-       assertNotEquals(getMockedCuenta().getSaldo() , result.getSaldo());
-       assertNotEquals(getMockedCuenta().getIsDisable() , result.getIsDisable());
-       assertNotEquals(getMockedCuenta().getCuentaMercadoPago() , result.getCuentaMP());
+        OutputCuentaDTO result = servicioCuenta.updateAccount(1L, inputCuentaDTO);
+        assertNotNull(result);
+        assertNotEquals(getMockedCuenta().getSaldo(), result.getSaldo());
+        assertNotEquals(getMockedCuenta().getIsDisable(), result.getIsDisable());
+        assertNotEquals(getMockedCuenta().getCuentaMercadoPago(), result.getCuentaMP());
     }
+
     @Test
     void testDeleteAccount() {
-        Optional<Cuenta> optionalCuenta =  Optional.of(getMockedCuenta());
+        Optional<Cuenta> optionalCuenta = Optional.of(getMockedCuenta());
         when(repositorioCuenta.findById(1L)).thenReturn(optionalCuenta);
         OutputCuentaDTO result = servicioCuenta.deleteAccount(1L);
         assertNotNull(result);
-        assertEquals(optionalCuenta.get().getIdCuenta() , result.getId());
+        assertEquals(optionalCuenta.get().getIdCuenta(), result.getId());
     }
+
     @Test
     void testgetByOwnerEmail() {
         String email = "email";
-        Optional<Cuenta> optionalCuenta =  Optional.of(getMockedCuenta());
+        Optional<Cuenta> optionalCuenta = Optional.of(getMockedCuenta());
         when(repositorioCuenta.findByEmailOwnerAccount(email)).thenReturn(optionalCuenta);
         OutputCuentaDTO result = servicioCuenta.getByOwnerEmail(email);
         assertNotNull(result);
-        assertEquals(optionalCuenta.get().getIdCuenta() , result.getId());
-        assertEquals(optionalCuenta.get().getEmailOwnerAccount() , result.getOwnerEmail());
+        assertEquals(optionalCuenta.get().getIdCuenta(), result.getId());
+        assertEquals(optionalCuenta.get().getEmailOwnerAccount(), result.getOwnerEmail());
     }
+
     @Test
     void testAvailableEmail() {
         String email = "email";
@@ -112,6 +123,7 @@ public class CuentaServiceTest {
         return outputCuentaDTO;
 
     }
+
     private Cuenta getMockedCuenta() {
         Cuenta cuenta = new Cuenta();
         cuenta.setCuentaMercadoPago("ct1");

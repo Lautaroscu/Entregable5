@@ -4,8 +4,8 @@ package com.monopatines.monopatines.entities;
 import com.monopatines.monopatines.Enumns.ScooterStatus;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "scooters") // Especifica el nombre de la colección en MongoDB
 @Getter
@@ -23,7 +23,7 @@ public class Scooter {
     public Scooter() {
     }
 
-    public Scooter(double latitude, double longitude,String model) {
+    public Scooter(double latitude, double longitude, String model) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.model = model;

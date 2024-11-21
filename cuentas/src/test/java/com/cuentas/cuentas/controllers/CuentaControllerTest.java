@@ -5,17 +5,9 @@
 
 package com.cuentas.cuentas.controllers;
 
-import com.cuentas.cuentas.DTO.AccountAvailabilityDTO;
-import com.cuentas.cuentas.DTO.AccountBalanceDTO;
-import com.cuentas.cuentas.DTO.InputCuentaDTO;
-import com.cuentas.cuentas.DTO.InputCuentaUpdateDTO;
-import com.cuentas.cuentas.DTO.OutputCuentaDTO;
+import com.cuentas.cuentas.DTO.*;
 import com.cuentas.cuentas.controladores.CuentaControlador;
 import com.cuentas.cuentas.servicios.ServicioCuenta;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,6 +16,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
@@ -47,7 +43,7 @@ public class CuentaControllerTest {
     public void testObtenerCuentas() {
         OutputCuentaDTO outputCuentaDTO = new OutputCuentaDTO();
         outputCuentaDTO.setCuentaMP("ctaMP1");
-        outputCuentaDTO.setSaldo((double)2000.0F);
+        outputCuentaDTO.setSaldo((double) 2000.0F);
         outputCuentaDTO.setId(1L);
         outputCuentaDTO.setFechaAlta(LocalDate.now());
         outputCuentaDTO.setOwnerEmail("ownerEmail");
@@ -57,14 +53,14 @@ public class CuentaControllerTest {
         Mockito.when(servicioCuenta.getCuentas()).thenReturn(mockedList);
         ResponseEntity<List<OutputCuentaDTO>> response = cuentaControlador.getCuentas();
         assertEquals(HttpStatus.OK, response.getStatusCode());
-       verify(servicioCuenta, times(1)).getCuentas();
+        verify(servicioCuenta, times(1)).getCuentas();
     }
 
     @Test
     public void testObtenerCuenta() {
         OutputCuentaDTO outputCuentaDTO = new OutputCuentaDTO();
         outputCuentaDTO.setCuentaMP("ctaMP1");
-        outputCuentaDTO.setSaldo((double)2000.0F);
+        outputCuentaDTO.setSaldo((double) 2000.0F);
         outputCuentaDTO.setId(1L);
         outputCuentaDTO.setFechaAlta(LocalDate.now());
         outputCuentaDTO.setOwnerEmail("ownerEmail");
@@ -89,7 +85,7 @@ public class CuentaControllerTest {
         Mockito.when(servicioCuenta.crearCuenta(inputCuentaDTO)).thenReturn(outputCuentaDTO);
         ResponseEntity<OutputCuentaDTO> response = cuentaControlador.createAccount(inputCuentaDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-       verify(servicioCuenta, times(1)).crearCuenta(inputCuentaDTO);
+        verify(servicioCuenta, times(1)).crearCuenta(inputCuentaDTO);
     }
 
     @Test
@@ -101,12 +97,12 @@ public class CuentaControllerTest {
         OutputCuentaDTO outputCuentaDTO = new OutputCuentaDTO();
         outputCuentaDTO.setCuentaMP(inputCuentaUpdateDTO.getCuentaMP());
         outputCuentaDTO.setSaldo(inputCuentaUpdateDTO.getSaldo());
-        outputCuentaDTO.setSaldo((double)2000.0F);
+        outputCuentaDTO.setSaldo((double) 2000.0F);
         outputCuentaDTO.setIsDisable(inputCuentaUpdateDTO.getIsDisable());
         Mockito.when(servicioCuenta.updateAccount(1L, inputCuentaUpdateDTO)).thenReturn(outputCuentaDTO);
         ResponseEntity<OutputCuentaDTO> response = cuentaControlador.updateAccount(1L, inputCuentaUpdateDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-         verify(servicioCuenta, times(1)).updateAccount(1L, inputCuentaUpdateDTO);
+        verify(servicioCuenta, times(1)).updateAccount(1L, inputCuentaUpdateDTO);
     }
 
     @Test
@@ -120,18 +116,18 @@ public class CuentaControllerTest {
         outputCuentaDTO.setOwnerEmail(ownerEmail);
         outputCuentaDTO.setPassword("password");
         Mockito.when(servicioCuenta.getByOwnerEmail(ownerEmail)).thenReturn(outputCuentaDTO);
-        ResponseEntity<OutputCuentaDTO> response =cuentaControlador.getByOwnerEmail(ownerEmail);
+        ResponseEntity<OutputCuentaDTO> response = cuentaControlador.getByOwnerEmail(ownerEmail);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-       verify(servicioCuenta, times(1)).getByOwnerEmail(ownerEmail);
+        verify(servicioCuenta, times(1)).getByOwnerEmail(ownerEmail);
     }
 
     @Test
     public void testEmailAvailable() {
         String ownerEmail = "ownerEmail";
         Mockito.when(servicioCuenta.avialableEmail(ownerEmail)).thenReturn(true);
-        ResponseEntity<Boolean> response =cuentaControlador.checkEmail(ownerEmail);
+        ResponseEntity<Boolean> response = cuentaControlador.checkEmail(ownerEmail);
         assertEquals(Boolean.TRUE, response.getBody());
-     verify(servicioCuenta, times(1)).avialableEmail(ownerEmail);
+        verify(servicioCuenta, times(1)).avialableEmail(ownerEmail);
     }
 
     @Test
@@ -153,7 +149,7 @@ public class CuentaControllerTest {
 
     @Test
     public void testUpdateBalance() {
-        AccountBalanceDTO accountBalanceDTO = new AccountBalanceDTO((double)4000.0F);
+        AccountBalanceDTO accountBalanceDTO = new AccountBalanceDTO((double) 4000.0F);
         OutputCuentaDTO outputCuentaDTO = new OutputCuentaDTO();
         outputCuentaDTO.setCuentaMP("ctaMP1");
         outputCuentaDTO.setSaldo(accountBalanceDTO.getSaldo());
@@ -172,7 +168,7 @@ public class CuentaControllerTest {
     public void testDeleteAccount() {
         OutputCuentaDTO outputCuentaDTO = new OutputCuentaDTO();
         outputCuentaDTO.setCuentaMP("ctaMP1");
-        outputCuentaDTO.setSaldo((double)2000.0F);
+        outputCuentaDTO.setSaldo((double) 2000.0F);
         outputCuentaDTO.setId(1L);
         outputCuentaDTO.setFechaAlta(LocalDate.now());
         outputCuentaDTO.setOwnerEmail("ownerEmail");
@@ -181,6 +177,6 @@ public class CuentaControllerTest {
         Mockito.when(this.servicioCuenta.deleteAccount(outputCuentaDTO.getId())).thenReturn(outputCuentaDTO);
         ResponseEntity<OutputCuentaDTO> response = this.cuentaControlador.deleteAccount(outputCuentaDTO.getId());
         assertEquals(HttpStatus.OK, response.getStatusCode());
-         verify(this.servicioCuenta, times(1)).deleteAccount(outputCuentaDTO.getId());
+        verify(this.servicioCuenta, times(1)).deleteAccount(outputCuentaDTO.getId());
     }
 }

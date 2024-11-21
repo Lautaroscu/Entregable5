@@ -56,7 +56,7 @@ public class Cuenta {
         this.isDisable = false;
     }
 
-    public Cuenta(Double saldo, String cuentaMercadoPago , String emailOwnerAccount, String password) {
+    public Cuenta(Double saldo, String cuentaMercadoPago, String emailOwnerAccount, String password) {
         this.fechaAlta = LocalDate.now();
         this.saldo = saldo;
         this.cuentaMercadoPago = cuentaMercadoPago;

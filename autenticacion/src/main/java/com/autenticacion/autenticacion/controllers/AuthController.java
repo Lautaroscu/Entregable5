@@ -5,17 +5,15 @@ import com.autenticacion.autenticacion.DTO.RegisterInputDTO;
 import com.autenticacion.autenticacion.services.AuthService;
 import io.jsonwebtoken.JwtException;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.annotation.Reference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 @Tag(name = "AuthController", description = "Endpoints for user authentication and token validation")
 
 @RestController
@@ -31,7 +29,7 @@ public class AuthController {
     @Operation(
             summary = "Register a new user",
             description = "Registers a new user with the provided details"
-                    ,
+            ,
             responses = {
                     @ApiResponse(responseCode = "201", description = "User registered successfully"),
                     @ApiResponse(responseCode = "400", description = "Invalid input data")
@@ -74,14 +72,14 @@ public class AuthController {
             ,
             responses = {
                     @ApiResponse(responseCode = "200", description = "Token valid"),
-                    @ApiResponse(responseCode = "401", description = "Token expiated or manipulated" )
+                    @ApiResponse(responseCode = "401", description = "Token expiated or manipulated")
             }
     )
     public ResponseEntity<Boolean> validate(@RequestBody
                                             String token) {
         try {
             return ResponseEntity.ok(authService.tokenValid(token));
-        }catch (JwtException jwtException) {
+        } catch (JwtException jwtException) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
         }
     }

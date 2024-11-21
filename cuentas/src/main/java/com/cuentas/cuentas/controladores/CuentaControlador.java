@@ -2,7 +2,6 @@ package com.cuentas.cuentas.controladores;
 
 
 import com.cuentas.cuentas.DTO.*;
-
 import com.cuentas.cuentas.excepciones.AccountNotFoundException;
 import com.cuentas.cuentas.excepciones.BadRequestException;
 import com.cuentas.cuentas.servicios.ServicioCuenta;
@@ -24,6 +23,7 @@ public class CuentaControlador {
     public CuentaControlador(ServicioCuenta servicioCuenta) {
         this.servicioCuenta = servicioCuenta;
     }
+
     @GetMapping
     @Operation(
             summary = "Obtener todas las cuentas",
@@ -70,6 +70,7 @@ public class CuentaControlador {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/ownerEmail/{ownerEmail}")
     @Operation(
             summary = "Obtener cuenta por email del propietario",
@@ -82,10 +83,11 @@ public class CuentaControlador {
     public ResponseEntity<OutputCuentaDTO> getByOwnerEmail(@PathVariable String ownerEmail) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicioCuenta.getByOwnerEmail(ownerEmail));
-        }catch (AccountNotFoundException e) {
+        } catch (AccountNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
     @GetMapping("/emailAvailable")
     @Operation(
             summary = "Verificar disponibilidad de email",
@@ -98,6 +100,7 @@ public class CuentaControlador {
     public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
         return ResponseEntity.status(HttpStatus.OK).body(servicioCuenta.avialableEmail(email));
     }
+
     @PutMapping("/{id}")
     @Operation(
             summary = "Actualizar una cuenta",
@@ -110,10 +113,10 @@ public class CuentaControlador {
     )
     public ResponseEntity<OutputCuentaDTO> updateAccount(@PathVariable Long id, @RequestBody InputCuentaUpdateDTO inputCuentaDTO) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(servicioCuenta.updateAccount(id , inputCuentaDTO));
-        }catch (AccountNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(servicioCuenta.updateAccount(id, inputCuentaDTO));
+        } catch (AccountNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }catch (BadRequestException e) {
+        } catch (BadRequestException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
@@ -152,6 +155,7 @@ public class CuentaControlador {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
     @DeleteMapping("/{id}")
     @Operation(
             summary = "Eliminar una cuenta",
@@ -164,7 +168,7 @@ public class CuentaControlador {
     public ResponseEntity<OutputCuentaDTO> deleteAccount(@PathVariable Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicioCuenta.deleteAccount(id));
-        }catch (AccountNotFoundException e) {
+        } catch (AccountNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
