@@ -1,4 +1,4 @@
-package services;
+package com.cuentas.cuentas.services;
 
 import com.cuentas.cuentas.DTO.*;
 import com.cuentas.cuentas.entidades.Cuenta;
