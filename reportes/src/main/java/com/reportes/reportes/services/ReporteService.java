@@ -133,9 +133,8 @@ public class ReporteService {
                 Duration tiempoTotalViaje = Duration.between(viaje.getEndTime(), viaje.getStartTime());
                 tiempoTotal = tiempoTotal.plus(tiempoTotalViaje);
                 if(viaje.getStartPauseTime() != null){
-                    totalPausas.plus(Duration.between(viaje.getEndPauseTime(), viaje.getStartPauseTime()));
+                    totalPausas = totalPausas.plus(Duration.between(viaje.getEndPauseTime(), viaje.getStartPauseTime()));
                 }
-
             }
         }
 
