@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -143,7 +144,7 @@ class ReporteServiceTest {
                             mockedAccount,
                             LocalDateTime.now(),
                             LocalDateTime.now().plusHours(2),
-                            23.2,
+                            new BigDecimal("23.0"),
                             TripStatus.COMPLETED,
                             10,
                             LocalDateTime.now().plusMinutes(10),

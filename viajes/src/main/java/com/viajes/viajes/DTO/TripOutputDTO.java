@@ -36,6 +36,7 @@ public class TripOutputDTO implements Serializable {
         this.startTime = trip.getStartTime();
         this.endTime = trip.getEndTime();
         this.tripStatus = trip.getTripStatus();
+        this.kilometersTraveled = trip.getKilometersTraveled();
         this.startPauseTime = trip.getStartPauseTime();
         this.endPauseTime = trip.getEndPauseTime();
         this.price = trip.getCurrentPrice();

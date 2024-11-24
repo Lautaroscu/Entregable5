@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,7 +19,7 @@ public class ViajeDTO implements Serializable {
     private Account account;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private double finalPrice;
+    private BigDecimal price;
     private TripStatus tripStatus;
     private double kilometersTraveled;
     private LocalDateTime startPauseTime;

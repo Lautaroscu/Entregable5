@@ -13,8 +13,6 @@ import java.io.Serializable;
 public class ScooterOutputDTO extends ScooterInputDTO implements Serializable {
     private String id;
     private ScooterStatus status;
-    private double kilometersTraveled;
-    private double totalTimeUsed;
     private double latitude;
     private double longitude;
 
@@ -22,8 +20,6 @@ public class ScooterOutputDTO extends ScooterInputDTO implements Serializable {
         super(scooter.getLatitude(), scooter.getLongitude(), scooter.getModel());
         this.id = scooter.getId();
         this.status = scooter.getStatus();
-        this.totalTimeUsed = scooter.getTotalTimeUsed();
-        this.kilometersTraveled = scooter.getKilometersTraveled();
         this.latitude = scooter.getLatitude();
         this.longitude = scooter.getLongitude();
     }

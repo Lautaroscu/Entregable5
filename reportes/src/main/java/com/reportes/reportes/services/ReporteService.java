@@ -10,6 +10,7 @@ import com.reportes.reportes.clients.models.ViajeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -97,7 +98,7 @@ public class ReporteService {
 
     public ReporteFacturacion getReporteTotalFacturado(LocalDateTime startDate, LocalDateTime endDate) {
         //Filtro los viajes por las fechas provistas
-        double totalFacturado = 0;
+        BigDecimal totalFacturado = BigDecimal.ZERO;
         List<ViajeDTO> viajes = viajesClient.getViajes().stream()
                 .filter(viajeDTO ->
                         viajeDTO.getTripStatus().equals(TripStatus.COMPLETED) &&
@@ -107,7 +108,7 @@ public class ReporteService {
                 .toList();
 
         for (ViajeDTO viaje : viajes) {
-            totalFacturado += viaje.getFinalPrice();
+            totalFacturado = totalFacturado.add(viaje.getPrice());
         }
 
         return new ReporteFacturacion(startDate, endDate, totalFacturado);
@@ -125,13 +126,16 @@ public class ReporteService {
     private TiempoUsoMonopatinDTO getCantTiempoUsoScooter(List<ViajeDTO> viajesScooter) {
         Duration totalPausas = Duration.ZERO;
         Duration tiempoTotal = Duration.ZERO;
-        Duration tiempoTotalConPausas;
+        Duration tiempoTotalConPausas = Duration.ZERO;
 
         for (ViajeDTO viaje : viajesScooter) {
             if (viaje.getTripStatus() == TripStatus.COMPLETED) {
                 Duration tiempoTotalViaje = Duration.between(viaje.getEndTime(), viaje.getStartTime());
-                tiempoTotal.plus(tiempoTotalViaje);
-                totalPausas.plus(Duration.between(viaje.getEndPauseTime(), viaje.getStartPauseTime()));
+                tiempoTotal = tiempoTotal.plus(tiempoTotalViaje);
+                if(viaje.getStartPauseTime() != null){
+                    totalPausas.plus(Duration.between(viaje.getEndPauseTime(), viaje.getStartPauseTime()));
+                }
+
             }
         }
 

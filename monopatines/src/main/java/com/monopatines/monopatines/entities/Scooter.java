@@ -17,8 +17,6 @@ public class Scooter {
     private ScooterStatus status; // Estado del monopatín: "Available", "In Use", "Paused", etc.
     private double latitude;
     private double longitude;
-    private double kilometersTraveled;
-    private double totalTimeUsed; // Tiempo total de uso en minutos
 
     public Scooter() {
     }
@@ -28,7 +26,5 @@ public class Scooter {
         this.longitude = longitude;
         this.model = model;
         this.status = ScooterStatus.AVAILABLE;
-        this.kilometersTraveled = 0;
-        this.totalTimeUsed = 0;
     }
 }
